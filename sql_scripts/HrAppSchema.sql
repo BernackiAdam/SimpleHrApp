@@ -25,6 +25,19 @@ CREATE TABLE projects
     PRIMARY KEY (id)
 )AUTO_INCREMENT=1;
 
+CREATE TABLE projects_users
+(
+	employee_id INT NOT NULL,
+    project_id INT NOT NULL,
+    PRIMARY KEY(employee_id, project_id),
+    KEY fk_employee_id (employee_id),
+    KEY fk_project_id (project_id),
+    CONSTRAINT fk_employee_id FOREIGN KEY(employee_id)
+    REFERENCES employee(id),
+    CONSTRAINT fk_project_id FOREIGN KEY(project_id)
+    REFERENCES projects(id)
+);
+
 INSERT INTO employee(first_name, last_name, email, tel_nr) VALUES
 ('Adam', 'Bernacki', 'ab@email.com', '123123123'),
 ('Grzegorz', 'Bernacki', 'gb@email.com', '234234234'),
@@ -35,3 +48,7 @@ INSERT INTO projects(title, project_type,description) VALUES
 	('Project2', 'MOBILE_APP','Unique description for the second project'),
 	('Project2', 'DEV_OPS','Another fancy description for the project to make a lot of money');
 
+INSERT INTO projects_users VALUES
+(1,1), (2,1), 
+(2,2), (3,2), 
+(1,3), (3,3);

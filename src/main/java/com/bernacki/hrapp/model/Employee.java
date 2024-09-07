@@ -3,14 +3,14 @@ package com.bernacki.hrapp.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
 @Data
-@ToString
+//@ToString
 @NoArgsConstructor
 @Table(name = "employee")
 public class Employee {
@@ -35,6 +35,13 @@ public class Employee {
     @Column(name = "join_date")
     @CreationTimestamp
     private Date joinDate;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "projects_users",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
+    private Collection<Project> projects;
 
     public Employee(String firstName, String lastName, String email, String telephoneNumber) {
         this.firstName = firstName;
