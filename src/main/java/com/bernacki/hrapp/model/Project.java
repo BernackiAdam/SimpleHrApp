@@ -28,7 +28,7 @@ public class Project {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "projects_users",
             joinColumns = @JoinColumn(name = "project_id"),

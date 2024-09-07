@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
-public class EmployeeDaoTest {
+public class EmployeeDaoTest extends DaoBaseTestClass{
     @Autowired
     private EmployeeDao employeeDao;
 
@@ -22,17 +22,38 @@ public class EmployeeDaoTest {
     @Autowired
     private Employee employee;
 
+
+//    public boolean checkIfManyToManyLazyInit(Class<?> entityClass, String fieldName) throws NoSuchFieldException {
+//        Field field = entityClass.getDeclaredField(fieldName);
+//        ManyToMany manyToMany = field.getAnnotation(ManyToMany.class);
+//
+//        return manyToMany.fetch() == FetchType.LAZY;
+//    }
+
     @Test
-    public void checkIfEmployeesProjectsAreLoaded(){
+    public void checkIfEmployeesProjectsAreLoaded() throws NoSuchFieldException {
         Employee employee1 = employeeDao.findById(1);
-        Collection<Project> projects= employee1.getProjects();
+        Collection<Project> projects;
+
+        if(checkIfManyToManyLazyInit(Employee.class, "projects")){
+            projects= employeeDao.findProjectAssignedToEmployee(1);
+        }else {
+            projects= employee1.getProjects();
+        }
         assertFalse(projects.isEmpty(), "Projects should not be empty");
+
     }
 
     @Test
-    public void checkIfDataIsCorrect(){
+    public void checkIfDataIsCorrect() throws NoSuchFieldException {
         Employee employee1 = employeeDao.findById(1);
-        Collection<Project> projects= employee1.getProjects();
+        Collection<Project> projects;
+        if(checkIfManyToManyLazyInit(Employee.class, "projects")){
+            projects = employeeDao.findProjectAssignedToEmployee(1);
+        }
+        else{
+            projects= employee1.getProjects();
+        }
         String projectName = projects.stream().map(Project::getTitle).findFirst().orElse("none");
         assertEquals("Project1", projectName, "Project name should be equal Project1");
     }

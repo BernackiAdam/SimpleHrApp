@@ -36,7 +36,7 @@ public class Employee {
     @CreationTimestamp
     private Date joinDate;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "projects_users",
             joinColumns = @JoinColumn(name = "employee_id"),

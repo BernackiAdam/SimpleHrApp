@@ -11,7 +11,7 @@ import java.util.Collection;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class ProjectDaoTest {
+public class ProjectDaoTest extends DaoBaseTestClass{
 
     @Autowired
     private ProjectDao projectDao;
@@ -23,17 +23,29 @@ public class ProjectDaoTest {
     private Employee employee;
 
     @Test
-    public void checkIfProjectsOfUsersAreLoaded(){
+    public void checkIfProjectsOfUsersAreLoaded() throws NoSuchFieldException {
         Project project1 = projectDao.findById(1);
-        Collection<Employee> employees = project1.getEmployees();
+        Collection<Employee> employees;
+        if(checkIfManyToManyLazyInit(Project.class, "employees")){
+            employees = projectDao.findEmployeesAssignedToProject(1);
+        }
+        else{
+            employees = project1.getEmployees();
+        }
         assertFalse(employees.isEmpty(), "List should not be empty");
     }
 
     @Test
-    public void checkIfDataIsCorrect(){
+    public void checkIfDataIsCorrect() throws NoSuchFieldException {
         Project project1 = projectDao.findById(1);
-        Collection<Employee> projects= project1.getEmployees();
-        String employeeEmail = projects.stream().map(Employee::getEmail).findFirst().orElse("none");
+        Collection<Employee> employees;
+        if(checkIfManyToManyLazyInit(Project.class, "employees")){
+            employees = projectDao.findEmployeesAssignedToProject(1);
+        }
+        else{
+            employees = project1.getEmployees();
+        }
+        String employeeEmail = employees.stream().map(Employee::getEmail).findFirst().orElse("none");
         assertEquals("ab@email.com", employeeEmail, "Email should be equal ab@email.com");
     }
 }

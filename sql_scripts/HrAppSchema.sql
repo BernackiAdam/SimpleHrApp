@@ -41,7 +41,9 @@ CREATE TABLE projects_users
 INSERT INTO employee(first_name, last_name, email, tel_nr) VALUES
 ('Adam', 'Bernacki', 'ab@email.com', '123123123'),
 ('Grzegorz', 'Bernacki', 'gb@email.com', '234234234'),
+('Pawel', 'Jumper', 'jp@email.com', '654654654'),
 ('Magda', 'Siergiejuk', 'ms@email.com', '345345345');
+
 
 INSERT INTO projects(title, project_type,description) VALUES
 	('Project1', 'WEB_APP','Description for project one'),
@@ -50,5 +52,5 @@ INSERT INTO projects(title, project_type,description) VALUES
 
 INSERT INTO projects_users VALUES
 (1,1), (2,1), 
-(2,2), (3,2), 
+(2,2), (3,2),
 (1,3), (3,3);

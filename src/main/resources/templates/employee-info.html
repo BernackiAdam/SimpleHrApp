@@ -10,6 +10,30 @@
 <div class="container">
     <h3>Info about employee</h3>
     <span th:text="${employee.firstName}"></span>
+
+    <h3>Open projects</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Project type</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="proj : ${projects}">
+            <th th:text="${proj.id}" ></th>
+            <td th:text="${proj.title}"></td>
+            <td th:text="${proj.projectType}"></td>
+            <td>
+                <a th:href="@{/project/info(projectId = ${proj.id})}"
+                   class="btn btn-info">Info</a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
 </div>
 </body>
 </html>

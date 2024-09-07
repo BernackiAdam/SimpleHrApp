@@ -43,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="emp : ${listEmp}">
+                <tr th:each="emp : ${employees}">
                     <th th:text="${emp.id}" ></th>
                     <td th:text="${emp.firstName}"></td>
                     <td th:text="${emp.lastName}"></td>
