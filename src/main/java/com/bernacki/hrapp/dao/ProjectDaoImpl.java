@@ -2,6 +2,7 @@ package com.bernacki.hrapp.dao;
 
 import com.bernacki.hrapp.model.Employee;
 import com.bernacki.hrapp.model.Project;
+import com.bernacki.hrapp.model.ProjectPhase;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,15 @@ public class ProjectDaoImpl implements ProjectDao{
     public List<Employee> findEmployeesAssignedToProject(int id) {
         TypedQuery<Employee> query = entityManager.createQuery(
                 "SELECT e FROM Employee e LEFT JOIN FETCH e.projects p WHERE p.id=:projectId", Employee.class
+        );
+        query.setParameter("projectId", id);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ProjectPhase> findPhasesAssignedToProject(int id) {
+        TypedQuery<ProjectPhase> query = entityManager.createQuery(
+                "SELECT pp FROM ProjectPhase pp LEFT JOIN pp.project p WHERE p.id=:projectId", ProjectPhase.class
         );
         query.setParameter("projectId", id);
         return query.getResultList();

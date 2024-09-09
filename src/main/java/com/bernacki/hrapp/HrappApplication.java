@@ -2,6 +2,7 @@ package com.bernacki.hrapp;
 
 import com.bernacki.hrapp.model.Employee;
 import com.bernacki.hrapp.model.Project;
+import com.bernacki.hrapp.model.ProjectPhase;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,12 @@ public class HrappApplication {
 	@Scope("prototype")
 	public Project project(){
 		return new Project();
+	}
+
+	@Bean
+	@Scope("prototype")
+	public ProjectPhase projectPhase(){
+		return new ProjectPhase();
 	}
 
 

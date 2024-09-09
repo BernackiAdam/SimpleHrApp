@@ -3,6 +3,7 @@ package com.bernacki.hrapp.service;
 import com.bernacki.hrapp.dao.ProjectDao;
 import com.bernacki.hrapp.model.Employee;
 import com.bernacki.hrapp.model.Project;
+import com.bernacki.hrapp.model.ProjectPhase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,10 @@ public class ProjectServiceImpl implements ProjectService{
     @Override
     public List<Employee> findEmployeesAssignedToProject(int id) {
         return projectDao.findEmployeesAssignedToProject(id);
+    }
+
+    @Override
+    public List<ProjectPhase> findPhasesAssignedToProject(int id) {
+        return projectDao.findPhasesAssignedToProject(id);
     }
 }

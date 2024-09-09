@@ -10,6 +10,8 @@
 <div class="container">
     <h3>Info about Project</h3>
     <span th:text="${project.title}"></span>
+    <hr>
+    <span th:text="@{project.description}"> </span>
 
     <h3>List of employees</h3>
     <table class="table table-bordered table-striped">
@@ -36,6 +38,22 @@
                 <a th:href="@{/employee/info(employeeId = ${emp.id})}"
                    class="btn btn-info">Info</a>
             </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>name</th>
+            <th>date achieved</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="phase : ${phases}">
+            <th th:text="${phase.phase}" ></th>
+            <td th:text="${phase.date}"></td>
         </tr>
         </tbody>
 
