@@ -24,10 +24,18 @@ public class ProjectController {
     @Autowired
     private ProjectAssignmentService projectAssignmentService;
 
+//    @GetMapping("/list")
+//    public String getProjectsList(Model model){
+//        List<Project> projects = projectService.findAll();
+//        model.addAttribute("projects", projects);
+//        return "project/project-list";
+//    }
+
     @GetMapping("/list")
     public String getProjectsList(Model model){
-        List<Project> projects = projectService.findAll();
-        model.addAttribute("projects", projects);
+//        List<ProjectListWithCurrentPhaseDto> projectList = projectService.findAllProjectsWithCurrPhase();
+        List<Project> projectList = projectService.findAll();
+        model.addAttribute("projects", projectList);
         return "project/project-list";
     }
 
@@ -35,7 +43,6 @@ public class ProjectController {
     public String projectInfo(@RequestParam("projectId") int id,
                               Model model){
         Project project = projectService.findById(id);
-//        List<Employee> employees = projectService.findEmployeesAssignedToProject(id);
         List<ProjectAssignment> assignments = projectAssignmentService.findEmployeesAssignedToProjectWithRolesById(id);
         List<ProjectPhase> phases = projectService.findPhasesAssignedToProject(id);
         model.addAttribute("project", project);

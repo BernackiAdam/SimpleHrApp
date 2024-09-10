@@ -5,9 +5,8 @@ USE hrapp;
 DROP TABLE IF EXISTS employee;
 DROP TABLE IF EXISTS projects;
 DROP TABLE IF EXISTS projects_users;
-DROP TABLE IF EXISTS phase;
 DROP TABLE IF EXISTS project_phase;
-DROP TABLE IF EXISTS project_user_role;
+DROP TABLE IF EXISTS client;
 
 CREATE TABLE employee
 (
@@ -16,6 +15,7 @@ CREATE TABLE employee
     last_name VARCHAR(20) NOT NULL,
     email VARCHAR(40) NOT NULL,
     tel_nr VARCHAR(9) NOT NULL,
+    position VARCHAR(40) NOT NULL,
     join_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )AUTO_INCREMENT=1;
@@ -59,13 +59,21 @@ CREATE TABLE projects_users
     ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
+CREATE TABLE client
+(
+	id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    
+)
 
 
-INSERT INTO employee(first_name, last_name, email, tel_nr) VALUES
-('Adam', 'Bernacki', 'ab@email.com', '123123123'),
-('Grzegorz', 'Bernacki', 'gb@email.com', '234234234'),
-('Pawel', 'Jumper', 'jp@email.com', '654654654'),
-('Magda', 'Siergiejuk', 'ms@email.com', '345345345');
+INSERT INTO employee(first_name, last_name, email, tel_nr, position) VALUES
+('Adam', 'Bernacki', 'ab@email.com', '123123123', 'Junior Frontend Developer'),
+('Grzegorz', 'Bernacki', 'gb@email.com', '234234234', 'Senior Backend Developer'),
+('Pawel', 'Jumper', 'jp@email.com', '654654654', 'Mid QA Engineer'),
+('Magda', 'Siergiejuk', 'ms@email.com', '345345345', 'Mid Project Manager');
 
 
 INSERT INTO projects(title, project_type,description) VALUES
@@ -82,7 +90,6 @@ INSERT INTO project_phase(project_id,phase) VALUES
 (1,'DEVELOPMENT'),
 (2,'SECURITY'),
 (3,'INTEGRATION');
-
 
 
 

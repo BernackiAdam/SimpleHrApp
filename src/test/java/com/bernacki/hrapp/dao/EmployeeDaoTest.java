@@ -6,10 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collection;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class EmployeeDaoTest extends DaoBaseTestClass{
@@ -23,38 +22,15 @@ public class EmployeeDaoTest extends DaoBaseTestClass{
     private Employee employee;
 
 
-//    public boolean checkIfManyToManyLazyInit(Class<?> entityClass, String fieldName) throws NoSuchFieldException {
-//        Field field = entityClass.getDeclaredField(fieldName);
-//        ManyToMany manyToMany = field.getAnnotation(ManyToMany.class);
-//
-//        return manyToMany.fetch() == FetchType.LAZY;
-//    }
-
     @Test
-    public void checkIfEmployeesProjectsAreLoaded() throws NoSuchFieldException {
-        Employee employee1 = employeeDao.findById(1);
-        Collection<Project> projects;
-
-//        if(checkIfManyToManyLazyInit(Employee.class, "projects")){
-            projects= employeeDao.findProjectAssignedToEmployee(1);
-//        }else {
-//            projects= employee1.getProjects();
-//        }
-        assertFalse(projects.isEmpty(), "Projects should not be empty");
-
+    public void checkIfEmployeesAreLoaded(){
+        List<Employee> employees = employeeDao.findAll();
+        assertFalse(employees.isEmpty(), "List should not be empty");
     }
 
     @Test
-    public void checkIfDataIsCorrect() throws NoSuchFieldException {
+    public void checkIfEmployeeByIdIsLoaded(){
         Employee employee1 = employeeDao.findById(1);
-        Collection<Project> projects;
-//        if(checkIfManyToManyLazyInit(Employee.class, "projects")){
-            projects = employeeDao.findProjectAssignedToEmployee(1);
-//        }
-//        else{
-//            projects= employee1.getProjects();
-//        }
-        String projectName = projects.stream().map(Project::getTitle).findFirst().orElse("none");
-        assertEquals("Project1", projectName, "Project name should be equal Project1");
+        assertFalse(employee1.getFirstName().isEmpty(), "Employee name should not be empty");
     }
 }

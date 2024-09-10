@@ -1,6 +1,5 @@
 package com.bernacki.hrapp.dao;
 
-import com.bernacki.hrapp.model.Employee;
 import com.bernacki.hrapp.model.Project;
 import com.bernacki.hrapp.model.ProjectPhase;
 import jakarta.persistence.EntityManager;
@@ -38,14 +37,6 @@ public class ProjectDaoImpl implements ProjectDao{
         return entityManager.find(Project.class, name);
     }
 
-    @Override
-    public List<Employee> findEmployeesAssignedToProject(int id) {
-        TypedQuery<Employee> query = entityManager.createQuery(
-                "SELECT pa.employee FROM ProjectAssignment pa WHERE pa.project.id =: projectId", Employee.class
-        );
-        query.setParameter("projectId", id);
-        return query.getResultList();
-    }
 
     @Override
     public List<ProjectPhase> findPhasesAssignedToProject(int id) {
@@ -56,4 +47,5 @@ public class ProjectDaoImpl implements ProjectDao{
 
         return query.getResultList().reversed();
     }
+
 }

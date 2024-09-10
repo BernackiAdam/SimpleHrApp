@@ -7,10 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collection;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class ProjectDaoTest extends DaoBaseTestClass{
@@ -25,43 +24,29 @@ public class ProjectDaoTest extends DaoBaseTestClass{
     private Employee employee;
 
     @Test
-    public void checkIfProjectsOfUsersAreLoaded() throws NoSuchFieldException {
-        Project project1 = projectDao.findById(1);
-        Collection<Employee> employees;
-//        if(checkIfManyToManyLazyInit(Project.class, "employees")){
-            employees = projectDao.findEmployeesAssignedToProject(1);
-//        }
-//        else{
-//            employees = project1.getEmployees();
-//        }
-        assertFalse(employees.isEmpty(), "List should not be empty");
+    public void checkIfProjectsAreLoaded(){
+        List<Project> projects = projectDao.findAll();
+        assertFalse(projects.isEmpty(), "Project list should not be empty");
     }
 
     @Test
-    public void checkIfDataIsCorrect() throws NoSuchFieldException {
+    public void checkIfProjectByIdIsLoaded(){
         Project project1 = projectDao.findById(1);
-        Collection<Employee> employees;
-//        if(checkIfManyToManyLazyInit(Project.class, "employees")){
-            employees = projectDao.findEmployeesAssignedToProject(1);
-//        }
-//        else{
-//            employees = project1.getEmployees();
-//        }
-        String employeeEmail = employees.stream().map(Employee::getEmail).findFirst().orElse("none");
-        assertEquals("ab@email.com", employeeEmail, "Email should be equal ab@email.com");
+        assertFalse(project1.getTitle().isEmpty(), "Project title should not be empty");
     }
 
     @Test
+    public void checkIfProjectsPhasesAreLoaded(){
+        List<ProjectPhase> phases = projectDao.findPhasesAssignedToProject(1);
+        assertFalse(phases.isEmpty(), "Phases should not be empty");
+    }
 
-    public void checkIfProjectPhasesAreLoaded() throws NoSuchFieldException {
-        Project project1 = projectDao.findById(1);
-        Collection<ProjectPhase> projectPhases;
-        if(checkIfOneToManyLazyInit(Project.class, "phases")){
-            projectPhases = projectDao.findPhasesAssignedToProject(1);
+
+    @Test
+    public void checkIfProjectsAreLoadedWithPhases(){
+        List<Project> projects = projectDao.findAll();
+        for (Project proj : projects){
+            assertEquals(3, proj.getPhases().size(), "Should be 3 phases");
         }
-        else{
-            projectPhases = project1.getPhases();
-        }
-        assertFalse(projectPhases.isEmpty(), "Phases should not be empty");
     }
 }

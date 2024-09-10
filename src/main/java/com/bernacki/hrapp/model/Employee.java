@@ -36,6 +36,9 @@ public class Employee {
     @CreationTimestamp
     private Date joinDate;
 
+    @Column(name = "position")
+    private String position;
+
     @OneToMany(mappedBy = "employee")
     private Collection<ProjectAssignment> projectAssignments;
 

@@ -2,7 +2,6 @@ package com.bernacki.hrapp.service;
 
 import com.bernacki.hrapp.dao.EmployeeDao;
 import com.bernacki.hrapp.model.Employee;
-import com.bernacki.hrapp.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +25,5 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public Employee findById(int id) {
         return employeeDao.findById(id);
-    }
-
-    @Override
-    public List<Project> findProjectAssignedToEmployee(int id) {
-        return employeeDao.findProjectAssignedToEmployee(id);
     }
 }

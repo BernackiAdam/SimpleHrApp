@@ -35,7 +35,7 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private Collection<ProjectAssignment> projectAssignments;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProjectPhase> phases;
 
     public Project(String title, String description) {
