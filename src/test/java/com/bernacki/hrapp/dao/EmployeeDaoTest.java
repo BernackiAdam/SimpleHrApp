@@ -35,11 +35,11 @@ public class EmployeeDaoTest extends DaoBaseTestClass{
         Employee employee1 = employeeDao.findById(1);
         Collection<Project> projects;
 
-        if(checkIfManyToManyLazyInit(Employee.class, "projects")){
+//        if(checkIfManyToManyLazyInit(Employee.class, "projects")){
             projects= employeeDao.findProjectAssignedToEmployee(1);
-        }else {
-            projects= employee1.getProjects();
-        }
+//        }else {
+//            projects= employee1.getProjects();
+//        }
         assertFalse(projects.isEmpty(), "Projects should not be empty");
 
     }
@@ -48,12 +48,12 @@ public class EmployeeDaoTest extends DaoBaseTestClass{
     public void checkIfDataIsCorrect() throws NoSuchFieldException {
         Employee employee1 = employeeDao.findById(1);
         Collection<Project> projects;
-        if(checkIfManyToManyLazyInit(Employee.class, "projects")){
+//        if(checkIfManyToManyLazyInit(Employee.class, "projects")){
             projects = employeeDao.findProjectAssignedToEmployee(1);
-        }
-        else{
-            projects= employee1.getProjects();
-        }
+//        }
+//        else{
+//            projects= employee1.getProjects();
+//        }
         String projectName = projects.stream().map(Project::getTitle).findFirst().orElse("none");
         assertEquals("Project1", projectName, "Project name should be equal Project1");
     }

@@ -9,7 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 public class ProjectDaoTest extends DaoBaseTestClass{
@@ -27,12 +28,12 @@ public class ProjectDaoTest extends DaoBaseTestClass{
     public void checkIfProjectsOfUsersAreLoaded() throws NoSuchFieldException {
         Project project1 = projectDao.findById(1);
         Collection<Employee> employees;
-        if(checkIfManyToManyLazyInit(Project.class, "employees")){
+//        if(checkIfManyToManyLazyInit(Project.class, "employees")){
             employees = projectDao.findEmployeesAssignedToProject(1);
-        }
-        else{
-            employees = project1.getEmployees();
-        }
+//        }
+//        else{
+//            employees = project1.getEmployees();
+//        }
         assertFalse(employees.isEmpty(), "List should not be empty");
     }
 
@@ -40,17 +41,18 @@ public class ProjectDaoTest extends DaoBaseTestClass{
     public void checkIfDataIsCorrect() throws NoSuchFieldException {
         Project project1 = projectDao.findById(1);
         Collection<Employee> employees;
-        if(checkIfManyToManyLazyInit(Project.class, "employees")){
+//        if(checkIfManyToManyLazyInit(Project.class, "employees")){
             employees = projectDao.findEmployeesAssignedToProject(1);
-        }
-        else{
-            employees = project1.getEmployees();
-        }
+//        }
+//        else{
+//            employees = project1.getEmployees();
+//        }
         String employeeEmail = employees.stream().map(Employee::getEmail).findFirst().orElse("none");
         assertEquals("ab@email.com", employeeEmail, "Email should be equal ab@email.com");
     }
 
     @Test
+
     public void checkIfProjectPhasesAreLoaded() throws NoSuchFieldException {
         Project project1 = projectDao.findById(1);
         Collection<ProjectPhase> projectPhases;

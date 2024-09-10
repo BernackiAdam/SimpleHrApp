@@ -36,12 +36,9 @@ public class Employee {
     @CreationTimestamp
     private Date joinDate;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "projects_users",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id"))
-    private Collection<Project> projects;
+    @OneToMany(mappedBy = "employee")
+    private Collection<ProjectAssignment> projectAssignments;
+
 
     public Employee(String firstName, String lastName, String email, String telephoneNumber) {
         this.firstName = firstName;

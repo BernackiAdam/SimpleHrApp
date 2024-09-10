@@ -32,12 +32,8 @@ public class Project {
     @Column(name = "active")
     private boolean active;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "projects_users",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "employee_id"))
-    private Collection<Employee> employees;
+    @OneToMany(mappedBy = "project")
+    private Collection<ProjectAssignment> projectAssignments;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProjectPhase> phases;

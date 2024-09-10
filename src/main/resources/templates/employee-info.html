@@ -18,16 +18,18 @@
             <th>Id</th>
             <th>Title</th>
             <th>Project type</th>
+            <th>Role in certain project</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="proj : ${projects}">
-            <th th:text="${proj.id}" ></th>
-            <td th:text="${proj.title}"></td>
-            <td th:text="${proj.projectType}"></td>
+        <tr th:each="assignment : ${assignments}">
+            <th th:text="${assignment.project.id}" ></th>
+            <td th:text="${assignment.project.title}"></td>
+            <td th:text="${assignment.project.projectType}"></td>
+            <td th:text="${assignment.role}"></td>
             <td>
-                <a th:href="@{/project/info(projectId = ${proj.id})}"
+                <a th:href="@{/project/info(projectId = ${assignment.project.id})}"
                    class="btn btn-info">Info</a>
             </td>
         </tr>

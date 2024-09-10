@@ -41,7 +41,7 @@ public class ProjectDaoImpl implements ProjectDao{
     @Override
     public List<Employee> findEmployeesAssignedToProject(int id) {
         TypedQuery<Employee> query = entityManager.createQuery(
-                "SELECT e FROM Employee e LEFT JOIN FETCH e.projects p WHERE p.id=:projectId", Employee.class
+                "SELECT pa.employee FROM ProjectAssignment pa WHERE pa.project.id =: projectId", Employee.class
         );
         query.setParameter("projectId", id);
         return query.getResultList();
@@ -53,6 +53,7 @@ public class ProjectDaoImpl implements ProjectDao{
                 "SELECT pp FROM ProjectPhase pp LEFT JOIN pp.project p WHERE p.id=:projectId", ProjectPhase.class
         );
         query.setParameter("projectId", id);
-        return query.getResultList();
+
+        return query.getResultList().reversed();
     }
 }

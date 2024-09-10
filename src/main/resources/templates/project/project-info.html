@@ -11,7 +11,7 @@
     <h3>Info about Project</h3>
     <span th:text="${project.title}"></span>
     <hr>
-    <span th:text="@{project.description}"> </span>
+    <span th:text="${project.description}"> </span>
 
     <h3>List of employees</h3>
     <table class="table table-bordered table-striped">
@@ -22,20 +22,20 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Telephone number</th>
-            <th>Join date</th>
+            <th>Project Role</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="emp : ${employees}">
-            <th th:text="${emp.id}" ></th>
-            <td th:text="${emp.firstName}"></td>
-            <td th:text="${emp.lastName}"></td>
-            <td th:text="${emp.email}"></td>
-            <td th:text="${emp.telephoneNumber}"></td>
-            <td th:text="${emp.joinDate}"></td>
+        <tr th:each="assignment : ${assignments}">
+            <th th:text="${assignment.employee.id}" ></th>
+            <td th:text="${assignment.employee.firstName}"></td>
+            <td th:text="${assignment.employee.lastName}"></td>
+            <td th:text="${assignment.employee.email}"></td>
+            <td th:text="${assignment.employee.telephoneNumber}"></td>
+            <td th:text="${assignment.role}"></td>
             <td>
-                <a th:href="@{/employee/info(employeeId = ${emp.id})}"
+                <a th:href="@{/employee/info(employeeId = ${assignment.employee.id})}"
                    class="btn btn-info">Info</a>
             </td>
         </tr>

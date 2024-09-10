@@ -1,8 +1,9 @@
 package com.bernacki.hrapp.controller;
 
-import com.bernacki.hrapp.model.Employee;
 import com.bernacki.hrapp.model.Project;
+import com.bernacki.hrapp.model.ProjectAssignment;
 import com.bernacki.hrapp.model.ProjectPhase;
+import com.bernacki.hrapp.service.ProjectAssignmentService;
 import com.bernacki.hrapp.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private ProjectAssignmentService projectAssignmentService;
+
     @GetMapping("/list")
     public String getProjectsList(Model model){
         List<Project> projects = projectService.findAll();
@@ -31,10 +35,11 @@ public class ProjectController {
     public String projectInfo(@RequestParam("projectId") int id,
                               Model model){
         Project project = projectService.findById(id);
-        List<Employee> employees = projectService.findEmployeesAssignedToProject(id);
+//        List<Employee> employees = projectService.findEmployeesAssignedToProject(id);
+        List<ProjectAssignment> assignments = projectAssignmentService.findEmployeesAssignedToProjectWithRolesById(id);
         List<ProjectPhase> phases = projectService.findPhasesAssignedToProject(id);
         model.addAttribute("project", project);
-        model.addAttribute("employees", employees);
+        model.addAttribute("assignments", assignments);
         model.addAttribute("phases", phases);
         return "project/project-info";
     }
