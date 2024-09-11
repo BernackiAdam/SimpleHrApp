@@ -48,4 +48,12 @@ public class ProjectDaoImpl implements ProjectDao{
         return query.getResultList().reversed();
     }
 
+    @Override
+    public List<Project> findProjectAssignedToClient(int id) {
+        TypedQuery<Project> query = entityManager.createQuery(
+                "SELECT p FROM Project p WHERE p.client.id =: clientId", Project.class
+        );
+        query.setParameter("clientId", id);
+        return query.getResultList();
+    }
 }

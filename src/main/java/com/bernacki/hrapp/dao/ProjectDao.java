@@ -10,4 +10,5 @@ public interface ProjectDao {
     public Project findById(int id);
     public Project findByName(String name);
     public List<ProjectPhase> findPhasesAssignedToProject(int id);
+    public List<Project> findProjectAssignedToClient(int id);
 }

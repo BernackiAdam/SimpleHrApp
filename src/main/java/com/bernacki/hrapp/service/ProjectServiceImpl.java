@@ -38,4 +38,9 @@ public class ProjectServiceImpl implements ProjectService{
     public List<ProjectPhase> findPhasesAssignedToProject(int id) {
         return projectDao.findPhasesAssignedToProject(id);
     }
+
+    @Override
+    public List<Project> findProjectAssignedToClient(int id) {
+        return projectDao.findProjectAssignedToClient(id);
+    }
 }

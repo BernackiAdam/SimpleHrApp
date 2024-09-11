@@ -49,4 +49,15 @@ public class ProjectDaoTest extends DaoBaseTestClass{
             assertEquals(3, proj.getPhases().size(), "Should be 3 phases");
         }
     }
+
+    @Test
+    public void checkIfProjectsAssignedToClientsAreLoaded(){
+        List<Project> projects = projectDao.findProjectAssignedToClient(1);
+        assertFalse(projects.isEmpty(), "Projects should not be empty");
+        assertEquals(1, projects.size(), "There should be ony one project");
+        assertEquals("Project3", projects.stream()
+                .map(Project::getTitle)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Project list is empty")));
+    }
 }

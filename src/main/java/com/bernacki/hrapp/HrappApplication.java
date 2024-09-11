@@ -1,9 +1,6 @@
 package com.bernacki.hrapp;
 
-import com.bernacki.hrapp.model.Employee;
-import com.bernacki.hrapp.model.Project;
-import com.bernacki.hrapp.model.ProjectAssignment;
-import com.bernacki.hrapp.model.ProjectPhase;
+import com.bernacki.hrapp.model.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +36,19 @@ public class HrappApplication {
 	public ProjectAssignment assignment(){
 		return new ProjectAssignment();
 	}
+
+	@Bean
+	@Scope("prototype")
+	public Client client(){
+		return new Client();
+	}
+
+	@Bean
+	@Scope("prototype")
+	public ProjectConsultant projectConsultant(){
+		return new ProjectConsultant();
+	}
+
 
 
 

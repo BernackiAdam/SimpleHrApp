@@ -24,16 +24,9 @@ public class ProjectController {
     @Autowired
     private ProjectAssignmentService projectAssignmentService;
 
-//    @GetMapping("/list")
-//    public String getProjectsList(Model model){
-//        List<Project> projects = projectService.findAll();
-//        model.addAttribute("projects", projects);
-//        return "project/project-list";
-//    }
 
     @GetMapping("/list")
     public String getProjectsList(Model model){
-//        List<ProjectListWithCurrentPhaseDto> projectList = projectService.findAllProjectsWithCurrPhase();
         List<Project> projectList = projectService.findAll();
         model.addAttribute("projects", projectList);
         return "project/project-list";

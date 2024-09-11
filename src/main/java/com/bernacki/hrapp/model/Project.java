@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "projects")
 @Data
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "client")
 public class Project {
 
     @Id
@@ -31,6 +31,13 @@ public class Project {
 
     @Column(name = "active")
     private boolean active;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
+    private ProjectConsultant projectConsultant;
 
     @OneToMany(mappedBy = "project")
     private Collection<ProjectAssignment> projectAssignments;
