@@ -8,15 +8,20 @@
 <body>
 <div th:insert="fragments/general.html :: navbar"></div>
 <div class="container">
-    <h3>Info about Consultant</h3>
-    Consultant name: <span th:text="${consultant.firstName}"></span>
-    <br><br>
-    Consultant name: <span th:text="${consultant.lastName}"></span>
-    <br><br>
-    Consultant name: <span th:text="${consultant.email}"></span>
-    <br><br>
-    Consultant name: <span th:text="${consultant.telephoneNumber}"></span>
-    <br><br>
+    <div th:if="${consultant != null}">
+        <h3>Info about Consultant</h3>
+        Consultant name: <span th:text="${consultant.firstName}"></span>
+        <br><br>
+        Consultant name: <span th:text="${consultant.lastName}"></span>
+        <br><br>
+        Consultant name: <span th:text="${consultant.email}"></span>
+        <br><br>
+        Consultant name: <span th:text="${consultant.telephoneNumber}"></span>
+        <br><br>
+    </div>
+    <div th:if="${consultant == null}">
+        No consultant assigned yet.
+    </div>
 </div>
 </body>
 </html>

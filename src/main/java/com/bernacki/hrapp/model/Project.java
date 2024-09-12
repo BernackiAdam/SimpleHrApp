@@ -30,7 +30,7 @@ public class Project {
     private String description;
 
     @Column(name = "active")
-    private boolean active;
+    private boolean active = true;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")

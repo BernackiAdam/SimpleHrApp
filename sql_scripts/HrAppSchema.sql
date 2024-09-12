@@ -39,7 +39,7 @@ CREATE TABLE projects
     project_type VARCHAR(20) NOT NULL,
     date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     description BLOB NOT NULL,
-    active BOOLEAN DEFAULT TRUE,
+    active BOOLEAN DEFAULT 1,
     client_id INT NOT NULL,
     PRIMARY KEY (id),
     KEY fk_client_proj_id(client_id),

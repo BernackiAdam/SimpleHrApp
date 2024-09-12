@@ -28,4 +28,9 @@ public class ClientRepositoryServiceImpl implements ClientRepositoryService{
         }
         return client;
     }
+
+    @Override
+    public void save(Client client) {
+        clientRepository.save(client);
+    }
 }

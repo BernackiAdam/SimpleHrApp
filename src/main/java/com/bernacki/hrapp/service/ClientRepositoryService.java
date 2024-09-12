@@ -7,4 +7,5 @@ import java.util.List;
 public interface ClientRepositoryService {
     public List<Client> findAll();
     public Client findById(int id);
+    public void save(Client client);
 }

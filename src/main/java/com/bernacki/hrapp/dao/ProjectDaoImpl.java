@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -55,5 +56,11 @@ public class ProjectDaoImpl implements ProjectDao{
         );
         query.setParameter("clientId", id);
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void save(Project project) {
+        entityManager.persist(project);
     }
 }

@@ -13,7 +13,8 @@
 <!--    forma do walidacji notatki str.200-->
 
     <form th:action="@{/manage/employee/save}"
-            th:object="${employee}" method="POST">
+            th:object="${employee}"
+            method="POST">
         <div class="column col-md-4" th:if="${#fields.hasAnyErrors()}">
             <div class="bg-warning text-white my-3 p-1 rounded" th:each="err : ${#fields.allErrors()}" >
                 <span th:text="${err}">

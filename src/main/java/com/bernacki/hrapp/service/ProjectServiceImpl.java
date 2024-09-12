@@ -43,4 +43,9 @@ public class ProjectServiceImpl implements ProjectService{
     public List<Project> findProjectAssignedToClient(int id) {
         return projectDao.findProjectAssignedToClient(id);
     }
+
+    @Override
+    public void save(Project project) {
+        projectDao.save(project);
+    }
 }

@@ -11,6 +11,6 @@ public interface ProjectService {
     public Project findByName(String name);
     public List<ProjectPhase> findPhasesAssignedToProject(int id);
     public List<Project> findProjectAssignedToClient(int id);
-
+    public void save(Project project);
 
 }

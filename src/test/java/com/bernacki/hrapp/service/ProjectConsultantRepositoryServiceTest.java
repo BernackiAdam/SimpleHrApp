@@ -20,5 +20,11 @@ public class ProjectConsultantRepositoryServiceTest {
         assertEquals("Halina",consultant1.getFirstName(), "Name should be halina");
     }
 
+    @Test
+    public void checkIfConsultantNull(){
+        ProjectConsultant consultant = consultantService.findByProjectId(9);
+        assertNull(consultant);
+    }
+
 
 }
