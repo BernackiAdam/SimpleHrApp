@@ -16,6 +16,7 @@ CREATE TABLE employee
     last_name VARCHAR(20) NOT NULL,
     email VARCHAR(40) NOT NULL,
     tel_nr VARCHAR(9) NOT NULL,
+    seniority VARCHAR(12),
     position VARCHAR(40) NOT NULL,
     join_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
@@ -93,11 +94,11 @@ CREATE TABLE projects_users
 
 
 
-INSERT INTO employee(first_name, last_name, email, tel_nr, position) VALUES
-('Adam', 'Bernacki', 'ab@email.com', '123123123', 'Junior Frontend Developer'),
-('Grzegorz', 'Bernacki', 'gb@email.com', '234234234', 'Senior Backend Developer'),
-('Pawel', 'Jumper', 'jp@email.com', '654654654', 'Mid QA Engineer'),
-('Magda', 'Siergiejuk', 'ms@email.com', '345345345', 'Mid Project Manager');
+INSERT INTO employee(first_name, last_name, email, tel_nr, seniority ,position) VALUES
+('Adam', 'Bernacki', 'ab@email.com', '123123123', 'Junior', 'Frontend Developer'),
+('Grzegorz', 'Bernacki', 'gb@email.com', '234234234', 'Senior', 'Backend Developer'),
+('Pawel', 'Jumper', 'jp@email.com', '654654654', 'Mid' ,'QA Engineer'),
+('Magda', 'Siergiejuk', 'ms@email.com', '345345345', 'Mid','Project Manager');
 
 INSERT INTO clients(name, address) VALUES
 ('Company1', 'bialystok ul.strazacka 25'),

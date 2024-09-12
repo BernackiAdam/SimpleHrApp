@@ -49,7 +49,7 @@
                     <td th:text="${emp.lastName}"></td>
                     <td th:text="${emp.email}"></td>
                     <td th:text="${emp.telephoneNumber}"></td>
-                    <td th:text="${emp.position}"></td>
+                    <td th:text="${emp.seniority + ' ' + emp.position}"></td>
                     <td>
                         <a th:href="@{/employee/info(employeeId = ${emp.id})}"
                            class="btn btn-info">Info</a>

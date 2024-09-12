@@ -36,6 +36,9 @@ public class Employee {
     @CreationTimestamp
     private Date joinDate;
 
+    @Column(name="seniority")
+    private String seniority;
+
     @Column(name = "position")
     private String position;
 

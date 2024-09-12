@@ -10,7 +10,8 @@ public class ManageController {
 
     @GetMapping("/")
     public String showManagePage(){
-        return "manage-page";
+        return "manage/manage-page";
     }
+
 
 }
