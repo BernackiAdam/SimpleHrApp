@@ -60,4 +60,11 @@ public class ProjectDaoTest extends DaoBaseTestClass{
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Project list is empty")));
     }
+
+    @Test
+    public void checkIfProjectsWithoutConsultantAreLoading(){
+        List<Project> projects = projectDao.findProjectsWithoutConsultant();
+        assertEquals(1, projects.size());
+        assertEquals("ProjWithoutCons", projects.stream().map(Project::getTitle).findFirst().orElseThrow(() -> new IllegalArgumentException("No project found")));
+    }
 }

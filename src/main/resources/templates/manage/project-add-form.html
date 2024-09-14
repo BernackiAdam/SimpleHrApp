@@ -64,7 +64,7 @@
                     <select class="form-select" th:field="*{clientId}">
                         <option selected="selected" value="0" hidden disabled>Select client</option>
                         <option th:each="client : ${clientList}"
-                                th:value="${client.id}" th:text="${client.name}"></option>
+                                th:value="${client.id}" th:text="${client.name+ ' '+ client.address}"></option>
                     </select>
                 </div>
 

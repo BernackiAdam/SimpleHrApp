@@ -15,4 +15,9 @@ public class ProjectConsultantRepositoryServiceImpl implements ProjectConsultant
     public ProjectConsultant findByProjectId(int id) {
         return consultantRepository.findByProjectId(id);
     }
+
+    @Override
+    public void save(ProjectConsultant consultant) {
+        consultantRepository.save(consultant);
+    }
 }

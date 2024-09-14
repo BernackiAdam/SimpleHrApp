@@ -59,6 +59,14 @@ public class ProjectDaoImpl implements ProjectDao{
     }
 
     @Override
+    public List<Project> findProjectsWithoutConsultant() {
+        TypedQuery<Project> query = entityManager.createQuery(
+                "SELECT p FROM Project p WHERE p.projectConsultant IS NULL", Project.class
+        );
+        return query.getResultList();
+    }
+
+    @Override
     @Transactional
     public void save(Project project) {
         entityManager.persist(project);

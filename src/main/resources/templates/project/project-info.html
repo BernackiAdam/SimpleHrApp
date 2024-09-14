@@ -12,8 +12,43 @@
     <span th:text="${project.title}"></span>
     <hr>
     <span th:text="${project.description}"> </span>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="column">
+                <h4> Info about Client</h4>
+                Company name: <span th:text="${project.client.name}"></span>
+                <br><br>
+                Company address: <span th:text="${project.client.address}"> </span>
+            </div>
 
-    <h3>List of employees</h3>
+        </div>
+        <div class="col-lg-1 col-md-1"></div>
+        <div class="col-lg-5 col-md-5 col-sm-12">
+            <div class="column">
+                <div th:if="${project.projectConsultant != null}">
+                    <h3>Info about Consultant</h3>
+                    Consultant name: <span th:text="${project.projectConsultant.firstName}"></span>
+                    <br><br>
+                    Consultant name: <span th:text="${project.projectConsultant.lastName}"></span>
+                    <br><br>
+                    Consultant name: <span th:text="${project.projectConsultant.email}"></span>
+                    <br><br>
+                    Consultant name: <span th:text="${project.projectConsultant.telephoneNumber}"></span>
+                    <br><br>
+                </div>
+                <div th:if="${project.projectConsultant == null}">
+                    No consultant assigned yet.
+                    <a th:href="@{/manage/consultant/add(projectId = ${project.id})}"
+                       class="btn btn-info btn-sm"> Add consultant</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <h3>Employees assigned to project</h3>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
         <tr>
