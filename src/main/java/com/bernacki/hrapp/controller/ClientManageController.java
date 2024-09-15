@@ -2,7 +2,7 @@ package com.bernacki.hrapp.controller;
 
 import com.bernacki.hrapp.dto.ClientDto;
 import com.bernacki.hrapp.model.Client;
-import com.bernacki.hrapp.service.ClientRepositoryService;
+import com.bernacki.hrapp.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/manage/client")
 public class ClientManageController {
 
-    private ClientRepositoryService clientService;
+    private ClientService clientService;
 
     @Autowired
-    public ClientManageController(ClientRepositoryService clientService) {
+    public ClientManageController(ClientService clientService) {
         this.clientService = clientService;
     }
 

@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class ProjectConsultantRepositoryServiceTest {
+public class ProjectConsultantServiceTest {
 
     @Autowired
-    private ProjectConsultantRepositoryService consultantService;
+    private ProjectConsultantService consultantService;
 
     @Test
     public void checkIfConsultantByProjectIdIsLoaded(){

@@ -3,8 +3,8 @@ package com.bernacki.hrapp.controller;
 import com.bernacki.hrapp.model.Client;
 import com.bernacki.hrapp.model.Project;
 import com.bernacki.hrapp.model.ProjectConsultant;
-import com.bernacki.hrapp.service.ClientRepositoryService;
-import com.bernacki.hrapp.service.ProjectConsultantRepositoryService;
+import com.bernacki.hrapp.service.ClientService;
+import com.bernacki.hrapp.service.ProjectConsultantService;
 import com.bernacki.hrapp.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +20,11 @@ import java.util.List;
 public class ClientController {
 
     private ProjectService projectService;
-    private ClientRepositoryService clientService;
-    private ProjectConsultantRepositoryService consultantService;
+    private ClientService clientService;
+    private ProjectConsultantService consultantService;
 
     @Autowired
-    public ClientController(ProjectService projectService, ClientRepositoryService clientService, ProjectConsultantRepositoryService consultantService) {
+    public ClientController(ProjectService projectService, ClientService clientService, ProjectConsultantService consultantService) {
         this.projectService = projectService;
         this.clientService = clientService;
         this.consultantService = consultantService;

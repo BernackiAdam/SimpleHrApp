@@ -10,14 +10,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class ClientRepositoryServiceTest {
+public class ClientServiceTest {
 
     @Autowired
-    private ClientRepositoryService clientRepositoryService;
+    private ClientService clientService;
 
     @Test
     public void checkIfClientsAreLoaded(){
-        List<Client> clients = clientRepositoryService.findAll();
+        List<Client> clients = clientService.findAll();
         assertFalse(clients.isEmpty(), "Clients should not be empty");
         assertEquals("Company1", clients.stream()
                 .map(Client::getName)
@@ -27,7 +27,7 @@ public class ClientRepositoryServiceTest {
 
     @Test
     public void checkIfClientIsLoadedById(){
-        Client client = clientRepositoryService.findById(1);
+        Client client = clientService.findById(1);
         assertNotNull(client);
 
     }

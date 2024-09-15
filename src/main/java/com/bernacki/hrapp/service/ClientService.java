@@ -4,7 +4,7 @@ import com.bernacki.hrapp.model.Client;
 
 import java.util.List;
 
-public interface ClientRepositoryService {
+public interface ClientService {
     public List<Client> findAll();
     public Client findById(int id);
     public void save(Client client);
