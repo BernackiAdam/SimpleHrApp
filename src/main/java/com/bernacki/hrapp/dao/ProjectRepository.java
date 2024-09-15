@@ -16,7 +16,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     @Query("SELECT pp FROM ProjectPhase pp LEFT JOIN pp.project p WHERE p.id=:projectId")
     public List<ProjectPhase> findPhasesAssignedToProject(@Param("projectId") int id);
 
-    @Query("SELECT p FROM Project p WHERE p.client.id =: clientId")
+    @Query("SELECT p FROM Project p WHERE p.client.id=:clientId")
     public List<Project> findProjectAssignedToClient(@Param("clientId") int id);
 
 //    @Query("SELECT p FROM Project p WHERE p.projectConsultant IS NULL")
