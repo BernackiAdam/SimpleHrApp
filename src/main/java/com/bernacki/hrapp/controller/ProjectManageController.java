@@ -6,8 +6,8 @@ import com.bernacki.hrapp.model.Client;
 import com.bernacki.hrapp.model.Project;
 import com.bernacki.hrapp.model.ProjectConsultant;
 import com.bernacki.hrapp.model.ProjectPhase;
-import com.bernacki.hrapp.service.ClientRepositoryService;
-import com.bernacki.hrapp.service.ProjectConsultantRepositoryService;
+import com.bernacki.hrapp.service.ClientService;
+import com.bernacki.hrapp.service.ProjectConsultantService;
 import com.bernacki.hrapp.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +27,14 @@ import java.util.List;
 public class ProjectManageController {
 
     private ProjectService projectService;
-    private ProjectConsultantRepositoryService consultantService;
-    private ClientRepositoryService clientRepositoryService;
+    private ProjectConsultantService consultantService;
+    private ClientService clientService;
 
     @Autowired
-    public ProjectManageController(ProjectService projectService, ProjectConsultantRepositoryService consultantService, ClientRepositoryService clientRepositoryService) {
+    public ProjectManageController(ProjectService projectService, ProjectConsultantService consultantService, ClientService clientService) {
         this.projectService = projectService;
         this.consultantService = consultantService;
-        this.clientRepositoryService = clientRepositoryService;
+        this.clientService = clientService;
     }
 
     @InitBinder
@@ -50,7 +50,7 @@ public class ProjectManageController {
     private List<String> phases;
 
     private void populateModel(Model model){
-        model.addAttribute("clientList", clientRepositoryService.findAll());
+        model.addAttribute("clientList", clientService.findAll());
         model.addAttribute("phases", phases);
         model.addAttribute("projectTypes", projectTypes);
     }
@@ -94,13 +94,12 @@ public class ProjectManageController {
             return "/manage/project-add-form";
         }
 
-        Client client = clientRepositoryService.findById(projectDto.getClientId());
+        Client client = clientService.findById(projectDto.getClientId());
         Project project = new Project();
         project.setTitle(projectDto.getTitle());
         project.setProjectType(projectDto.getProjectType());
         project.setDescription(projectDto.getDescription());
         project.setClient(client);
-        projectService.save(project);
         if(addConsultant){
             ProjectConsultant projectConsultant = new ProjectConsultant();
             projectConsultant.setFirstName(projectConsultantDto.getFirstName());

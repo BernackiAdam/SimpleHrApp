@@ -24,11 +24,11 @@ public class ProjectAssignmentTest {
     private ProjectAssignment assignment;
 
     @Autowired
-    private ProjectAssignmentDao projectAssignmentDao;
+    private ProjectAssignmentRepository projectAssignmentRepository;
 
     @Test
     public void checkIfEmployeesAssignedToProjAreLoadedById(){
-        List<ProjectAssignment> assignments = projectAssignmentDao.findEmployeesAssignedToProjectWithRolesById(1);
+        List<ProjectAssignment> assignments = projectAssignmentRepository.findEmployeesAssignedToProjectWithRolesById(1);
         for(ProjectAssignment assign : assignments){
             assertFalse(assign.getEmployee().getFirstName().isEmpty(), "Employee name should not be empty");
             assertFalse(assign.getRole().isEmpty(), "Role should not be empty");
@@ -37,7 +37,7 @@ public class ProjectAssignmentTest {
 
     @Test
     public void checkIfProjectsAssignedToEmpAreLoadedById(){
-        List<ProjectAssignment> assignments = projectAssignmentDao.findProjectsAssignedToEmployeeWithRolesById(1);
+        List<ProjectAssignment> assignments = projectAssignmentRepository.findProjectsAssignedToEmployeeWithRolesById(1);
         for(ProjectAssignment assign : assignments){
             assertFalse(assign.getProject().getTitle().isEmpty(), "Project title should not be empty");
             assertFalse(assign.getRole().isEmpty(), "Role should not be empty");

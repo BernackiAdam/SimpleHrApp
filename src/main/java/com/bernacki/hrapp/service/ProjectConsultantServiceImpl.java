@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProjectConsultantRepositoryServiceImpl implements ProjectConsultantRepositoryService{
+public class ProjectConsultantServiceImpl implements ProjectConsultantService {
 
     @Autowired
     private ProjectConsultantRepository consultantRepository;

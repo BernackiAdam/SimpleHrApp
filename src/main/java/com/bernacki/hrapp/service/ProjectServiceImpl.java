@@ -1,51 +1,57 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.dao.ProjectDao;
+import com.bernacki.hrapp.dao.ProjectRepository;
 import com.bernacki.hrapp.model.Project;
 import com.bernacki.hrapp.model.ProjectPhase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ProjectServiceImpl implements ProjectService{
+public class ProjectServiceImpl implements ProjectService {
 
-    private ProjectDao projectDao;
+    private ProjectRepository projectRepository;
 
     @Autowired
-    public ProjectServiceImpl(ProjectDao projectDao) {
-        this.projectDao = projectDao;
+    public ProjectServiceImpl(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
     }
 
     @Override
     public List<Project> findAll() {
-        return projectDao.findAll();
+        return projectRepository.findAll();
     }
 
     @Override
     public Project findById(int id) {
-        return projectDao.findById(id);
+        Optional<Project> result = projectRepository.findById(id);
+        Project project = null;
+        if(result.isPresent()){
+            project= result.get();
+        }
+        return project;
     }
 
     @Override
     public Project findByName(String name) {
-        return projectDao.findByName(name);
+        return projectRepository.findByTitle(name);
     }
 
 
     @Override
     public List<ProjectPhase> findPhasesAssignedToProject(int id) {
-        return projectDao.findPhasesAssignedToProject(id);
+        return projectRepository.findPhasesAssignedToProject(id);
     }
 
     @Override
     public List<Project> findProjectAssignedToClient(int id) {
-        return projectDao.findProjectAssignedToClient(id);
+        return projectRepository.findProjectAssignedToClient(id);
     }
 
     @Override
     public void save(Project project) {
-        projectDao.save(project);
+        projectRepository.save(project);
     }
 }

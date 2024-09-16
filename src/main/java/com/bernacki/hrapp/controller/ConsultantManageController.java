@@ -3,7 +3,7 @@ package com.bernacki.hrapp.controller;
 import com.bernacki.hrapp.dto.ProjectConsultantDto;
 import com.bernacki.hrapp.model.Project;
 import com.bernacki.hrapp.model.ProjectConsultant;
-import com.bernacki.hrapp.service.ProjectConsultantRepositoryService;
+import com.bernacki.hrapp.service.ProjectConsultantService;
 import com.bernacki.hrapp.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class ConsultantManageController {
 
     @Autowired
-    private ProjectConsultantRepositoryService consultantService;
+    private ProjectConsultantService consultantService;
 
     @Autowired
     private ProjectService projectService;
