@@ -23,7 +23,7 @@
             </thead>
             <tbody>
 
-                <tr th:each="proj : ${projects}">
+                <tr th:each="proj : ${projectPage.content}">
                     <th th:text="${proj.id}" ></th>
                     <td th:text="${proj.title}"></td>
                     <td th:text="${proj.projectType}"></td>
@@ -36,6 +36,10 @@
             </tbody>
 
         </table>
+        <div th:if="${totalPages>1}"
+                th:insert="~{fragments/content.html
+        :: pagination (totalPages=${totalPages}, currentPage=${currentPage}, pageNumbers=${pageNumbers}, endpoint='/project/list')}"></div>
+
     </div>
 </body>
 </html>

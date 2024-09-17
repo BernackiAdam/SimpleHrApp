@@ -7,6 +7,7 @@ import com.bernacki.hrapp.service.ClientService;
 import com.bernacki.hrapp.service.ProjectConsultantService;
 import com.bernacki.hrapp.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/client")
@@ -31,9 +33,17 @@ public class ClientController {
     }
 
     @GetMapping("/list")
-    public String getClientList(Model model){
-        List<Client> clientList = clientService.findAll();
-        model.addAttribute("clients", clientList);
+    public String getClientList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            Model model){
+        Page<Client> clientPage = clientService.findAllPaginated(page, size);
+        List<Integer> pageNumbers = IntStream.rangeClosed(1, clientPage.getTotalPages()).boxed().toList();
+
+        model.addAttribute("clientPage", clientPage);
+        model.addAttribute("totalPages", clientPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageNumbers", pageNumbers);
         return "client/client-list";
     }
 

@@ -38,8 +38,9 @@
         </tbody>
 
     </table>
-    <div th:insert="fragments/content.html
-        :: pagination (totalPages=${totalPages}, currentPage=${currentPage}, pageNumbers=${pageNumbers}, endpoint='/employee/list')"></div>
+    <div th:if="${totalPages>1}"
+            th:insert="~{fragments/content.html
+        :: pagination (totalPages=${totalPages}, currentPage=${currentPage}, pageNumbers=${pageNumbers}, endpoint='/employee/list')}"></div>
 
 </div>
 </body>
