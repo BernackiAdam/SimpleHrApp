@@ -2,6 +2,7 @@ package com.bernacki.hrapp.service;
 
 import com.bernacki.hrapp.model.Project;
 import com.bernacki.hrapp.model.ProjectPhase;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface ProjectService {
     public List<ProjectPhase> findPhasesAssignedToProject(int id);
     public List<Project> findProjectAssignedToClient(int id);
     public void save(Project project);
-
+    public Page<Project> findAllPaginated(int page, int size);
 }

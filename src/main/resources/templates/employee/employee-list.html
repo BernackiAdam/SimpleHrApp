@@ -9,31 +9,38 @@
 <div th:insert="fragments/general.html :: navbar"></div>
 
 <div class="container">
-    <h3>List of Clients</h3>
+    <h3>List of employees</h3>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
         <tr>
             <th>Id</th>
-            <th>Client name</th>
-            <th>Address</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Telephone number</th>
+            <th>Position</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="client : ${clientPage.content}">
-            <th th:text="${client.id}" ></th>
-            <td th:text="${client.name}"></td>
-            <td th:text="${client.address}"></td>
+        <tr th:each="emp : ${employeePage.content}" >
+            <th th:text="${emp.id}" ></th>
+            <td th:text="${emp.firstName}"></td>
+            <td th:text="${emp.lastName}"></td>
+            <td th:text="${emp.email}"></td>
+            <td th:text="${emp.telephoneNumber}"></td>
+            <td th:text="${emp.seniority + ' ' + emp.position}"></td>
             <td>
-                <a th:href="@{/client/info(clientId = ${client.id})}"
+                <a th:href="@{/employee/info(employeeId = ${emp.id})}"
                    class="btn btn-info">Info</a>
             </td>
         </tr>
         </tbody>
+
     </table>
     <div th:if="${totalPages>1}"
-         th:insert="~{fragments/content.html
-        :: pagination (totalPages=${totalPages}, currentPage=${currentPage}, pageNumbers=${pageNumbers}, endpoint='/project/list')}"></div>
+            th:insert="~{fragments/content.html
+        :: pagination (totalPages=${totalPages}, currentPage=${currentPage}, pageNumbers=${pageNumbers}, endpoint='/employee/list')}"></div>
 
 </div>
 </body>

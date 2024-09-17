@@ -4,6 +4,9 @@ package com.bernacki.hrapp.service;
 import com.bernacki.hrapp.dao.ClientRepository;
 import com.bernacki.hrapp.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +35,11 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void save(Client client) {
         clientRepository.save(client);
+    }
+
+    @Override
+    public Page<Client> findAllPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return clientRepository.findAll(pageable);
     }
 }
