@@ -93,7 +93,8 @@ public class EmployeeController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", employeePage.getTotalPages());
         model.addAttribute("pageNumbers", pageNumbers);
-        
+        model.addAttribute("searchBy", searchBy);
+        model.addAttribute("searchParams", searchParams);
 
         model.addAttribute("searchByList", searchByList);
         model.addAttribute("seniorityList", seniorityList);

@@ -23,3 +23,7 @@ function toggleSearchEmployee(){
        document.getElementById('fullPositionField').style.display = 'flex';
    }
 }
+
+window.onload = function(){
+    toggleSearchEmployee();
+}

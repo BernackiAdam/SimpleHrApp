@@ -19,33 +19,40 @@
                     <select class="form-select" name="searchBy" id="searchBy" onchange="toggleSearchEmployee()">
                         <option selected="selected" value=""  hidden disabled>Select option</option>
                         <option th:each="option : ${searchByList}"
-                                th:value="${option}" th:text="${option}"></option>
+                                th:value="${option}"
+                                th:text="${option}"
+                                th:selected="${option} == ${searchBy}"></option>
                     </select>
                 </div>
                 <div id="fullNameField" class="mb-3" style="display: none;">
                     <div class="mx-3">
                         <label class="form-label">Enter first name</label>
-                        <input type="text" name="searchByFirstName" class="form-control">
+                        <input type="text" name="searchByFirstName" class="form-control"
+                               th:value="${searchParams['searchByFirstName']}">
                     </div>
                     <div>
                         <label class="form-label">Enter last name</label>
-                        <input type="text" name="searchByLastName" class="form-control">
+                        <input type="text" name="searchByLastName" class="form-control"
+                               th:value="${searchParams['searchByLastName']}">
                     </div>
                 </div>
                 <div id="emailField" class="mx-3"  style="display: none;">
                     <label class="form-label">Enter email</label>
-                    <input type="text" name="searchByEmail" class="form-control">
+                    <input type="text" name="searchByEmail" class="form-control"
+                       th:value="${searchParams['searchByEmail']}">
                 </div>
                 <div id="telephoneNumberField" class="mx-3"  style="display: none;">
                     <label class="form-label">Enter telephone number</label>
-                    <input type="text" name="searchByTelNr" class="form-control">
+                    <input type="text" name="searchByTelNr" class="form-control"
+                        th:value="${searchParams['searchByTelNr']}">
                 </div>
                 <div id="seniorityField" class="mx-3"  style="display: none;">
                     <label class="form-label">Choose seniority</label>
                     <select name="searchBySeniority" class="form-select">
                         <option selected="selected" value="" hidden disabled>Select option</option>
                         <option th:each="seniority : ${seniorityList}"
-                                th:value="${seniority}" th:text="${seniority}"></option>
+                                th:value="${seniority}" th:text="${seniority}"
+                                th:selected="${seniority} == ${searchParams['searchBySeniority']}"></option>
                     </select>
 
                 </div>
@@ -54,7 +61,8 @@
                     <select name="searchByPosition" class="form-select">
                         <option selected="selected" value="" hidden disabled>Select option</option>
                         <option th:each="position : ${positionList}"
-                                th:value="${position}" th:text="${position}"></option>
+                                th:value="${position}" th:text="${position}"
+                                th:selected="${position} == ${searchParams['searchByPosition']}"></option>
                     </select>
                 </div>
                 <div id="fullPositionField" class="mx-3" style="display: none;">
@@ -63,7 +71,8 @@
                         <select name="searchBySeniority" class="form-select">
                             <option selected="selected" value="" hidden disabled>Select option</option>
                             <option th:each="seniority : ${seniorityList}"
-                                    th:value="${seniority}" th:text="${seniority}"></option>
+                                    th:value="${seniority}" th:text="${seniority}"
+                                    th:selected="${seniority} == ${searchParams['searchBySeniority']}"></option>
                         </select>
                     </div>
                     <div>
@@ -71,7 +80,8 @@
                         <select name="searchByPosition" class="form-select">
                             <option selected="selected" value="" hidden disabled>Select option</option>
                             <option th:each="position : ${positionList}"
-                                    th:value="${position}" th:text="${position}"></option>
+                                    th:value="${position}" th:text="${position}"
+                                    th:selected="${position} == ${searchParams['searchByPosition']}"></option>
                         </select>
                     </div>
 
@@ -112,9 +122,8 @@
 
     </table>
     <div th:if="${totalPages>1}"
-            th:insert="~{fragments/content.html
-        :: pagination (totalPages=${totalPages}, currentPage=${currentPage}, pageNumbers=${pageNumbers}, endpoint='/employee/list')}"></div>
-
+         th:insert="~{fragments/content.html
+        :: paginationWithSelectForEmployeeList (totalPages=${totalPages}, currentPage=${currentPage}, pageNumbers=${pageNumbers}, endpoint='/employee/list', searchBy=${searchBy}, searchParams=${searchParams})}"></div>
 </div>
 </body>
 </html>
