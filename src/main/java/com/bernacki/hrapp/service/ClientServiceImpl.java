@@ -1,7 +1,7 @@
 package com.bernacki.hrapp.service;
 
 
-import com.bernacki.hrapp.dao.ClientRepository;
+import com.bernacki.hrapp.repository.ClientRepository;
 import com.bernacki.hrapp.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.bernacki.hrapp.dao;
+package com.bernacki.hrapp.repository;
 
 import com.bernacki.hrapp.model.ProjectConsultant;
 import org.springframework.data.jpa.repository.JpaRepository;

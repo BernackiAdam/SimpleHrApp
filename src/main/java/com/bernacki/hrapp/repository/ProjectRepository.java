@@ -1,4 +1,4 @@
-package com.bernacki.hrapp.dao;
+package com.bernacki.hrapp.repository;
 
 import com.bernacki.hrapp.model.Project;
 import com.bernacki.hrapp.model.ProjectPhase;
