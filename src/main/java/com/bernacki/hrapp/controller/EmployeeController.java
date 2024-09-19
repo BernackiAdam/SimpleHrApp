@@ -7,6 +7,9 @@ import com.bernacki.hrapp.service.ProjectAssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +43,7 @@ public class EmployeeController {
     private List<String> positionList;
 
     private Page<Employee> getListSearched(String searchBy,
-                Map<String, String> searchParams ,int page, int size){
+                Map<String, String> searchParams ,Pageable pageable){
 
         String searchByFirstName = searchParams.get("searchByFirstName");
         String searchByLastName = searchParams.get("searchByLastName");
@@ -51,28 +54,28 @@ public class EmployeeController {
 
         Page<Employee> employeePage = null;
         if(searchBy ==null || searchBy.isEmpty()){
-            employeePage = employeeService.findAllPaginated(page, size);
+            employeePage = employeeService.findAllPaginated(pageable);
         } else if (searchBy.equals("Full Name")) {
             employeePage = employeeService.findByFullName(
                     searchByFirstName, searchByLastName
-                    ,page, size);
+                    ,pageable);
         } else if (searchBy.equals("Email")) {
-            employeePage = employeeService.findByEmail(searchByEmail, page, size);
+            employeePage = employeeService.findByEmail(searchByEmail, pageable);
         } else if (searchBy.equals("Telephone Number")){
-            employeePage = employeeService.findByTelephoneNumber(searchByTelNr, page, size);
+            employeePage = employeeService.findByTelephoneNumber(searchByTelNr, pageable);
         } else if (searchBy.equals("Seniority")){
-            employeePage = employeeService.findBySeniority(searchBySeniority, page, size);
+            employeePage = employeeService.findBySeniority(searchBySeniority, pageable);
         } else if (searchBy.equals("Position")){
-            employeePage = employeeService.findByPosition(searchByPosition, page, size);
+            employeePage = employeeService.findByPosition(searchByPosition, pageable);
         } else if (searchBy.equals("Full Position")){
             employeePage = employeeService.findBySeniorityAndPosition(
                     searchBySeniority,
                     searchByPosition,
-                    page, size
+                    pageable
             );
         }
         else{
-            employeePage = employeeService.findAllPaginated(page, size);
+            employeePage = employeeService.findAllPaginated(pageable);
         }
         return employeePage;
     }
@@ -83,9 +86,15 @@ public class EmployeeController {
             @RequestParam Map<String, String> searchParams,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+            @RequestParam(value = "sortDirection", defaultValue = "asc") String sortDirection,
             Model model){
 
-        Page<Employee> employeePage = getListSearched(searchBy, searchParams, page, size);
+        Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Employee> employeePage = getListSearched(searchBy, searchParams, pageable);
 
         List<Integer> pageNumbers = IntStream.rangeClosed(1, employeePage.getTotalPages())
                         .boxed().toList();
@@ -95,6 +104,8 @@ public class EmployeeController {
         model.addAttribute("pageNumbers", pageNumbers);
         model.addAttribute("searchBy", searchBy);
         model.addAttribute("searchParams", searchParams);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortDirection", sortDirection);
 
         model.addAttribute("searchByList", searchByList);
         model.addAttribute("seniorityList", seniorityList);
