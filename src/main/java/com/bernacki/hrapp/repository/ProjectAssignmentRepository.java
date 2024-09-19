@@ -1,4 +1,4 @@
-package com.bernacki.hrapp.dao;
+package com.bernacki.hrapp.repository;
 
 import com.bernacki.hrapp.model.ProjectAssignment;
 import com.bernacki.hrapp.model.ProjectAssignmentId;

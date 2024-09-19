@@ -1,4 +1,4 @@
-package com.bernacki.hrapp.dao;
+package com.bernacki.hrapp.repository;
 
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;

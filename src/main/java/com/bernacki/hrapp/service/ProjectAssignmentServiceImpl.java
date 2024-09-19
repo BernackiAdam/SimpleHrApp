@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.dao.ProjectAssignmentRepository;
+import com.bernacki.hrapp.repository.ProjectAssignmentRepository;
 import com.bernacki.hrapp.model.ProjectAssignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

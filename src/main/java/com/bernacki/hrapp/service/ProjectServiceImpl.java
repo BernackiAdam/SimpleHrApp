@@ -1,11 +1,10 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.dao.ProjectRepository;
 import com.bernacki.hrapp.model.Project;
 import com.bernacki.hrapp.model.ProjectPhase;
+import com.bernacki.hrapp.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -59,8 +58,24 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Page<Project> findAllPaginated(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<Project> findAllPaginated(Pageable pageable) {
         return projectRepository.findAll(pageable);
+    }
+
+
+    @Override
+    public Page<Project> findByTitle(String title, Pageable pageable) {
+        String searchPattern = "%" + title + "%";
+        return projectRepository.findByTitleLikeIgnoreCase(searchPattern, pageable);
+    }
+
+    @Override
+    public Page<Project> findByProjectType(String projectType, Pageable pageable) {
+        return projectRepository.findByProjectType(projectType, pageable);
+    }
+
+    @Override
+    public Page<Project> findByCurrentPhase(String phase, Pageable pageable) {
+        return projectRepository.findByCurrentPhase(phase, pageable);
     }
 }
