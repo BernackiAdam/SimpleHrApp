@@ -33,7 +33,7 @@ public class EmployeeController {
         this.projectAssignmentService = projectAssignmentService;
     }
 
-    @Value("${searchByList}")
+    @Value("${searchByListEmployee}")
     private List<String> searchByList;
 
     @Value("${seniority}")

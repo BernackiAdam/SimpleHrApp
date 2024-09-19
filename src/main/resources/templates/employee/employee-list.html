@@ -22,7 +22,7 @@
 
 </head>
 <body>
-<div th:insert="fragments/general.html :: navbar"></div>
+<div th:insert="~{fragments/general.html :: navbar}"></div>
 
 <div class="container">
     <h3>List of employees</h3>
@@ -103,8 +103,11 @@
                 </div>
             </div>
 
-            <div>
-                <button type="submit" class="btn btn-primary mb-3 ms-3">Search</button>
+            <div class="d-flex">
+                <button type="submit" class="btn btn-primary mb-3 ms-3 me-3">Search</button>
+                <div th:if="${!searchBy.isEmpty()}">
+                    <a th:href="@{/employee/list}" class="btn btn-warning">Clear</a>
+                </div>
             </div>
         </div>
     </form>
