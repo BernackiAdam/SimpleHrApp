@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProjectService {
     public List<Project> findAll();
@@ -18,4 +19,5 @@ public interface ProjectService {
     public Page<Project> findByTitle(String title, Pageable pageable);
     public Page<Project> findByProjectType(String projectType, Pageable pageable);
     public Page<Project> findByCurrentPhase(String phase, Pageable pageable);
+    public Page<Project> getProjectPageSearched(String searchBy, Map<String, String> searchParams, Pageable pageable);
 }

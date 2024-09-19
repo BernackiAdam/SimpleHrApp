@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -77,5 +78,28 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Page<Project> findByCurrentPhase(String phase, Pageable pageable) {
         return projectRepository.findByCurrentPhase(phase, pageable);
+    }
+
+    @Override
+    public Page<Project> getProjectPageSearched( String searchBy,Map<String,String> searchParams, Pageable pageable){
+        Page<Project> projectPage = null;
+        String searchByTitle = searchParams.get("searchByTitle");
+        String searchByProjectType = searchParams.get("searchByProjectType");
+        String searchByCurrentPhase = searchParams.get("searchByCurrentPhase");
+
+        if(searchBy==null || searchBy.isEmpty()){
+            projectPage = findAllPaginated(pageable);
+        } else if (searchBy.equals("Title")) {
+            projectPage = findByTitle(searchByTitle, pageable);
+        } else if (searchBy.equals("Type")) {
+            projectPage = findByProjectType(searchByProjectType, pageable);
+        } else if (searchBy.equals("Current Phase")) {
+            projectPage = findByCurrentPhase(searchByCurrentPhase, pageable);
+        }
+        else {
+            projectPage = findAllPaginated(pageable);
+        }
+
+        return projectPage;
     }
 }

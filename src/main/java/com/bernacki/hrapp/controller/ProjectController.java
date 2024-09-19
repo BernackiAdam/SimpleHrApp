@@ -40,28 +40,6 @@ public class ProjectController {
     @Value("${phase}")
     List<String> phases;
 
-    private Page<Project> getProjectPage(Map<String,String> searchParams, String searchBy, Pageable pageable){
-        Page<Project> projectPage = null;
-        String searchByTitle = searchParams.get("searchByTitle");
-        String searchByProjectType = searchParams.get("searchByProjectType");
-        String searchByCurrentPhase = searchParams.get("searchByCurrentPhase");
-
-        if(searchBy==null || searchBy.isEmpty()){
-            projectPage = projectService.findAllPaginated(pageable);
-        } else if (searchBy.equals("Title")) {
-            projectPage = projectService.findByTitle(searchByTitle, pageable);
-        } else if (searchBy.equals("Type")) {
-            projectPage = projectService.findByProjectType(searchByProjectType, pageable);
-        } else if (searchBy.equals("Current Phase")) {
-            projectPage = projectService.findByCurrentPhase(searchByCurrentPhase, pageable);
-        }
-        else {
-            projectPage = projectService.findAllPaginated(pageable);
-        }
-
-        return projectPage;
-    }
-
     @GetMapping("/list")
     public String getProjectsList(
             @RequestParam Map<String, String> searchParams,
@@ -73,7 +51,7 @@ public class ProjectController {
             Model model){
         Sort sort = sortDirection.equalsIgnoreCase("asc")? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page,size, sort);
-        Page<Project> projectPage = getProjectPage(searchParams, searchBy, pageable);
+        Page<Project> projectPage = projectService.getProjectPageSearched(searchBy, searchParams, pageable);
         List<Integer> pageNumbers = IntStream.rangeClosed(1, projectPage.getTotalPages())
                         .boxed().toList();
         model.addAttribute("projectPage", projectPage);

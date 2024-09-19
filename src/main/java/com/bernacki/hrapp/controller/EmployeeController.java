@@ -42,44 +42,6 @@ public class EmployeeController {
     @Value("${position}")
     private List<String> positionList;
 
-    private Page<Employee> getListSearched(String searchBy,
-                Map<String, String> searchParams ,Pageable pageable){
-
-        String searchByFirstName = searchParams.get("searchByFirstName");
-        String searchByLastName = searchParams.get("searchByLastName");
-        String searchByEmail = searchParams.get("searchByEmail");
-        String searchByTelNr = searchParams.get("searchByTelNr");
-        String searchBySeniority = searchParams.get("searchBySeniority");
-        String searchByPosition = searchParams.get("searchByPosition");
-
-        Page<Employee> employeePage = null;
-        if(searchBy ==null || searchBy.isEmpty()){
-            employeePage = employeeService.findAllPaginated(pageable);
-        } else if (searchBy.equals("Full Name")) {
-            employeePage = employeeService.findByFullName(
-                    searchByFirstName, searchByLastName
-                    ,pageable);
-        } else if (searchBy.equals("Email")) {
-            employeePage = employeeService.findByEmail(searchByEmail, pageable);
-        } else if (searchBy.equals("Telephone Number")){
-            employeePage = employeeService.findByTelephoneNumber(searchByTelNr, pageable);
-        } else if (searchBy.equals("Seniority")){
-            employeePage = employeeService.findBySeniority(searchBySeniority, pageable);
-        } else if (searchBy.equals("Position")){
-            employeePage = employeeService.findByPosition(searchByPosition, pageable);
-        } else if (searchBy.equals("Full Position")){
-            employeePage = employeeService.findBySeniorityAndPosition(
-                    searchBySeniority,
-                    searchByPosition,
-                    pageable
-            );
-        }
-        else{
-            employeePage = employeeService.findAllPaginated(pageable);
-        }
-        return employeePage;
-    }
-
     @GetMapping("/list")
     public String getEmployeeList(
             @RequestParam(value = "searchBy", required = false, defaultValue = "") String searchBy,
@@ -91,10 +53,9 @@ public class EmployeeController {
             Model model){
 
         Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Employee> employeePage = getListSearched(searchBy, searchParams, pageable);
+        Page<Employee> employeePage = employeeService.getEmployeeListSearched(searchBy, searchParams, pageable);
 
         List<Integer> pageNumbers = IntStream.rangeClosed(1, employeePage.getTotalPages())
                         .boxed().toList();

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -80,5 +81,44 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public Page<Employee> findBySeniorityAndPosition(String seniority, String position, Pageable pageable) {
         return employeeRepository.findDistinctBySeniorityAndPosition(seniority, position, pageable);
+    }
+
+    @Override
+    public Page<Employee> getEmployeeListSearched(String searchBy,
+                                                  Map<String, String> searchParams , Pageable pageable){
+
+        String searchByFirstName = searchParams.get("searchByFirstName");
+        String searchByLastName = searchParams.get("searchByLastName");
+        String searchByEmail = searchParams.get("searchByEmail");
+        String searchByTelNr = searchParams.get("searchByTelNr");
+        String searchBySeniority = searchParams.get("searchBySeniority");
+        String searchByPosition = searchParams.get("searchByPosition");
+
+        Page<Employee> employeePage = null;
+        if(searchBy ==null || searchBy.isEmpty()){
+            employeePage = findAllPaginated(pageable);
+        } else if (searchBy.equals("Full Name")) {
+            employeePage = findByFullName(
+                    searchByFirstName, searchByLastName
+                    ,pageable);
+        } else if (searchBy.equals("Email")) {
+            employeePage = findByEmail(searchByEmail, pageable);
+        } else if (searchBy.equals("Telephone Number")){
+            employeePage = findByTelephoneNumber(searchByTelNr, pageable);
+        } else if (searchBy.equals("Seniority")){
+            employeePage = findBySeniority(searchBySeniority, pageable);
+        } else if (searchBy.equals("Position")){
+            employeePage = findByPosition(searchByPosition, pageable);
+        } else if (searchBy.equals("Full Position")){
+            employeePage = findBySeniorityAndPosition(
+                    searchBySeniority,
+                    searchByPosition,
+                    pageable
+            );
+        }
+        else{
+            employeePage = findAllPaginated(pageable);
+        }
+        return employeePage;
     }
 }
