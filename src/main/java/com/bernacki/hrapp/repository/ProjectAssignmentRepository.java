@@ -15,4 +15,6 @@ public interface ProjectAssignmentRepository extends JpaRepository<ProjectAssign
 
     @Query("SELECT pa FROM ProjectAssignment pa WHERE pa.project.id=:projectId")
     public List<ProjectAssignment> findEmployeesAssignedToProjectWithRolesById(@Param("projectId") int id);
+
+    public ProjectAssignment findDistinctByEmployeeIdAndProjectId(int employeeId, int projectId);
 }

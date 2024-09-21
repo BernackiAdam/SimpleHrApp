@@ -33,4 +33,9 @@ public class Client {
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Project> projects;
+
+    public Client(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 }

@@ -1,12 +1,14 @@
 package com.bernacki.hrapp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "projects_users")
 public class ProjectAssignment {
 
@@ -25,4 +27,10 @@ public class ProjectAssignment {
 
     @Column(name = "role")
     private String role;
+
+    public ProjectAssignment(Employee employee, Project project, String role) {
+        this.employee = employee;
+        this.project = project;
+        this.role = role;
+    }
 }

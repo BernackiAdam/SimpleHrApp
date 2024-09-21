@@ -49,6 +49,11 @@ public class HrappApplication {
 		return new ProjectConsultant();
 	}
 
+	@Bean
+	@Scope("prototype")
+	public ProjectAssignmentId projectAssignmentId(){
+		return new ProjectAssignmentId();
+	}
 
 
 
