@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-    Page<Employee> findDistinctByFirstNameLikeAndLastNameLikeIgnoreCase(String firstName, String lastName, Pageable pageable);
+    Page<Employee> findByFirstNameLikeAndLastNameLikeIgnoreCase(String firstName, String lastName, Pageable pageable);
     Page<Employee> findByEmailLike(String email, Pageable pageable);
     Page<Employee> findByTelephoneNumberLike(String telephoneNumber, Pageable pageable);
     Page<Employee> findBySeniority(String seniority, Pageable pageable);

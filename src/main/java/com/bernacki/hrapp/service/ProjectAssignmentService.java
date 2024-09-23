@@ -7,4 +7,5 @@ import java.util.List;
 public interface ProjectAssignmentService {
     public List<ProjectAssignment> findProjectsAssignedToEmployeeWithRolesById(int id);
     public List<ProjectAssignment> findEmployeesAssignedToProjectWithRolesById(int id);
+    public void save(ProjectAssignment projectAssignment);
 }

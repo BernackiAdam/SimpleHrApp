@@ -3,7 +3,6 @@ package com.bernacki.hrapp.repository;
 import com.bernacki.hrapp.model.Employee;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -57,12 +56,12 @@ public class EmployeeRepositoryTest{
     }
 
     @Test
-    @Disabled
+//    @Disabled
     public void checkIfEmployeesAreLoadedByFullNameLike(){
         String firstNameSearchPattern = "%ada%";
         String lastNameSearchPattern = "%ber%";
         Pageable pageable = PageRequest.of(0, 100);
-        Page<Employee> employees = employeeRepository.findDistinctByFirstNameLikeAndLastNameLikeIgnoreCase(firstNameSearchPattern, lastNameSearchPattern, pageable);
+        Page<Employee> employees = employeeRepository.findByFirstNameLikeAndLastNameLikeIgnoreCase(firstNameSearchPattern, lastNameSearchPattern, pageable);
         assertFalse(employees.isEmpty());
         String expectedFirstName = "Adam";
         assertTrue(employees.stream().anyMatch(e -> e.getFirstName().equals(expectedFirstName)));

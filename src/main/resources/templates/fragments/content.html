@@ -76,6 +76,52 @@
     </div>
 </div>
 
+<div th:fragment="paginationWithSelectForAssignment (totalPages, currentPage, pageNumbers, endpoint, searchBy, searchParams, projectId)">
+    <div th:if="${totalPages>0}"
+         class="column d-flex justify-content-between align-items-center w-100">
+        <span  th:class="${currentPage==0} ? hidden">
+            <a th:href="@{${endpoint}(page=${currentPage -1},
+                        searchBy=${searchBy}, projectId=${projectId},
+                        searchByFirstName=${searchParams['searchByFirstName']},
+                        searchByLastName=${searchParams['searchByLastName']},
+                        searchByEmail=${searchParams['searchByEmail']},
+                        searchByTelNr=${searchParams['searchByTelNr']},
+                        searchBySeniority=${searchParams['searchBySeniority']},
+                        searchByPosition=${searchParams['searchByPosition']})}"
+
+               th:if="${currentPage > 0}"
+               class="btn btn-sm btn-outline-secondary">Previous</a>
+        </span>
+        <div>
+            <span th:each="number : ${pageNumbers}">
+                   <a th:href="@{${endpoint}(page=${number -1},
+                        searchBy=${searchBy},projectId=${projectId},
+                        searchByFirstName=${searchParams['searchByFirstName']},
+                        searchByLastName=${searchParams['searchByLastName']},
+                        searchByEmail=${searchParams['searchByEmail']},
+                        searchByTelNr=${searchParams['searchByTelNr']},
+                        searchBySeniority=${searchParams['searchBySeniority']},
+                        searchByPosition=${searchParams['searchByPosition']})}"
+                      th:text="${number}"
+                      th:class="${number==currentPage +1} ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-secondary'"
+                   ></a>
+            </span>
+        </div>
+        <span th:class="${currentPage >= totalPages-1} ? hidden">
+                <a th:href="@{${endpoint}(page=${currentPage +1},
+                        searchBy=${searchBy},projectId=${projectId},
+                        searchByFirstName=${searchParams['searchByFirstName']},
+                        searchByLastName=${searchParams['searchByLastName']},
+                        searchByEmail=${searchParams['searchByEmail']},
+                        searchByTelNr=${searchParams['searchByTelNr']},
+                        searchBySeniority=${searchParams['searchBySeniority']},
+                        searchByPosition=${searchParams['searchByPosition']})}"
+                   th:if="${currentPage < totalPages-1}"
+                   class="btn btn-sm btn-outline-secondary">Next</a>
+        </span>
+    </div>
+</div>
+
 <div th:fragment="paginationWithSelectForProjectList (totalPages, currentPage, pageNumbers, endpoint, searchBy, searchParams)">
     <div th:if="${totalPages>0}"
          class="column d-flex justify-content-between align-items-center w-100">
@@ -110,6 +156,22 @@
                    class="btn btn-sm btn-outline-secondary">Next</a>
         </span>
     </div>
+</div>
+
+<div th:fragment="hrefForEmployeeListFromEmployeeList (totalPages, currentPage, pageNumbers, endpoint, searchBy, searchParams, sortBy)">
+    <a th:href="@{${endpoint}(sortBy=${sortBy}, sortDirection=${sortDirection == 'asc'? 'desc' : 'asc'}, page=${page},searchBy=${searchBy},
+                        searchByFirstName=${searchParams['searchByFirstName']},
+                        searchByLastName=${searchParams['searchByLastName']},
+                        searchByEmail=${searchParams['searchByEmail']},
+                        searchByTelNr=${searchParams['searchByTelNr']},
+                        searchBySeniority=${searchParams['searchBySeniority']},
+                        searchByPosition=${searchParams['searchByPosition']})}">
+        <span th:text="${sortDirection=='asc'? '▲' : '▼'}" class="sort-arrow"></span>
+    </a>
+</div>
+
+<div th:fragment="hrefForEmployeeListFromEmployeeAssignment">
+
 </div>
 </body>
 </html>

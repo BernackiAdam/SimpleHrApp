@@ -26,4 +26,9 @@ public class ProjectAssignmentServiceImpl implements ProjectAssignmentService{
     public List<ProjectAssignment> findEmployeesAssignedToProjectWithRolesById(int id) {
         return projectAssignmentRepository.findEmployeesAssignedToProjectWithRolesById(id);
     }
+
+    @Override
+    public void save(ProjectAssignment projectAssignment) {
+        projectAssignmentRepository.save(projectAssignment);
+    }
 }

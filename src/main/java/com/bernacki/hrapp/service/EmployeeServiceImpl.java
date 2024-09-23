@@ -51,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     public Page<Employee> findByFullName(String firstName, String lastName, Pageable pageable) {
         String firstNameSearchPattern = "%" + firstName + "%";
         String lastNameSearchPattern = "%" + lastName + "%";
-        return employeeRepository.findDistinctByFirstNameLikeAndLastNameLikeIgnoreCase(firstNameSearchPattern,
+        return employeeRepository.findByFirstNameLikeAndLastNameLikeIgnoreCase(firstNameSearchPattern,
                 lastNameSearchPattern, pageable);
     }
 
