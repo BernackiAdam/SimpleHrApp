@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "projects_users")
+@Table(name = "projects_employees")
 public class ProjectAssignment {
 
     @EmbeddedId

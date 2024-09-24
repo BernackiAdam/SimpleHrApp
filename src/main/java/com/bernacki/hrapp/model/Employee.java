@@ -43,6 +43,9 @@ public class Employee {
     private String position;
 
     @OneToMany(mappedBy = "employee")
+    private Collection<EmployeeActivity> employeeActivities;
+
+    @OneToMany(mappedBy = "employee")
     private Collection<ProjectAssignment> projectAssignments;
 
 

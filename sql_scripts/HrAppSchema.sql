@@ -42,7 +42,6 @@ CREATE TABLE projects
     description BLOB NOT NULL,
     active BOOLEAN DEFAULT 1,
     client_id INT NOT NULL,
-    active BOOLEAN DEFAULT true,
     PRIMARY KEY (id),
     KEY fk_client_proj_id(client_id),
     CONSTRAINT fk_client_proj_id FOREIGN KEY(client_id)
@@ -77,7 +76,7 @@ CREATE TABLE project_phase
     REFERENCES projects(id) ON UPDATE NO ACTION ON DELETE NO ACTION
 )AUTO_INCREMENT=1;
 
-CREATE TABLE projects_users
+CREATE TABLE projects_employees
 (
 	employee_id INT NOT NULL,
     project_id INT NOT NULL,
@@ -93,6 +92,21 @@ CREATE TABLE projects_users
     ON UPDATE NO ACTION ON DELETE CASCADE
 );
 
+CREATE TABLE employee_activity
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	employee_id INT NOT NULL,
+    active BOOLEAN DEFAULT true,
+    date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    reactivation_date DATETIME DEFAULT NULL,
+    deactivation_reason VARCHAR(255) DEFAULT NULL,
+    PRIMARY KEY(id),
+    KEY fk_activiti_employee_id(employee_id),
+    CONSTRAINT fk_activity_employee_id FOREIGN KEY(employee_id)
+    REFERENCES employee(id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+)AUTO_INCREMENT=1;
+
 
 
 
@@ -101,6 +115,9 @@ INSERT INTO employee(first_name, last_name, email, tel_nr, seniority ,position) 
 ('Grzegorz', 'Bernacki', 'gb@email.com', '234234234', 'Senior', 'Backend Developer'),
 ('Pawel', 'Jumper', 'jp@email.com', '654654654', 'Mid' ,'QA Engineer'),
 ('Magda', 'Siergiejuk', 'ms@email.com', '345345345', 'Mid','Project Manager');
+
+INSERT INTO employee_activity(employee_id) VALUES
+(1), (2), (3), (4);
 
 INSERT INTO clients(name, address) VALUES
 ('Company1', 'bialystok ul.strazacka 25'),
@@ -112,7 +129,7 @@ INSERT INTO projects(title, project_type,description, client_id) VALUES
 ('Project2', 'MOBILE_APP','Unique description for the second project',2),
 ('Project3', 'DEV_OPS','Another fancy description for the project to make a lot of money',1);
     
-INSERT INTO projects_users VALUES
+INSERT INTO projects_employees VALUES
 (1,1, 'Frontend Developer'), (2,1, 'Backend developer'), 
 (2,2, 'Consultant'), (3,2, 'QA'),
 (1,3, 'Frontend Developer'), (3,3, 'QA consultant');
