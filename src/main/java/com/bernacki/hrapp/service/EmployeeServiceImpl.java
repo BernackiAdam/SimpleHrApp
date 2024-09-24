@@ -1,6 +1,7 @@
 package com.bernacki.hrapp.service;
 
 import com.bernacki.hrapp.model.Employee;
+import com.bernacki.hrapp.model.ProjectAssignmentId;
 import com.bernacki.hrapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,10 +16,12 @@ import java.util.Optional;
 public class EmployeeServiceImpl implements EmployeeService{
 
     private EmployeeRepository employeeRepository;
+    private ProjectAssignmentService projectAssignmentService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, ProjectAssignmentService projectAssignmentService) {
         this.employeeRepository = employeeRepository;
+        this.projectAssignmentService = projectAssignmentService;
     }
 
     @Override
@@ -120,5 +123,12 @@ public class EmployeeServiceImpl implements EmployeeService{
             employeePage = findAllPaginated(pageable);
         }
         return employeePage;
+    }
+
+    @Override
+    public void delete(int id) {
+        List<ProjectAssignmentId> projectAssignmentIdList= projectAssignmentService.findProjectAssignmentIdsByEmployeeId(id);
+        projectAssignmentService.deleteAllByIds(projectAssignmentIdList);
+        employeeRepository.deleteById(id);
     }
 }

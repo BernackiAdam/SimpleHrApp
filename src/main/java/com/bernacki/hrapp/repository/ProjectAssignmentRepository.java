@@ -3,6 +3,7 @@ package com.bernacki.hrapp.repository;
 import com.bernacki.hrapp.model.ProjectAssignment;
 import com.bernacki.hrapp.model.ProjectAssignmentId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -16,5 +17,15 @@ public interface ProjectAssignmentRepository extends JpaRepository<ProjectAssign
     @Query("SELECT pa FROM ProjectAssignment pa WHERE pa.project.id=:projectId")
     public List<ProjectAssignment> findEmployeesAssignedToProjectWithRolesById(@Param("projectId") int id);
 
-    public ProjectAssignment findDistinctByEmployeeIdAndProjectId(int employeeId, int projectId);
+    @Query("SELECT pa.id FROM ProjectAssignment pa WHERE pa.id.employeeId=:employeeId")
+    public List<ProjectAssignmentId> findProjectAssignmentIdsByEmployeeId(@Param("employeeId") int employeeId);
+
+    @Query("SELECT pa.id FROM ProjectAssignment pa WHERE pa.id.projectId=:projectId")
+    public List<ProjectAssignmentId> findProjectAssignmentIdsByProjectId(@Param("projectId") int projectId);
+
+    @Modifying
+    @Query("DELETE FROM ProjectAssignment pa WHERE pa.id.projectId=:projectId")
+    public void deleteProjectAssignmentByProjectId(@Param("projectId") int projectId);
+
+    public ProjectAssignment findByEmployeeIdAndProjectId(int employeeId, int projectId);
 }

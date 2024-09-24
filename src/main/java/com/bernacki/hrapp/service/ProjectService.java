@@ -15,6 +15,7 @@ public interface ProjectService {
     public List<ProjectPhase> findPhasesAssignedToProject(int id);
     public List<Project> findProjectAssignedToClient(int id);
     public void save(Project project);
+    public void deleteById(int projectId);
     public Page<Project> findAllPaginated(Pageable pageable);
     public Page<Project> findByTitle(String title, Pageable pageable);
     public Page<Project> findByProjectType(String projectType, Pageable pageable);

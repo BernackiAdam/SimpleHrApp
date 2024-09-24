@@ -117,4 +117,10 @@ public class ProjectManageController {
         projectService.save(project);
         return "redirect:/manage/";
     }
+
+    @GetMapping("/delete")
+    public String deleteProjectById(int projectId){
+        projectService.deleteById(projectId);
+        return "redirect:/project/list";
+    }
 }

@@ -1,9 +1,11 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.repository.ProjectAssignmentRepository;
 import com.bernacki.hrapp.model.ProjectAssignment;
+import com.bernacki.hrapp.model.ProjectAssignmentId;
+import com.bernacki.hrapp.repository.ProjectAssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,5 +32,26 @@ public class ProjectAssignmentServiceImpl implements ProjectAssignmentService{
     @Override
     public void save(ProjectAssignment projectAssignment) {
         projectAssignmentRepository.save(projectAssignment);
+    }
+
+    @Override
+    public List<ProjectAssignmentId> findProjectAssignmentIdsByEmployeeId(int employeeId) {
+        return projectAssignmentRepository.findProjectAssignmentIdsByEmployeeId(employeeId);
+    }
+
+    @Override
+    public List<ProjectAssignmentId> findProjectAssignmentIdsByProjectId(int projectId) {
+        return projectAssignmentRepository.findProjectAssignmentIdsByProjectId(projectId);
+    }
+
+    @Transactional
+    @Override
+    public void deleteAllByProjectId(int projectId) {
+        projectAssignmentRepository.deleteProjectAssignmentByProjectId(projectId);
+    }
+
+    @Override
+    public void deleteAllByIds(List<ProjectAssignmentId> ids) {
+        projectAssignmentRepository.deleteAllById(ids);
     }
 }

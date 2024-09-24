@@ -19,6 +19,7 @@ CREATE TABLE employee
     seniority VARCHAR(12),
     position VARCHAR(40) NOT NULL,
     join_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    active BOOLEAN DEFAULT true,
     PRIMARY KEY (id)
 )AUTO_INCREMENT=1;
 
@@ -41,6 +42,7 @@ CREATE TABLE projects
     description BLOB NOT NULL,
     active BOOLEAN DEFAULT 1,
     client_id INT NOT NULL,
+    active BOOLEAN DEFAULT true,
     PRIMARY KEY (id),
     KEY fk_client_proj_id(client_id),
     CONSTRAINT fk_client_proj_id FOREIGN KEY(client_id)
@@ -85,10 +87,10 @@ CREATE TABLE projects_users
     KEY fk_project_id (project_id),
     CONSTRAINT fk_employee_id FOREIGN KEY(employee_id)
     REFERENCES employee(id)
-    ON UPDATE NO ACTION ON DELETE NO ACTION,
+    ON UPDATE NO ACTION ON DELETE CASCADE,
     CONSTRAINT fk_project_id FOREIGN KEY(project_id)
     REFERENCES projects(id)
-    ON UPDATE NO ACTION ON DELETE NO ACTION
+    ON UPDATE NO ACTION ON DELETE CASCADE
 );
 
 

@@ -1,12 +1,14 @@
 package com.bernacki.hrapp.service;
 
 import com.bernacki.hrapp.model.Project;
+import com.bernacki.hrapp.model.ProjectAssignmentId;
 import com.bernacki.hrapp.model.ProjectPhase;
 import com.bernacki.hrapp.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -16,10 +18,16 @@ import java.util.Optional;
 public class ProjectServiceImpl implements ProjectService {
 
     private ProjectRepository projectRepository;
+    private ProjectAssignmentService projectAssignmentService;
+    private ProjectConsultantService projectConsultantService;
+    private ProjectPhaseService projectPhaseService;
 
     @Autowired
-    public ProjectServiceImpl(ProjectRepository projectRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ProjectAssignmentService projectAssignmentService, ProjectConsultantService projectConsultantService, ProjectPhaseService projectPhaseService) {
         this.projectRepository = projectRepository;
+        this.projectAssignmentService = projectAssignmentService;
+        this.projectConsultantService = projectConsultantService;
+        this.projectPhaseService = projectPhaseService;
     }
 
     @Override
@@ -56,6 +64,28 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void save(Project project) {
         projectRepository.save(project);
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(int projectId) {
+        Optional<Project> result = projectRepository.findById(projectId);
+        Project project = null;
+        if(result.isPresent()){
+            project = result.get();
+            if(project.getProjectAssignments() !=null) {
+                List<ProjectAssignmentId> projectAssignmentIdList = projectAssignmentService.findProjectAssignmentIdsByProjectId(projectId);
+                if(!projectAssignmentIdList.isEmpty()){
+                    projectAssignmentService.deleteAllByIds(projectAssignmentIdList);
+
+                }
+            }
+            if(project.getProjectConsultant() != null){
+                projectConsultantService.deleteByProjectId(projectId);
+            }
+            projectPhaseService.deleteAllByProjectId(projectId);
+            projectRepository.deleteProjectByProjectId(projectId);
+        }
     }
 
     @Override

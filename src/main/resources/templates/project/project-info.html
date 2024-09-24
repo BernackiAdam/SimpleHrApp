@@ -9,6 +9,9 @@
 <div th:insert="fragments/general.html :: navbar"></div>
 <div class="container">
     <h3>Info about Project</h3>
+    <a th:href="@{/manage/project/delete(projectId = ${project.id})}"
+       onclick="if (!(confirm('Are you sure you want to delete this project?'))) return false"
+       class="btn btn-danger">Delete</a>
     <span th:text="${project.title}"></span>
     <hr>
     <span th:text="${project.description}"> </span>

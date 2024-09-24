@@ -76,15 +76,15 @@ public class ProjectAssignmentTest {
 
     @Test
     public void checkIfProjectAssignmentIsLoadedByEmployeeIdAndProjectId(){
-        ProjectAssignment assignment = projectAssignmentRepository.findDistinctByEmployeeIdAndProjectId(1,1);
+        ProjectAssignment assignment = projectAssignmentRepository.findByEmployeeIdAndProjectId(1,1);
         assertEquals("project1_role1", assignment.getRole(), "Role should be project1_role1");
     }
 
     @Test
     public void checkIfProjectAssignmentIsSaved(){
 
-        ProjectAssignment projectAssignment1 = projectAssignmentRepository.findDistinctByEmployeeIdAndProjectId(1,1);
-        ProjectAssignment projectAssignment2 = projectAssignmentRepository.findDistinctByEmployeeIdAndProjectId(3,2);
+        ProjectAssignment projectAssignment1 = projectAssignmentRepository.findByEmployeeIdAndProjectId(1,1);
+        ProjectAssignment projectAssignment2 = projectAssignmentRepository.findByEmployeeIdAndProjectId(3,2);
         assertNotNull(projectAssignment1);
         assertNotNull(projectAssignment2);
         Employee employee = projectAssignment1.getEmployee();
@@ -94,18 +94,41 @@ public class ProjectAssignmentTest {
         ProjectAssignment projectAssignment = new ProjectAssignment(projectAssignmentId,employee, project, "project2_role3");
 
         projectAssignmentRepository.save(projectAssignment);
-        ProjectAssignment projectAssignmentAfterSave = projectAssignmentRepository.findDistinctByEmployeeIdAndProjectId(1, 2);
+        ProjectAssignment projectAssignmentAfterSave = projectAssignmentRepository.findByEmployeeIdAndProjectId(1, 2);
         assertNotNull(projectAssignmentAfterSave);
     }
 
     @Test
+    public void checkIfProjectAssignmentIdsAreLoadedByEmployeeId(){
+        List<ProjectAssignmentId> projectAssignmentIdList = projectAssignmentRepository.findProjectAssignmentIdsByEmployeeId(2);
+        assertFalse(projectAssignmentIdList.isEmpty());
+        assertEquals(2, projectAssignmentIdList.size(), "List should contain 2 items");
+    }
+
+    @Test
+
+    public void checkIfProjectAssignmentIdsAreLoadedByProjectId(){
+        List<ProjectAssignmentId> projectAssignmentIdList = projectAssignmentRepository.findProjectAssignmentIdsByProjectId(1);
+        assertFalse(projectAssignmentIdList.isEmpty());
+        assertEquals(2, projectAssignmentIdList.size(), "List should contain 2 items");
+    }
+
+    @Test
     public void checkIfProjectAssignmentIsUpdated(){
-        ProjectAssignment projectAssignment = projectAssignmentRepository.findDistinctByEmployeeIdAndProjectId(1, 1);
+        ProjectAssignment projectAssignment = projectAssignmentRepository.findByEmployeeIdAndProjectId(1, 1);
         assertEquals("project1_role1", projectAssignment.getRole());
         projectAssignment.setRole("roleAfterUpdate");
         projectAssignmentRepository.save(projectAssignment);
-        ProjectAssignment projectAssignmentAfterUpdate = projectAssignmentRepository.findDistinctByEmployeeIdAndProjectId(1, 1);
+        ProjectAssignment projectAssignmentAfterUpdate = projectAssignmentRepository.findByEmployeeIdAndProjectId(1, 1);
 
         assertEquals("roleAfterUpdate", projectAssignmentAfterUpdate.getRole(), "Role should be diffrent");
+    }
+
+    @Test
+    public void checkIfProjectAssignmentsAreDeletedByProjectId(){
+        projectAssignmentRepository.deleteProjectAssignmentByProjectId(2);
+        List<ProjectAssignment> projectAssignmentList = projectAssignmentRepository.findAll();
+        assertFalse(projectAssignmentList.isEmpty());
+        assertEquals(2, projectAssignmentList.size(), "List should contain 2 items");
     }
 }

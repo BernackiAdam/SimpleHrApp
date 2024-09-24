@@ -5,6 +5,7 @@ import com.bernacki.hrapp.model.ProjectPhase;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -29,4 +30,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
             "WHERE ph.phase=:phaseName " +
             "AND ph.date=(SELECT MAX(ph2.date) FROM ProjectPhase ph2 WHERE ph2.project = p)")
     public Page<Project> findByCurrentPhase(@Param("phaseName") String phaseName, Pageable pageable);
+
+    @Modifying
+    @Query("DELETE FROM Project p WHERE p.id=:projectId")
+    public void deleteProjectByProjectId(@Param("projectId") int projectId);
+
 }

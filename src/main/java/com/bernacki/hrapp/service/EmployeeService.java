@@ -19,4 +19,6 @@ public interface EmployeeService {
     Page<Employee> findByPosition(String position, Pageable pageable);
     Page<Employee> findBySeniorityAndPosition(String seniority, String position, Pageable pageable);
     Page<Employee> getEmployeeListSearched(String searchBy, Map<String, String> searchParams, Pageable pageable);
+
+    void delete(int id);
 }
