@@ -55,6 +55,12 @@ public class HrappApplication {
 		return new ProjectAssignmentId();
 	}
 
+	@Bean
+	@Scope("prototype")
+	public EmployeeActivity employeeActivity(){
+		return new EmployeeActivity();
+	}
+
 
 
 }

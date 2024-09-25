@@ -19,6 +19,7 @@
             visibility: visible;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <body>
@@ -114,8 +115,14 @@
         </div>
 
     <table class="table table-bordered table-striped">
-        <thead class="table-dark">
+        <thead class="table-dark ">
         <tr>
+            <th>
+                <div class="align-items-center d-flex">
+                    Activity
+                </div>
+
+            </th>
             <th>
                 <div class="d-inline-flex justify-content-between align-items-center w-100">
                     <span>Id</span>
@@ -172,6 +179,11 @@
         </thead>
         <tbody>
         <tr th:each="emp : ${employeePage.content}" >
+            <td>
+                <div class="align-items-center justify-content-center d-flex">
+                    <span class="fa fa-circle" style="font-size:25px;" th:class="${emp.employeeActivities[emp.employeeActivities.size()-1].active ? text-success : text-danger}"></span>
+                </div>
+            </td>
             <th th:text="${emp.id}" ></th>
             <td th:text="${emp.firstName}"></td>
             <td th:text="${emp.lastName}"></td>

@@ -42,7 +42,7 @@ public class Employee {
     @Column(name = "position")
     private String position;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private Collection<EmployeeActivity> employeeActivities;
 
     @OneToMany(mappedBy = "employee")
