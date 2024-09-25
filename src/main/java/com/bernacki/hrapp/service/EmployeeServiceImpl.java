@@ -17,11 +17,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     private EmployeeRepository employeeRepository;
     private ProjectAssignmentService projectAssignmentService;
+    private EmployeeActivityService employeeActivityService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, ProjectAssignmentService projectAssignmentService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, ProjectAssignmentService projectAssignmentService, EmployeeActivityService employeeActivityService) {
         this.employeeRepository = employeeRepository;
         this.projectAssignmentService = projectAssignmentService;
+        this.employeeActivityService = employeeActivityService;
     }
 
     @Override
@@ -83,12 +85,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Page<Employee> findBySeniorityAndPosition(String seniority, String position, Pageable pageable) {
-        return employeeRepository.findDistinctBySeniorityAndPosition(seniority, position, pageable);
+        return employeeRepository.findBySeniorityAndPosition(seniority, position, pageable);
     }
 
     @Override
     public Page<Employee> getEmployeeListSearched(String searchBy,
-                                                  Map<String, String> searchParams , Pageable pageable){
+                                                  Map<String, String> searchParams ,
+                                                  Pageable pageable,
+                                                  boolean onlyActiveUsers){
 
         String searchByFirstName = searchParams.get("searchByFirstName");
         String searchByLastName = searchParams.get("searchByLastName");

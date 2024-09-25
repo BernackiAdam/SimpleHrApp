@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
 
@@ -51,10 +54,11 @@ public class EmployeeActivityRepositoryTest {
 
     @Test
     public void checkIfCurrentActivitiesAreLoaded(){
-        List<EmployeeActivity> employeeActivities= employeeActivityRepository.findAllCurrentActivities();
+        Pageable pageable = PageRequest.of(0, 100);
+        Page<EmployeeActivity> employeeActivities= employeeActivityRepository.findAllCurrentActivities(pageable);
         assertNotNull(employeeActivities);
         assertFalse(employeeActivities.isEmpty());
-        assertEquals(2, employeeActivities.size(), "List should contain 2 items");
+        assertEquals(2, employeeActivities.getTotalElements(), "List should contain 2 elements");
 
         assertThat(employeeActivities).extracting(EmployeeActivity::getEmployee).extracting(Employee::getId)
                 .containsExactlyInAnyOrder(1,2);
@@ -69,9 +73,10 @@ public class EmployeeActivityRepositoryTest {
 
     @Test
     public void checkIfEmployeesActivitiesAreLoaded(){
-        List<EmployeeActivity> employeeActivities = employeeActivityRepository.findActivitiesByEmployeeId(1);
+        Pageable pageable = PageRequest.of(0, 100);
+        Page<EmployeeActivity> employeeActivities = employeeActivityRepository.findActivitiesByEmployeeId(1, pageable);
         assertFalse(employeeActivities.isEmpty());
-        assertEquals(2, employeeActivities.size(), "List should contain 2 elements");
+        assertEquals(2, employeeActivities.getTotalElements(), "List should contain 2 elements");
         assertThat(employeeActivities).extracting(EmployeeActivity::getEmployee).extracting(Employee::getId)
                 .containsExactlyInAnyOrder(1,1);
 

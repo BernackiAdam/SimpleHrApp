@@ -12,5 +12,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Page<Employee> findByTelephoneNumberLike(String telephoneNumber, Pageable pageable);
     Page<Employee> findBySeniority(String seniority, Pageable pageable);
     Page<Employee> findByPosition(String position, Pageable pageable);
-    Page<Employee> findDistinctBySeniorityAndPosition(String seniority, String position, Pageable pageable);
+    Page<Employee> findBySeniorityAndPosition(String seniority, String position, Pageable pageable);
+
+
 }

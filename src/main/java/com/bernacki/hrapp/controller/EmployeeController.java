@@ -56,7 +56,7 @@ public class EmployeeController {
         Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Employee> employeePage = employeeService.getEmployeeListSearched(searchBy, searchParams, pageable);
+        Page<Employee> employeePage = employeeService.getEmployeeListSearched(searchBy, searchParams, pageable, onlyActiveUsers);
 
         List<Integer> pageNumbers = IntStream.rangeClosed(1, employeePage.getTotalPages())
                         .boxed().toList();

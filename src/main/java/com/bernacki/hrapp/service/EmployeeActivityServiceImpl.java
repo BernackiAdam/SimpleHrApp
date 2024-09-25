@@ -3,9 +3,9 @@ package com.bernacki.hrapp.service;
 import com.bernacki.hrapp.model.EmployeeActivity;
 import com.bernacki.hrapp.repository.EmployeeActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class EmployeeActivityServiceImpl implements EmployeeActivityService{
@@ -18,12 +18,12 @@ public class EmployeeActivityServiceImpl implements EmployeeActivityService{
     }
 
     @Override
-    public List<EmployeeActivity> findAllCurrentActivities() {
-        return employeeActivityRepository.findAllCurrentActivities();
+    public Page<EmployeeActivity> findAllCurrentActivities(Pageable pageable) {
+        return employeeActivityRepository.findAllCurrentActivities(pageable);
     }
 
     @Override
-    public List<EmployeeActivity> findActivitiesByEmployeeId(int employeeId) {
-        return employeeActivityRepository.findActivitiesByEmployeeId(employeeId);
+    public Page<EmployeeActivity> findActivitiesByEmployeeId(int employeeId, Pageable pageable) {
+        return employeeActivityRepository.findActivitiesByEmployeeId(employeeId, pageable);
     }
 }

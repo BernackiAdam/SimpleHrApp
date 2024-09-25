@@ -60,12 +60,14 @@ public class ProjectAssignmentController {
             @RequestParam(value = "sortDirection", defaultValue = "asc") String sortDirection,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "onlyActiveEmployees", defaultValue = "false") Boolean onlyActiveEmployees,
+
             Model model
             ){
 
         Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
-        Page<Employee> employeePage = employeeService.getEmployeeListSearched(searchBy, searchParams, pageable);
+        Page<Employee> employeePage = employeeService.getEmployeeListSearched(searchBy, searchParams, pageable, onlyActiveEmployees);
         List<Integer> pageNumbers = IntStream.rangeClosed(1, employeePage.getTotalPages()).boxed().toList();
 
         model.addAttribute("employeePage", employeePage);

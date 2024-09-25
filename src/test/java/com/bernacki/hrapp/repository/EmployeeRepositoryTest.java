@@ -117,7 +117,7 @@ public class EmployeeRepositoryTest{
         String positionSearchPattern = "Backend Developer";
         Pageable pageable = PageRequest.of(0, 100);
 
-        Page<Employee> employees = employeeRepository.findDistinctBySeniorityAndPosition(senioritySearchPattern, positionSearchPattern, pageable);
+        Page<Employee> employees = employeeRepository.findBySeniorityAndPosition(senioritySearchPattern, positionSearchPattern, pageable);
         assertFalse(employees.isEmpty());
         String expectedFirstName = "Adam";
         assertTrue(employees.stream().anyMatch(e -> e.getFirstName().equals(expectedFirstName)));
