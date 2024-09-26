@@ -49,7 +49,7 @@ public class EmployeeController {
             @RequestParam(value = "size", defaultValue = "10") int size,
             @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
             @RequestParam(value = "sortDirection", defaultValue = "asc") String sortDirection,
-            @RequestParam(value = "onlyActiveEmployees", defaultValue = "false") Boolean onlyActive,
+            @RequestParam(value = "onlyActive", defaultValue = "false") Boolean onlyActive,
             Model model){
 
 //        Sort.Direction direction = sortDirection.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
@@ -69,6 +69,7 @@ public class EmployeeController {
         model.addAttribute("searchParams", searchParams);
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("onlyActive", onlyActive);
 
         model.addAttribute("searchByList", searchByList);
         model.addAttribute("seniorityList", seniorityList);

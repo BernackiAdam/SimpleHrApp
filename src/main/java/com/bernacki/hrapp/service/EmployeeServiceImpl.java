@@ -208,7 +208,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         else {
             query.append("DESC");
         }
-        System.out.println(query.toString());
         List<Employee> employees = employeeDao.executeQueryWithSearchingAndSorting(query.toString(), paramCount, firstSearchParam, secondSearchParam, onlyActive);
         int total = employees.size();
         int start = (int) pageable.getOffset();
