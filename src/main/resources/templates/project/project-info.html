@@ -104,7 +104,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="phase : ${phases}">
+        <tr th:each="phase , iterator: ${phases}"
+            th:class="${iterator.index==0} ? 'table-success'">
             <th th:text="${phase.phase}" ></th>
             <td th:text="${phase.date}"></td>
         </tr>

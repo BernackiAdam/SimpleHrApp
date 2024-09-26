@@ -16,4 +16,8 @@ public interface EmployeeActivityRepository extends JpaRepository<EmployeeActivi
 
     @Query("SELECT ea FROM EmployeeActivity ea WHERE ea.employee.id=:employeeId")
     Page<EmployeeActivity> findActivitiesByEmployeeId(@Param("employeeId") int employeeId, Pageable pageable);
+
+    @Query("SELECT ea FROM EmployeeActivity ea WHERE ea.employee.id=:employeeId ORDER BY ea.date DESC")
+    Page<EmployeeActivity> findActivitiesByEmployeeIdReversed(@Param("employeeId") int employeeId, Pageable pageable);
+
 }

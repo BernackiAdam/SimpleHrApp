@@ -1,7 +1,9 @@
 package com.bernacki.hrapp.controller;
 
 import com.bernacki.hrapp.model.Employee;
+import com.bernacki.hrapp.model.EmployeeActivity;
 import com.bernacki.hrapp.model.ProjectAssignment;
+import com.bernacki.hrapp.service.EmployeeActivityService;
 import com.bernacki.hrapp.service.EmployeeService;
 import com.bernacki.hrapp.service.ProjectAssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,13 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
     private ProjectAssignmentService projectAssignmentService;
+    private EmployeeActivityService employeeActivityService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, ProjectAssignmentService projectAssignmentService) {
+    public EmployeeController(EmployeeService employeeService, ProjectAssignmentService projectAssignmentService, EmployeeActivityService employeeActivityService) {
         this.employeeService = employeeService;
         this.projectAssignmentService = projectAssignmentService;
+        this.employeeActivityService = employeeActivityService;
     }
 
     @Value("${searchByListEmployee}")
@@ -52,11 +56,7 @@ public class EmployeeController {
             @RequestParam(value = "onlyActive", defaultValue = "false") Boolean onlyActive,
             Model model){
 
-//        Sort.Direction direction = sortDirection.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-//        Sort sort = Sort.by(Sort.Order.by("Employee.EmployeeActivity.active").with(direction), Sort.Order.by(sortBy).with(direction));
-//        Pageable pageable = PageRequest.of(page, size, sort);
         Pageable pageable = PageRequest.of(page, size);
-//        Page<Employee> employeePage = employeeService.getEmployeeListSearched(searchBy, searchParams, pageable, onlyActive);
         Page<Employee> employeePage = employeeService.findAllSearchedAndSortedWithActivities(searchBy, searchParams, sortBy, sortDirection, pageable, onlyActive);
 
         List<Integer> pageNumbers = IntStream.rangeClosed(1, employeePage.getTotalPages())
@@ -78,11 +78,23 @@ public class EmployeeController {
     }
 
     @GetMapping("/info")
-    public String showUserInfo(@RequestParam("employeeId") int id, Model model){
+    public String showUserInfo(@RequestParam("employeeId") int id,
+                               @RequestParam(value = "page", defaultValue = "0") int page,
+                               @RequestParam(value = "size", defaultValue = "5") int size,
+                               Model model){
         Employee employee = employeeService.findById(id);
+
+        Pageable pageable = PageRequest.of(page, size);
+//        Page<EmployeeActivity> employeeActivities = employeeActivityService.findActivitiesByEmployeeId(id, pageable);
+        Page<EmployeeActivity> employeeActivities = employeeActivityService.findActivitiesByEmployeeIdReversed(id, pageable);
         List<ProjectAssignment> assignments = projectAssignmentService.findProjectsAssignedToEmployeeWithRolesById(id);
         model.addAttribute("assignments", assignments);
         model.addAttribute("employee", employee);
+        model.addAttribute("employeeActivities", employeeActivities);
+
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
+
         return "employee/employee-info";
     }
 }
