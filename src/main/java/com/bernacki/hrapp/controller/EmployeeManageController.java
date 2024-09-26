@@ -3,6 +3,7 @@ package com.bernacki.hrapp.controller;
 
 import com.bernacki.hrapp.dto.EmployeeDto;
 import com.bernacki.hrapp.model.Employee;
+import com.bernacki.hrapp.model.EmployeeActivity;
 import com.bernacki.hrapp.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,11 @@ public class EmployeeManageController {
         employee.setTelephoneNumber(employeeDto.getTelephoneNumber());
         employee.setSeniority(employeeDto.getSeniority());
         employee.setPosition(employeeDto.getPosition());
+
+        EmployeeActivity employeeActivity = new EmployeeActivity();
+        employeeActivity.setActive(true);
+        employeeActivity.setEmployee(employee);
+        employee.setEmployeeActivities(List.of(employeeActivity));
         employeeService.save(employee);
         return "redirect:/manage/";
     }

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,19 +43,21 @@ public class EmployeeController {
 
     @GetMapping("/list")
     public String getEmployeeList(
-            @RequestParam(value = "searchBy", required = false, defaultValue = "") String searchBy,
+            @RequestParam(value = "searchBy", required = false, defaultValue = "id") String searchBy,
             @RequestParam Map<String, String> searchParams,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size,
             @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
             @RequestParam(value = "sortDirection", defaultValue = "asc") String sortDirection,
-            @RequestParam(value = "onlyActiveEmployees", defaultValue = "false") Boolean onlyActiveUsers,
+            @RequestParam(value = "onlyActiveEmployees", defaultValue = "false") Boolean onlyActive,
             Model model){
 
-        Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        Page<Employee> employeePage = employeeService.getEmployeeListSearched(searchBy, searchParams, pageable, onlyActiveUsers);
+//        Sort.Direction direction = sortDirection.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+//        Sort sort = Sort.by(Sort.Order.by("Employee.EmployeeActivity.active").with(direction), Sort.Order.by(sortBy).with(direction));
+//        Pageable pageable = PageRequest.of(page, size, sort);
+        Pageable pageable = PageRequest.of(page, size);
+//        Page<Employee> employeePage = employeeService.getEmployeeListSearched(searchBy, searchParams, pageable, onlyActive);
+        Page<Employee> employeePage = employeeService.findAllSearchedAndSortedWithActivities(searchBy, searchParams, sortBy, sortDirection, pageable, onlyActive);
 
         List<Integer> pageNumbers = IntStream.rangeClosed(1, employeePage.getTotalPages())
                         .boxed().toList();

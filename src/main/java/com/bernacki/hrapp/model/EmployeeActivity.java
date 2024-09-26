@@ -3,6 +3,7 @@ package com.bernacki.hrapp.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
 @Table(name = "employee_activity")
 @Data
 @NoArgsConstructor
+@ToString(exclude = "employee")
 public class EmployeeActivity {
 
     @Id

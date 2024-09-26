@@ -181,7 +181,13 @@
         <tr th:each="emp : ${employeePage.content}" >
             <td>
                 <div class="align-items-center justify-content-center d-flex">
-                    <span class="fa fa-circle" style="font-size:25px;" th:class="${emp.employeeActivities[emp.employeeActivities.size()-1].active ? text-success : text-danger}"></span>
+<!--                    <span class="fa fa-circle" style="font-size:25px;" th:class="${emp.employeeActivities[emp.employeeActivities.size()-1].active ? text-success : text-danger}"></span>-->
+                    <div th:if="${emp.employeeActivities[0].active == true}">
+                        <span class="fa fa-circle text-success" style="font-size:25px;"/>
+                    </div>
+                    <div th:if="${emp.employeeActivities[0].active == false}">
+                        <span class="fa fa-circle text-danger" style="font-size:25px;"/>
+                    </div>
                 </div>
             </td>
             <th th:text="${emp.id}" ></th>

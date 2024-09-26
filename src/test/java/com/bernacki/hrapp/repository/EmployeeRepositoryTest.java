@@ -1,6 +1,7 @@
 package com.bernacki.hrapp.repository;
 
 import com.bernacki.hrapp.model.Employee;
+import com.bernacki.hrapp.model.EmployeeActivity;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,27 +16,44 @@ import org.springframework.test.context.TestPropertySource;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource(locations = "/test.properties")
 public class EmployeeRepositoryTest{
-    @Autowired
+
     private EmployeeRepository employeeRepository;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public EmployeeRepositoryTest(EmployeeRepository employeeRepository, JdbcTemplate jdbcTemplate) {
+        this.employeeRepository = employeeRepository;
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @BeforeEach
     public void beforeEach(){
         jdbcTemplate.execute("ALTER TABLE employee ALTER COLUMN id RESTART WITH 1");
         jdbcTemplate.execute("INSERT INTO employee (first_name, last_name, email, tel_nr, seniority, position) " +
-                "VALUES('Adam', 'Bernacki', 'ab@email.com', '123123123', 'Junior', 'Backend Developer')");
+                "VALUES('TestName1', 'TestSurname1', 'test1@email.com', '123123123', 'Junior', 'Backend Developer')");
+        jdbcTemplate.execute("INSERT INTO employee (first_name, last_name, email, tel_nr, seniority, position) " +
+                "VALUES('TestName2', 'TestSurname2', 'test2@email.com', '123123123', 'Senior', 'Frontend Developer')");
+
+        jdbcTemplate.execute("INSERT INTO employee_activity (employee_id, active, date) " +
+                "VALUES(1, true, '2024-01-01')");
+        jdbcTemplate.execute("INSERT INTO employee_activity (employee_id, active, date) " +
+                "VALUES(2, true, '2024-01-01')");
+        jdbcTemplate.execute("INSERT INTO employee_activity (employee_id, active, date, reactivation_date, deactivation_reason) " +
+                "VALUES(1, false, '2024-01-02', '2024-01-01', 'On Leave')");
+        jdbcTemplate.execute("INSERT INTO employee_activity (employee_id, active, date, reactivation_date, deactivation_reason) " +
+                "VALUES(2, false, '2024-01-02', '2024-01-01', 'Company policy')");
 
     }
 
     @AfterEach
     public void afterEach(){
+        jdbcTemplate.execute("DELETE FROM employee_activity");
         jdbcTemplate.execute("DELETE FROM employee");
     }
 
@@ -58,23 +76,23 @@ public class EmployeeRepositoryTest{
     @Test
 //    @Disabled
     public void checkIfEmployeesAreLoadedByFullNameLike(){
-        String firstNameSearchPattern = "%ada%";
-        String lastNameSearchPattern = "%ber%";
+        String firstNameSearchPattern = "%ame1%";
+        String lastNameSearchPattern = "%1%";
         Pageable pageable = PageRequest.of(0, 100);
         Page<Employee> employees = employeeRepository.findByFirstNameLikeAndLastNameLikeIgnoreCase(firstNameSearchPattern, lastNameSearchPattern, pageable);
         assertFalse(employees.isEmpty());
-        String expectedFirstName = "Adam";
+        String expectedFirstName = "TestName1";
         assertTrue(employees.stream().anyMatch(e -> e.getFirstName().equals(expectedFirstName)));
     }
 
     @Test
     public void checkIfEmployeesAreLoadedByEmailLike(){
-        String searchPattern = "%" + "ab" + "%";
+        String searchPattern = "%" + "1" + "%";
         Pageable pageable = PageRequest.of(0, 100);
 
         Page<Employee> employees = employeeRepository.findByEmailLike(searchPattern, pageable);
         assertFalse(employees.isEmpty());
-        String expectedFirstName = "Adam";
+        String expectedFirstName = "test1@email.com";
         assertTrue(employees.stream().anyMatch(e -> e.getFirstName().equals(expectedFirstName)));
     }
 
@@ -85,7 +103,7 @@ public class EmployeeRepositoryTest{
 
         Page<Employee> employees = employeeRepository.findByTelephoneNumberLike(searchPattern, pageable);
         assertFalse(employees.isEmpty());
-        String expectedFirstName = "Adam";
+        String expectedFirstName = "TestName1";
         assertTrue(employees.stream().anyMatch(e -> e.getFirstName().equals(expectedFirstName)));
     }
 
@@ -96,7 +114,7 @@ public class EmployeeRepositoryTest{
 
         Page<Employee> employees = employeeRepository.findBySeniority(searchPattern, pageable);
         assertFalse(employees.isEmpty());
-        String expectedFirstName = "Adam";
+        String expectedFirstName = "TestName1";
         assertTrue(employees.stream().anyMatch(e -> e.getFirstName().equals(expectedFirstName)));
     }
 
@@ -107,7 +125,7 @@ public class EmployeeRepositoryTest{
 
         Page<Employee> employees = employeeRepository.findByPosition(searchPattern, pageable);
         assertFalse(employees.isEmpty());
-        String expectedFirstName = "Adam";
+        String expectedFirstName = "TestName1";
         assertTrue(employees.stream().anyMatch(e -> e.getFirstName().equals(expectedFirstName)));
     }
 
@@ -119,8 +137,19 @@ public class EmployeeRepositoryTest{
 
         Page<Employee> employees = employeeRepository.findBySeniorityAndPosition(senioritySearchPattern, positionSearchPattern, pageable);
         assertFalse(employees.isEmpty());
-        String expectedFirstName = "Adam";
+        String expectedFirstName = "TestName1";
         assertTrue(employees.stream().anyMatch(e -> e.getFirstName().equals(expectedFirstName)));
+    }
+
+    @Test
+    public void checkIfAllEmployeesAreLoadedWithActivities(){
+        Pageable pageable = PageRequest.of(0, 100);
+        Page<Employee> employeePage = employeeRepository.findAllOrActiveWithCurrentActivity(false, pageable);
+        assertNotNull(employeePage);
+        assertFalse(employeePage.isEmpty());
+        assertEquals(2, employeePage.getTotalElements(), "List should contain 2 elements");
+        assertThat(employeePage).flatExtracting(Employee::getEmployeeActivities)
+                .extracting(EmployeeActivity::isActive).containsExactlyInAnyOrder(false, false);
     }
 
     @Test
