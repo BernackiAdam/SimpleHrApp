@@ -109,7 +109,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="activity, iteration : ${employeeActivities.content}"
-                    th:class="${iteration.index==0} ? 'table-success'">
+                    th:class="${iteration.index==0 and page==0} ? 'table-success'">
                     <td>
                         <span th:if="${activity.active == true}" class="text-info">Active</span>
                         <span th:if="${activity.active == false}" class="text-danger">Inactive</span>
@@ -130,6 +130,12 @@
                 </tr>
                 </tbody>
             </table>
+<!--            "pagination (totalPages, currentPage, pageNumbers, endpoint)"-->
+            <div th:insert="~{fragments/content.html :: paginationWithParameter (totalPages=${totalPages},
+                            currentPage=${page},
+                            pageNumbers=${pageNumbers},
+                            endpoint='/employee/info?employeeId=',
+                            parameter=${employee.id})}"></div>
         </div>
     </div>
 

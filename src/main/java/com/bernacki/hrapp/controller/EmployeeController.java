@@ -80,7 +80,7 @@ public class EmployeeController {
     @GetMapping("/info")
     public String showUserInfo(@RequestParam("employeeId") int id,
                                @RequestParam(value = "page", defaultValue = "0") int page,
-                               @RequestParam(value = "size", defaultValue = "5") int size,
+                               @RequestParam(value = "size", defaultValue = "6") int size,
                                Model model){
         Employee employee = employeeService.findById(id);
 
@@ -88,6 +88,11 @@ public class EmployeeController {
 //        Page<EmployeeActivity> employeeActivities = employeeActivityService.findActivitiesByEmployeeId(id, pageable);
         Page<EmployeeActivity> employeeActivities = employeeActivityService.findActivitiesByEmployeeIdReversed(id, pageable);
         List<ProjectAssignment> assignments = projectAssignmentService.findProjectsAssignedToEmployeeWithRolesById(id);
+
+        List<Integer> pageNumbers = IntStream.rangeClosed(1, employeeActivities.getTotalPages()).boxed().toList();
+
+        model.addAttribute("totalPages", employeeActivities.getTotalPages());
+        model.addAttribute("pageNumbers", pageNumbers);
         model.addAttribute("assignments", assignments);
         model.addAttribute("employee", employee);
         model.addAttribute("employeeActivities", employeeActivities);
