@@ -46,59 +46,40 @@
     <form th:action="@{/assignment/assign-employee}" method="get">
         <input type="hidden" name="projectId" th:value="${projectId}">
         <div class="d-flex form-group mb-3 justify-content-between align-items-end">
-            <div th:if="${employeeIdError != null}" class="bg-warning text-white my-3 p-1 rounded">
-                <span th:text="${employeeIdError}"></span>
-            </div>
-            <div th:if="${employeeRoleError != null}" class="bg-warning text-white my-3 p-1 rounded">
-                <span th:text="${employeeRoleError}"></span>
-            </div>
-            <div class="d-flex">
-                <div id="searchByField" class="me-3">
-                    <label class="form-label">Search by:</label>
-                    <select class="form-select" name="searchBy" id="searchBy" onchange="toggleSearchEmployee()">
-                        <option selected="selected" value=""  hidden disabled>Select option</option>
-                        <option th:each="option : ${searchByList}"
-                                th:value="${option}"
-                                th:text="${option}"
-                                th:selected="${option} == ${searchBy}"></option>
-                    </select>
-                </div>
-                <div id="emailField" ></div>
-                <div id="telephoneNumberField" ></div>
-
-                <div id="fullNameField" class="mb-3" style="display: none;">
-                    <div class="mx-3">
-                        <label class="form-label">Enter first name</label>
-                        <input type="text" name="searchByFirstName" class="form-control"
-                               th:value="${searchParams['searchByFirstName']}">
+<!--            <div th:if="${employeeIdError != null}" class="bg-warning text-white my-3 p-1 rounded">-->
+<!--                <span th:text="${employeeIdError}"></span>-->
+<!--            </div>-->
+<!--            <div th:if="${employeeRoleError != null}" class="bg-warning text-white my-3 p-1 rounded">-->
+<!--                <span th:text="${employeeRoleError}"></span>-->
+<!--            </div>-->
+            <div class="d-flex align-items-end justify-content-between">
+                <div class="d-flex">
+                    <div id="searchByField" class="me-3">
+                        <label class="form-label">Search by:</label>
+                        <select class="form-select" name="searchBy" id="searchBy" onchange="toggleSearchEmployee()">
+                            <option selected="selected" value=""  hidden disabled>Select option</option>
+                            <option th:each="option : ${searchByList}"
+                                    th:value="${option}"
+                                    th:text="${option}"
+                                    th:selected="${option} == ${searchBy}"></option>
+                        </select>
                     </div>
-                    <div>
-                        <label class="form-label">Enter last name</label>
-                        <input type="text" name="searchByLastName" class="form-control"
-                               th:value="${searchParams['searchByLastName']}">
-                    </div>
-                </div>
-                <div id="seniorityField" class="mx-3"  style="display: none;">
-                    <label class="form-label">Choose seniority</label>
-                    <select name="searchBySeniority" class="form-select">
-                        <option selected="selected" value="" hidden disabled>Select option</option>
-                        <option th:each="seniority : ${seniorityList}"
-                                th:value="${seniority}" th:text="${seniority}"
-                                th:selected="${seniority} == ${searchParams['searchBySeniority']}"></option>
-                    </select>
+                    <div id="emailField" ></div>
+                    <div id="telephoneNumberField" ></div>
 
-                </div>
-                <div id="positionField" class="mx-3 column"  style="display: none;">
-                    <label class="form-label">Choose position</label>
-                    <select name="searchByPosition" class="form-select">
-                        <option selected="selected" value="" hidden disabled>Select option</option>
-                        <option th:each="position : ${positionList}"
-                                th:value="${position}" th:text="${position}"
-                                th:selected="${position} == ${searchParams['searchByPosition']}"></option>
-                    </select>
-                </div>
-                <div id="fullPositionField" class="mx-3" style="display: none;">
-                    <div class="me-3">
+                    <div id="fullNameField" class="mb-3" style="display: none;">
+                        <div class="mx-3">
+                            <label class="form-label">Enter first name</label>
+                            <input type="text" name="searchByFirstName" class="form-control"
+                                   th:value="${searchParams['searchByFirstName']}">
+                        </div>
+                        <div>
+                            <label class="form-label">Enter last name</label>
+                            <input type="text" name="searchByLastName" class="form-control"
+                                   th:value="${searchParams['searchByLastName']}">
+                        </div>
+                    </div>
+                    <div id="seniorityField" class="mx-3"  style="display: none;">
                         <label class="form-label">Choose seniority</label>
                         <select name="searchBySeniority" class="form-select">
                             <option selected="selected" value="" hidden disabled>Select option</option>
@@ -106,8 +87,9 @@
                                     th:value="${seniority}" th:text="${seniority}"
                                     th:selected="${seniority} == ${searchParams['searchBySeniority']}"></option>
                         </select>
+
                     </div>
-                    <div>
+                    <div id="positionField" class="mx-3 column"  style="display: none;">
                         <label class="form-label">Choose position</label>
                         <select name="searchByPosition" class="form-select">
                             <option selected="selected" value="" hidden disabled>Select option</option>
@@ -116,15 +98,41 @@
                                     th:selected="${position} == ${searchParams['searchByPosition']}"></option>
                         </select>
                     </div>
+                    <div id="fullPositionField" class="mx-3" style="display: none;">
+                        <div class="me-3">
+                            <label class="form-label">Choose seniority</label>
+                            <select name="searchBySeniority" class="form-select">
+                                <option selected="selected" value="" hidden disabled>Select option</option>
+                                <option th:each="seniority : ${seniorityList}"
+                                        th:value="${seniority}" th:text="${seniority}"
+                                        th:selected="${seniority} == ${searchParams['searchBySeniority']}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Choose position</label>
+                            <select name="searchByPosition" class="form-select">
+                                <option selected="selected" value="" hidden disabled>Select option</option>
+                                <option th:each="position : ${positionList}"
+                                        th:value="${position}" th:text="${position}"
+                                        th:selected="${position} == ${searchParams['searchByPosition']}"></option>
+                            </select>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
 
+            </div>
             <div class="d-flex">
                 <button type="submit" class="btn btn-primary mb-3 ms-3 me-3">Search</button>
                 <div th:if="${!searchBy.isEmpty()}">
                     <a th:href="@{/assignment/assign-employee(projectId=${projectId})}" class="btn btn-warning">Clear</a>
                 </div>
+            </div>
+        </div>
+        <div>
+            <div class="d-flex align-items-center justify-content-end mb-3">
+                <input type="checkbox" name="onlyActive" class="form-check-input" th:checked="${onlyActive}" value="true">
+                <label class="form-check-label ms-2">Only active employees</label>
             </div>
         </div>
 
@@ -174,7 +182,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="emp : ${employeePage.content}" >
+        <tr th:each="emp : ${employeePage.content}"
+            th:class="${emp.employeeActivities[0].active == true} ? 'table-success' : 'table-warning'">
             <th>
                 <input type="radio" id="employeeIdRadioButton" value="0"
                        th:onclick="'selectEmployee(' + ${emp.id} +')'"

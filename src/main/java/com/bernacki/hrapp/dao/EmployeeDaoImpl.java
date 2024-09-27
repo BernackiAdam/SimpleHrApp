@@ -19,9 +19,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Query employeeQuery = entityManager.createQuery(query);
         employeeQuery.setParameter("onlyActive", onlyActive);
         if(paramCount>=1) {
+            if(firstSearchParam.isEmpty()){
+                firstSearchParam="%";
+            }
             employeeQuery.setParameter("firstSearchParam", firstSearchParam);
         }
         if(paramCount>=2){
+            if(secondSearchParam.isEmpty()){
+                secondSearchParam="%";
+            }
             employeeQuery.setParameter("secondSearchParam", secondSearchParam);
         }
 

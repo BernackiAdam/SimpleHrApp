@@ -9,6 +9,9 @@
             width:70px;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script defer th:src="@{/js/deactivateFormScript.js}"></script>
+
 </head>
 <body>
 <div th:insert="fragments/general.html :: navbar"></div>
@@ -17,19 +20,52 @@
         <div class="col-lg-6 col-md-6 col-sm-6">
             <h3>Info about employee</h3>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6text-end">
+        <div class="col-lg-6 col-md-6 col-sm-6 text-end">
             <a th:href="@{/manage/employee/edit(employeeId = ${employee.id})}"
                class="btn btn-info me-3 px-4">Edit</a>
             <a th:href="@{/manage/employee/delete(employeeId = ${employee.id})}"
                onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false"
                class="btn btn-danger me-3 px-3">Delete</a>
-            <a th:href="@{/manage/employee/deactive(employeeId = ${employee.id})}"
-               class="btn btn-warning">Deactivate</a>
+            <button class="btn btn-warning" id="deactivateBtn">Deactivate</button>
         </div>
+    </div>
+    <div class="border rounded px-5 py-3 " id="deactivationForm" style="display:none;">
+        <form th:action="@{/manage/employee/deactivate}" method="POST">
+            <input type="hidden" th:value="${employee.id}" name="employeeId">
+            <div class="d-flex justify-content-end">
+                <button id="closeForm" style="font-size:19px;" class="btn">x</button>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+                    <label class="form-label">Select deactivation date</label>
+                    <input type="date" name="deactivationDate" class="form-control" id="deactivationDate" required>
+                    <div class="d-flex">
+                        <input type="checkbox" id="nowCheckbox" class="form-check">
+                        <label class="form-label mb-0 ms-2">Now</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+                    <label class="form-label"> Select reactivation date</label>
+                    <input type="date" name="reactivationDate" class="form-control" id="reactivationDateInput" required>
+                    <div class="d-flex">
+                        <input type="checkbox" id="indefinitelyCheckbox" class="form-check">
+                        <label class="form-label mb-0 ms-2">Indefinitely</label>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+                    <label class="form-label"> Enter deactivation reason</label>
+                    <input type="text" class="form-control" name="deactivationReason" required>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
+            </div>
+        </form>
     </div>
 
     <div class="row">
-        <div class="col-lg-5 col-md-5 col-sm-12">
+        <div class="col-lg-5 col-md-5 col-sm-12 ">
             <div class="p-2 text-muted d-flex">
                 <span class="label">Name: </span>
                 <span th:text="${employee.firstName + ' ' + employee.lastName}">name</span>
@@ -113,5 +149,7 @@
         <h6>There are no projects assigned to this employee</h6>
     </div>
 </div>
+
+
 </body>
 </html>

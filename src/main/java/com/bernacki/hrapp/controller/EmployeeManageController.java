@@ -1,9 +1,11 @@
 package com.bernacki.hrapp.controller;
 
 
+
 import com.bernacki.hrapp.dto.EmployeeDto;
 import com.bernacki.hrapp.model.Employee;
 import com.bernacki.hrapp.model.EmployeeActivity;
+import com.bernacki.hrapp.service.EmployeeActivityService;
 import com.bernacki.hrapp.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.time.ZoneId;
 
 @Controller
 @RequestMapping("/manage/employee")
@@ -29,6 +34,9 @@ public class EmployeeManageController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private EmployeeActivityService employeeActivityService;
 
     private void populateModel(Model model){
         model.addAttribute("seniorityList", seniorityList);
@@ -79,5 +87,20 @@ public class EmployeeManageController {
 
         employeeService.delete(id);
         return "redirect:/employee/list";
+    }
+
+    @PostMapping("/deactivate")
+    public String deactivateEmployee(@RequestParam("employeeId") int employeeId,
+                                     @RequestParam(value = "deactivationDate", defaultValue = "") LocalDate deactivationDate,
+                                     @RequestParam(value = "reactivationDate", defaultValue = "") LocalDate reactivationDate,
+                                     @RequestParam(value = "deactivationReason", defaultValue = "") String reason){
+
+        EmployeeActivity employeeActivity = new EmployeeActivity();
+        employeeActivity.setEmployee(employeeService.findById(employeeId));
+        employeeActivity.setDate(Date.from(deactivationDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        employeeActivity.setReactivationDate(Date.from(reactivationDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        employeeActivity.setDeactivationReason(reason);
+        employeeActivityService.save(employeeActivity);
+        return "redirect:/employee/info?employeeId=" + employeeId;
     }
 }

@@ -31,4 +31,9 @@ public class EmployeeActivityServiceImpl implements EmployeeActivityService{
     public Page<EmployeeActivity> findActivitiesByEmployeeIdReversed(int employeeId, Pageable pageable) {
         return employeeActivityRepository.findActivitiesByEmployeeIdReversed(employeeId, pageable);
     }
+
+    @Override
+    public void save(EmployeeActivity employeeActivity) {
+        employeeActivityRepository.save(employeeActivity);
+    }
 }
