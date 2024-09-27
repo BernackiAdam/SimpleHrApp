@@ -1,7 +1,6 @@
 package com.bernacki.hrapp.controller;
 
 
-
 import com.bernacki.hrapp.dto.EmployeeDto;
 import com.bernacki.hrapp.model.Employee;
 import com.bernacki.hrapp.model.EmployeeActivity;
@@ -17,10 +16,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.time.ZoneId;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/manage/employee")
@@ -97,10 +98,35 @@ public class EmployeeManageController {
 
         EmployeeActivity employeeActivity = new EmployeeActivity();
         employeeActivity.setEmployee(employeeService.findById(employeeId));
-        employeeActivity.setDate(Date.from(deactivationDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        employeeActivity.setReactivationDate(Date.from(reactivationDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if(deactivationDate==null){
+            employeeActivity.setDate(Date.from(Instant.now()));
+        }
+        else {
+            employeeActivity.setDate(Date.from(deactivationDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        }
+        if(reactivationDate!=null){
+            employeeActivity.setReactivationDate(Date.from(reactivationDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        }
         employeeActivity.setDeactivationReason(reason);
         employeeActivityService.save(employeeActivity);
+        return "redirect:/employee/info?employeeId=" + employeeId;
+    }
+
+    @PostMapping("/reactivate")
+    public String reactivateEmployee(@RequestParam("employeeId") int employeeId){
+        Employee employee = employeeService.findEmployeeWithCurrentActivityByEmployeeId(employeeId);
+        if (employee.getEmployeeActivities().stream().anyMatch(activity -> !activity.isActive())){
+            Optional<EmployeeActivity> result = employee.getEmployeeActivities().stream().findFirst();
+            EmployeeActivity employeeActivity = result.orElse(null);
+            if(employeeActivity.getReactivationDate()==null || employeeActivity.getReactivationDate().after(Date.from(Instant.now()))){
+                employeeActivity.setReactivationDate(Date.from(Instant.now()));
+                employeeActivityService.save(employeeActivity);
+            }
+            EmployeeActivity newEmployeeActivity = new EmployeeActivity();
+            newEmployeeActivity.setActive(true);
+            newEmployeeActivity.setEmployee(employee);
+            employeeActivityService.save(newEmployeeActivity);
+        }
         return "redirect:/employee/info?employeeId=" + employeeId;
     }
 }

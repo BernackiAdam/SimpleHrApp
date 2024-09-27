@@ -34,4 +34,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
                                                                 @Param("lastName") String lastName,
                                                                 @Param("onlyActive") boolean onlyActive,
                                                                 Pageable pageable);
+
+    @Query("SELECT e FROM Employee e " +
+            "LEFT JOIN FETCH e.employeeActivities ea " +
+            "WHERE ea.date=(SELECT MAX(ea2.date) FROM EmployeeActivity ea2 where ea2.employee = e) " +
+            "AND e.id =:employeeId")
+    Employee findEmployeeWithCurrentActivityByEmployeeId(@Param("employeeId") int employeeId);
 }

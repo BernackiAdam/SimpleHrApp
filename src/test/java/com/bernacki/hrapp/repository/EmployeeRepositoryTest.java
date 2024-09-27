@@ -172,4 +172,13 @@ public class EmployeeRepositoryTest{
         Employee employeeAfterUpdate = result.orElse(null);
         assertEquals("TestFirstName", employeeAfterUpdate.getFirstName(), "First name should equal TestFirstName");
     }
+
+    @Test
+    public void checkIfEmployeeIsLoadedWithActivityById(){
+        Employee employee = employeeRepository.findEmployeeWithCurrentActivityByEmployeeId(1);
+        assertNotNull(employee);
+        assertEquals("TestName1", employee.getFirstName());
+        assertEquals(1, employee.getEmployeeActivities().size());
+        assertThat(employee.getEmployeeActivities()).flatExtracting(EmployeeActivity::isActive).containsExactlyInAnyOrder(false);
+    }
 }

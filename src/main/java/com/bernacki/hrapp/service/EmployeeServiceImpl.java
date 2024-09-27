@@ -216,6 +216,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
+    public Employee findEmployeeWithCurrentActivityByEmployeeId(int employeeId) {
+        return employeeRepository.findEmployeeWithCurrentActivityByEmployeeId(employeeId);
+    }
+
+    @Override
     public void delete(int id) {
         List<ProjectAssignmentId> projectAssignmentIdList= projectAssignmentService.findProjectAssignmentIdsByEmployeeId(id);
         projectAssignmentService.deleteAllByIds(projectAssignmentIdList);
