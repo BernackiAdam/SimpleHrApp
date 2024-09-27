@@ -45,10 +45,6 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
-    @Override
-    public Project findByName(String name) {
-        return projectRepository.findByTitle(name);
-    }
 
 
     @Override

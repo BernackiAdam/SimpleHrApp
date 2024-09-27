@@ -12,18 +12,15 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
-//    public List<Project> findAll();
-//    public Project findById(int id);
     public Project findByTitle(String title);
+    Page<Project> findByTitleLikeIgnoreCase(String title, Pageable pageable);
+    Page<Project> findByProjectType(String projectType, Pageable pageable);
 
     @Query("SELECT pp FROM ProjectPhase pp LEFT JOIN pp.project p WHERE p.id=:projectId")
     public List<ProjectPhase> findPhasesAssignedToProject(@Param("projectId") int id);
 
     @Query("SELECT p FROM Project p WHERE p.client.id=:clientId")
     public List<Project> findProjectAssignedToClient(@Param("clientId") int id);
-
-    Page<Project> findByTitleLikeIgnoreCase(String title, Pageable pageable);
-    Page<Project> findByProjectType(String projectType, Pageable pageable);
 
     @Query("SELECT p FROM Project p " +
             "JOIN p.phases ph " +
