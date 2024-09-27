@@ -20,14 +20,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     private EmployeeRepository employeeRepository;
     private EmployeeDao employeeDao;
     private ProjectAssignmentService projectAssignmentService;
-    private EmployeeActivityService employeeActivityService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeDao employeeDao, ProjectAssignmentService projectAssignmentService, EmployeeActivityService employeeActivityService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeDao employeeDao, ProjectAssignmentService projectAssignmentService) {
         this.employeeRepository = employeeRepository;
         this.employeeDao = employeeDao;
         this.projectAssignmentService = projectAssignmentService;
-        this.employeeActivityService = employeeActivityService;
+
     }
 
     @Override
@@ -218,6 +217,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public Employee findEmployeeWithCurrentActivityByEmployeeId(int employeeId) {
         return employeeRepository.findEmployeeWithCurrentActivityByEmployeeId(employeeId);
+    }
+
+    @Override
+    public List<Employee> findInactiveEmployeesWithCurrentActivity() {
+        return employeeRepository.findInactiveEmployeesWithCurrentActivity();
     }
 
     @Override

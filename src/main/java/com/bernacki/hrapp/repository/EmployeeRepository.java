@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Page<Employee> findByFirstNameLikeAndLastNameLikeIgnoreCase(String firstName, String lastName, Pageable pageable);
@@ -40,4 +42,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
             "WHERE ea.date=(SELECT MAX(ea2.date) FROM EmployeeActivity ea2 where ea2.employee = e) " +
             "AND e.id =:employeeId")
     Employee findEmployeeWithCurrentActivityByEmployeeId(@Param("employeeId") int employeeId);
+
+    @Query("SELECT e FROM Employee e " +
+            "LEFT JOIN FETCH e.employeeActivities ea " +
+            "WHERE ea.active=false " +
+            "AND ea.date=(SELECT MAX(ea2.date) FROM EmployeeActivity ea2 where ea2.employee = e)")
+    List<Employee> findInactiveEmployeesWithCurrentActivity();
 }

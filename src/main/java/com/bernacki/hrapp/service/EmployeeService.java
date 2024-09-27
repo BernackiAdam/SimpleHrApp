@@ -21,5 +21,6 @@ public interface EmployeeService {
     Page<Employee> getEmployeeListSearched(String searchBy, Map<String, String> searchParams, Pageable pageable, boolean onlyActiveUsers);
     Page<Employee> findAllSearchedAndSortedWithActivities(String searchBy, Map<String, String> searchParams, String sortBy, String sortDirection,Pageable pageable, boolean onlyActiveUsers);
     Employee findEmployeeWithCurrentActivityByEmployeeId(int employeeId);
+    List<Employee> findInactiveEmployeesWithCurrentActivity();
     void delete(int id);
 }

@@ -97,6 +97,7 @@ public class EmployeeManageController {
                                      @RequestParam(value = "deactivationReason", defaultValue = "") String reason){
 
         EmployeeActivity employeeActivity = new EmployeeActivity();
+        employeeActivity.setActive(false);
         employeeActivity.setEmployee(employeeService.findById(employeeId));
         if(deactivationDate==null){
             employeeActivity.setDate(Date.from(Instant.now()));

@@ -181,4 +181,15 @@ public class EmployeeRepositoryTest{
         assertEquals(1, employee.getEmployeeActivities().size());
         assertThat(employee.getEmployeeActivities()).flatExtracting(EmployeeActivity::isActive).containsExactlyInAnyOrder(false);
     }
+
+    @Test
+    public void checkIfOnlyInactiveEmployeesAreLoadedWithCurrentActivities(){
+        jdbcTemplate.execute("INSERT INTO employee_activity (employee_id, active, date) " +
+                "VALUES(1, true, '2024-01-03')");
+        List<Employee> employees = employeeRepository.findInactiveEmployeesWithCurrentActivity();
+        assertFalse(employees.isEmpty());
+        assertEquals(1, employees.size());
+        assertThat(employees).flatExtracting(Employee::getEmployeeActivities)
+                .extracting(EmployeeActivity::isActive).contains(false);
+    }
 }

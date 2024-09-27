@@ -10,12 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeActivityServiceImpl implements EmployeeActivityService{
 
-    private EmployeeActivityRepository employeeActivityRepository;
-
     @Autowired
-    public EmployeeActivityServiceImpl(EmployeeActivityRepository employeeActivityRepository) {
-        this.employeeActivityRepository = employeeActivityRepository;
-    }
+    private EmployeeActivityRepository employeeActivityRepository;
 
     @Override
     public Page<EmployeeActivity> findAllCurrentActivities(Pageable pageable) {
@@ -31,6 +27,7 @@ public class EmployeeActivityServiceImpl implements EmployeeActivityService{
     public Page<EmployeeActivity> findActivitiesByEmployeeIdReversed(int employeeId, Pageable pageable) {
         return employeeActivityRepository.findActivitiesByEmployeeIdReversed(employeeId, pageable);
     }
+
 
     @Override
     public void save(EmployeeActivity employeeActivity) {
