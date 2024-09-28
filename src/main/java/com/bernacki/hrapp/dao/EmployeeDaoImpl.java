@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.dao;
 
-import com.bernacki.hrapp.model.Employee;
+import com.bernacki.hrapp.entity.Employee;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;

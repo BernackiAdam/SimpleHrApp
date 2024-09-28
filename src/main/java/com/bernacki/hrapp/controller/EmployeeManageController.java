@@ -2,8 +2,8 @@ package com.bernacki.hrapp.controller;
 
 
 import com.bernacki.hrapp.dto.EmployeeDto;
-import com.bernacki.hrapp.model.Employee;
-import com.bernacki.hrapp.model.EmployeeActivity;
+import com.bernacki.hrapp.entity.Employee;
+import com.bernacki.hrapp.entity.EmployeeActivity;
 import com.bernacki.hrapp.service.EmployeeActivityService;
 import com.bernacki.hrapp.service.EmployeeService;
 import jakarta.validation.Valid;

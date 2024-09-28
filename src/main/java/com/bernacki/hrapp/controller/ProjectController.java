@@ -1,8 +1,8 @@
 package com.bernacki.hrapp.controller;
 
-import com.bernacki.hrapp.model.Project;
-import com.bernacki.hrapp.model.ProjectAssignment;
-import com.bernacki.hrapp.model.ProjectPhase;
+import com.bernacki.hrapp.entity.Project;
+import com.bernacki.hrapp.entity.ProjectAssignment;
+import com.bernacki.hrapp.entity.ProjectPhase;
 import com.bernacki.hrapp.service.ProjectAssignmentService;
 import com.bernacki.hrapp.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;

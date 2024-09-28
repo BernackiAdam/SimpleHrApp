@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.model.EmployeeActivity;
+import com.bernacki.hrapp.entity.EmployeeActivity;
 import com.bernacki.hrapp.repository.EmployeeActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

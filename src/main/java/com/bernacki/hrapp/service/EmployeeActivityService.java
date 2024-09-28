@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.model.EmployeeActivity;
+import com.bernacki.hrapp.entity.EmployeeActivity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,14 +1,14 @@
 package com.bernacki.hrapp.repository;
 
-import com.bernacki.hrapp.model.Employee;
-import com.bernacki.hrapp.model.Project;
-import com.bernacki.hrapp.model.ProjectAssignment;
-import com.bernacki.hrapp.model.ProjectAssignmentId;
+import com.bernacki.hrapp.entity.Employee;
+import com.bernacki.hrapp.entity.Project;
+import com.bernacki.hrapp.entity.ProjectAssignment;
+import com.bernacki.hrapp.entity.ProjectAssignmentId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
 
@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@DataJpaTest
 @TestPropertySource(locations = "/test.properties")
 public class ProjectAssignmentTest {
 
@@ -43,16 +43,16 @@ public class ProjectAssignmentTest {
         jdbcTemplate.execute("INSERT INTO projects (title, project_type, description, active) " +
                 "VALUES('Proj2', 'MOBILE_APP', 'description1', true)");
 
-        jdbcTemplate.execute("INSERT INTO projects_users VALUES(1,1, 'project1_role1')");
-        jdbcTemplate.execute("INSERT INTO projects_users VALUES(2,1, 'project1_role2')");
-        jdbcTemplate.execute("INSERT INTO projects_users VALUES(2,2, 'project2_role1')");
-        jdbcTemplate.execute("INSERT INTO projects_users VALUES(3,2, 'project2_role2')");
+        jdbcTemplate.execute("INSERT INTO projects_employees VALUES(1,1, 'project1_role1')");
+        jdbcTemplate.execute("INSERT INTO projects_employees VALUES(2,1, 'project1_role2')");
+        jdbcTemplate.execute("INSERT INTO projects_employees VALUES(2,2, 'project2_role1')");
+        jdbcTemplate.execute("INSERT INTO projects_employees VALUES(3,2, 'project2_role2')");
 
     }
 
     @AfterEach
     public void afterEach(){
-        jdbcTemplate.execute("DELETE FROM projects_users");
+        jdbcTemplate.execute("DELETE FROM projects_employees");
         jdbcTemplate.execute("DELETE FROM employee");
         jdbcTemplate.execute("DELETE FROM projects");
     }

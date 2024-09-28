@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.dao;
 
-import com.bernacki.hrapp.model.Employee;
+import com.bernacki.hrapp.entity.Employee;
 
 import java.util.List;
 

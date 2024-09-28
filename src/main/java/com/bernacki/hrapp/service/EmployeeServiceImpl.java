@@ -1,8 +1,8 @@
 package com.bernacki.hrapp.service;
 
 import com.bernacki.hrapp.dao.EmployeeDao;
-import com.bernacki.hrapp.model.Employee;
-import com.bernacki.hrapp.model.ProjectAssignmentId;
+import com.bernacki.hrapp.entity.Employee;
+import com.bernacki.hrapp.entity.ProjectAssignmentId;
 import com.bernacki.hrapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.bernacki.hrapp.model;
+package com.bernacki.hrapp.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -36,4 +36,8 @@ public class EmployeeActivity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    public EmployeeActivity(boolean active) {
+        this.active = active;
+    }
 }

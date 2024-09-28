@@ -1,7 +1,7 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.model.ProjectAssignment;
-import com.bernacki.hrapp.model.ProjectAssignmentId;
+import com.bernacki.hrapp.entity.ProjectAssignment;
+import com.bernacki.hrapp.entity.ProjectAssignmentId;
 
 import java.util.List;
 

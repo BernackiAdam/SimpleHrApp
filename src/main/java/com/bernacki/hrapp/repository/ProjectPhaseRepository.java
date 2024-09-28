@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.repository;
 
-import com.bernacki.hrapp.model.ProjectPhase;
+import com.bernacki.hrapp.entity.ProjectPhase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.repository;
 
-import com.bernacki.hrapp.model.ProjectConsultant;
+import com.bernacki.hrapp.entity.ProjectConsultant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

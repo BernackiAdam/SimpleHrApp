@@ -2,10 +2,10 @@ package com.bernacki.hrapp.controller;
 
 import com.bernacki.hrapp.dto.ProjectConsultantDto;
 import com.bernacki.hrapp.dto.ProjectDto;
-import com.bernacki.hrapp.model.Client;
-import com.bernacki.hrapp.model.Project;
-import com.bernacki.hrapp.model.ProjectConsultant;
-import com.bernacki.hrapp.model.ProjectPhase;
+import com.bernacki.hrapp.entity.Client;
+import com.bernacki.hrapp.entity.Project;
+import com.bernacki.hrapp.entity.ProjectConsultant;
+import com.bernacki.hrapp.entity.ProjectPhase;
 import com.bernacki.hrapp.service.ClientService;
 import com.bernacki.hrapp.service.ProjectConsultantService;
 import com.bernacki.hrapp.service.ProjectService;

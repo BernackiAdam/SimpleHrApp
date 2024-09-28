@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.model.Client;
+import com.bernacki.hrapp.entity.Client;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

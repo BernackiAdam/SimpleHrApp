@@ -1,8 +1,8 @@
 package com.bernacki.hrapp.controller;
 
-import com.bernacki.hrapp.model.Employee;
-import com.bernacki.hrapp.model.ProjectAssignment;
-import com.bernacki.hrapp.model.ProjectAssignmentId;
+import com.bernacki.hrapp.entity.Employee;
+import com.bernacki.hrapp.entity.ProjectAssignment;
+import com.bernacki.hrapp.entity.ProjectAssignmentId;
 import com.bernacki.hrapp.service.EmployeeService;
 import com.bernacki.hrapp.service.ProjectAssignmentService;
 import com.bernacki.hrapp.service.ProjectService;

@@ -1,7 +1,7 @@
 package com.bernacki.hrapp.controller;
 
 import com.bernacki.hrapp.dto.ClientDto;
-import com.bernacki.hrapp.model.Client;
+import com.bernacki.hrapp.entity.Client;
 import com.bernacki.hrapp.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

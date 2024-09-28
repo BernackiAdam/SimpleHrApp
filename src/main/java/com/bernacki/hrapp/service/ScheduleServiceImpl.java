@@ -1,7 +1,7 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.model.Employee;
-import com.bernacki.hrapp.model.EmployeeActivity;
+import com.bernacki.hrapp.entity.Employee;
+import com.bernacki.hrapp.entity.EmployeeActivity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

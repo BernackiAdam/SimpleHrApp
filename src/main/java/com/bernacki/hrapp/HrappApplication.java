@@ -1,6 +1,6 @@
 package com.bernacki.hrapp;
 
-import com.bernacki.hrapp.model.*;
+import com.bernacki.hrapp.entity.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

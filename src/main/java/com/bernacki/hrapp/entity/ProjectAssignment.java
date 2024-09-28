@@ -1,4 +1,4 @@
-package com.bernacki.hrapp.model;
+package com.bernacki.hrapp.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

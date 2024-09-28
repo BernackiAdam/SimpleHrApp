@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.repository;
 
-import com.bernacki.hrapp.model.EmployeeActivity;
+import com.bernacki.hrapp.entity.EmployeeActivity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

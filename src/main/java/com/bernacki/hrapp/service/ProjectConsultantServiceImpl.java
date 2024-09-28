@@ -1,6 +1,6 @@
 package com.bernacki.hrapp.service;
 
-import com.bernacki.hrapp.model.ProjectConsultant;
+import com.bernacki.hrapp.entity.ProjectConsultant;
 import com.bernacki.hrapp.repository.ProjectConsultantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

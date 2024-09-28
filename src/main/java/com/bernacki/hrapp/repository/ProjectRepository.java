@@ -1,7 +1,7 @@
 package com.bernacki.hrapp.repository;
 
-import com.bernacki.hrapp.model.Project;
-import com.bernacki.hrapp.model.ProjectPhase;
+import com.bernacki.hrapp.entity.Project;
+import com.bernacki.hrapp.entity.ProjectPhase;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
