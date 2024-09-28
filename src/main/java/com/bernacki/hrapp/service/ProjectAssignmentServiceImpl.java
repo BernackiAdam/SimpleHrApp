@@ -46,6 +46,12 @@ public class ProjectAssignmentServiceImpl implements ProjectAssignmentService{
 
     @Transactional
     @Override
+    public void deleteProjectAssignmentByEmployeeIdAndProjectId(int employeeId, int projectId) {
+        projectAssignmentRepository.deleteProjectAssignmentByEmployeeIdAndProjectId(employeeId, projectId);
+    }
+
+    @Transactional
+    @Override
     public void deleteAllByProjectId(int projectId) {
         projectAssignmentRepository.deleteProjectAssignmentByProjectId(projectId);
     }

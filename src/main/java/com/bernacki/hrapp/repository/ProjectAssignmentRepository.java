@@ -24,6 +24,10 @@ public interface ProjectAssignmentRepository extends JpaRepository<ProjectAssign
     public List<ProjectAssignmentId> findProjectAssignmentIdsByProjectId(@Param("projectId") int projectId);
 
     @Modifying
+    @Query("DELETE FROM ProjectAssignment pa WHERE pa.employee.id=:employeeId AND pa.project.id=:projectId")
+    void deleteProjectAssignmentByEmployeeIdAndProjectId(@Param("employeeId") int employeeId, @Param("projectId") int projectId);
+
+    @Modifying
     @Query("DELETE FROM ProjectAssignment pa WHERE pa.id.projectId=:projectId")
     public void deleteProjectAssignmentByProjectId(@Param("projectId") int projectId);
 

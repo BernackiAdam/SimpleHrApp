@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmployeeDto {
 
+    private int id;
+
     @NotNull(message = "First name is required")
     @Size(min=1, message = "First name is required")
     private String firstName;

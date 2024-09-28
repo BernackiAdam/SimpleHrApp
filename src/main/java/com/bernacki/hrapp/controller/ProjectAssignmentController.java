@@ -110,4 +110,11 @@ public class ProjectAssignmentController {
 
         return "redirect:/project/info?projectId=" + projectId;
     }
+
+    @PostMapping("/remove-employee")
+    public String removeEmployeeFromProject(@RequestParam("employeeId") int employeeId,
+                                            @RequestParam("projectId") int projectId){
+        assignmentService.deleteProjectAssignmentByEmployeeIdAndProjectId(employeeId, projectId);
+        return "redirect:/project/info?projectId="+projectId;
+    }
 }

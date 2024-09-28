@@ -11,6 +11,7 @@ public interface ProjectAssignmentService {
     public void save(ProjectAssignment projectAssignment);
     public List<ProjectAssignmentId> findProjectAssignmentIdsByEmployeeId(int employeeId);
     public List<ProjectAssignmentId> findProjectAssignmentIdsByProjectId(int projectId);
+    public void deleteProjectAssignmentByEmployeeIdAndProjectId(int employeeId, int projectId);
     public void deleteAllByIds(List<ProjectAssignmentId> projectAssignmentIdList);
     public void deleteAllByProjectId(int projectId);
 }

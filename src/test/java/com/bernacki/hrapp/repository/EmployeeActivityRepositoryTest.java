@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +25,9 @@ public class EmployeeActivityRepositoryTest {
 
     @Autowired
     private EmployeeActivityRepository employeeActivityRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -80,5 +84,20 @@ public class EmployeeActivityRepositoryTest {
         assertThat(employeeActivities).extracting(EmployeeActivity::getEmployee).extracting(Employee::getId)
                 .containsExactlyInAnyOrder(1,1);
 
+    }
+
+    @Test
+    public void checkIfEmployeeActivityIsSaved(){
+        Optional<Employee> result = employeeRepository.findById(1);
+        Employee employee = result.orElse(null);
+        assertNotNull(employee);
+        assertEquals(2, employee.getEmployeeActivities().size());
+        EmployeeActivity employeeActivity = new EmployeeActivity(true);
+        employeeActivity.setEmployee(employee);
+        employeeActivityRepository.save(employeeActivity);
+        Optional<Employee> resultAfterSave = employeeRepository.findById(1);
+        Employee employeeAfterSave = result.orElse(null);
+        assertNotNull(employeeAfterSave);
+        assertEquals(2, employeeAfterSave.getEmployeeActivities().size());
     }
 }

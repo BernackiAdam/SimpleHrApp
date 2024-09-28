@@ -85,9 +85,20 @@
                 <td th:text="${assignment.employee.email}"></td>
                 <td th:text="${assignment.employee.telephoneNumber}"></td>
                 <td th:text="${assignment.role}"></td>
-                <td>
+                <td class="d-flex justify-content-between">
                     <a th:href="@{/employee/info(employeeId = ${assignment.employee.id})}"
                        class="btn btn-info">Info</a>
+                    <form th:action="@{/assignment/remove-employee}" method="post">
+                        <input type="hidden" th:value="${assignment.employee.id}" name="employeeId">
+                        <input type="hidden" th:value="${project.id}" name="projectId">
+<!--                        <a th:href="@{/assignment/remove-employee(projectId = ${project.id}, employeeId = ${assignment.employee.id})}"-->
+<!--                           onclick="if (!(confirm('Are you sure you want to remove this employee?'))) return false"-->
+<!--                           class="btn btn-danger">Remove</a>-->
+                        <button type="submit"
+                                onclick="if (!(confirm('Are you sure you want to remove this employee?'))) return false"
+                                class="btn btn-danger" >Remove</button>
+                    </form>
+
                 </td>
             </tr>
             </tbody>

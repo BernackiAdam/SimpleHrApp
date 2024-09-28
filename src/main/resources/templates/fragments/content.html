@@ -7,7 +7,7 @@
 </head>
 <body>
 <div th:fragment="pagination (totalPages, currentPage, pageNumbers, endpoint)">
-    <div th:if="${totalPages>0}"
+    <div th:if="${totalPages>1}"
          class="column d-flex justify-content-between align-items-center w-100">
         <span  th:class="${currentPage==0} ? hidden">
             <a th:href="@{${endpoint}(page=${currentPage -1})}"
@@ -31,7 +31,7 @@
 </div>
 
 <div th:fragment="paginationWithParameter (totalPages, currentPage, pageNumbers, endpoint, parameter)">
-    <div th:if="${totalPages>0}"
+    <div th:if="${totalPages>1}"
          class="column d-flex justify-content-between align-items-center w-100">
         <span  th:class="${currentPage==0} ? hidden">
             <a th:href="@{${endpoint} + ${parameter}(page=${currentPage -1})}"

@@ -95,6 +95,10 @@
                 <span class="label">Position: </span>
                 <span th:text="${employee.seniority + ' ' + employee.position}">name</span>
             </div>
+            <div class="p-2 text-muted d-flex">
+                <span class="label">Joined on:  </span>
+                <span th:text="${#dates.format(employee.joinDate, 'yyyy-MM-dd')}">name</span>
+            </div>
         </div>
 <!--        <div class="col-lg-1"></div>-->
         <div class="col-lg-6 col-md-7 col-sm-12 mt-3">
@@ -131,7 +135,7 @@
                 </tbody>
             </table>
 <!--            "pagination (totalPages, currentPage, pageNumbers, endpoint)"-->
-            <div th:insert="~{fragments/content.html :: paginationWithParameter (totalPages=${totalPages},
+            <div th:replace="~{fragments/content.html :: paginationWithParameter (totalPages=${totalPages},
                             currentPage=${page},
                             pageNumbers=${pageNumbers},
                             endpoint='/employee/info?employeeId=',
@@ -166,7 +170,7 @@
         </table>
     </div>
     <div th:if="${assignments.isEmpty()}">
-        <h6>There are no projects assigned to this employee</h6>
+        <h6>This employee is not assigned to any project</h6>
     </div>
 </div>
 

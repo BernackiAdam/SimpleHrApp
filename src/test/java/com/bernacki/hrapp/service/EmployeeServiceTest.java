@@ -4,13 +4,12 @@ package com.bernacki.hrapp.service;
 import com.bernacki.hrapp.dao.EmployeeDao;
 import com.bernacki.hrapp.entity.Employee;
 import com.bernacki.hrapp.repository.EmployeeRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -24,18 +23,22 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-@SpringBootTest
+
 public class EmployeeServiceTest {
 
-    @MockBean
+    @Mock
     private EmployeeRepository employeeRepository;
 
-    @MockBean
+    @Mock
     private EmployeeDao employeeDao;
 
-    @Autowired
-    private EmployeeService employeeService;
+    @InjectMocks
+    private EmployeeServiceImpl employeeService;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     public void checkIfEmployeesAreReturnedSearchedAndSorted_All() {

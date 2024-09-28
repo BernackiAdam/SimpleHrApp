@@ -66,28 +66,53 @@ public class EmployeeManageController {
             populateModel(model);
             return "manage/employee-add-form";
         }
-        Employee employee = new Employee();
-        employee.setFirstName(employeeDto.getFirstName());
-        employee.setLastName(employeeDto.getLastName());
-        employee.setEmail(employeeDto.getEmail());
-        employee.setTelephoneNumber(employeeDto.getTelephoneNumber());
-        employee.setSeniority(employeeDto.getSeniority());
-        employee.setPosition(employeeDto.getPosition());
+        Employee employee = null;
+        if(employeeDto.getId() == 0){
+            employee = new Employee();
+            EmployeeActivity employeeActivity = new EmployeeActivity();
+            employeeActivity.setActive(true);
+            employeeActivity.setEmployee(employee);
+            employee.setEmployeeActivities(List.of(employeeActivity));
+        }
+        else{
+            employee = employeeService.findById(employeeDto.getId());
+        }
+            employee.setFirstName(employeeDto.getFirstName());
+            employee.setLastName(employeeDto.getLastName());
+            employee.setEmail(employeeDto.getEmail());
+            employee.setTelephoneNumber(employeeDto.getTelephoneNumber());
+            employee.setSeniority(employeeDto.getSeniority());
+            employee.setPosition(employeeDto.getPosition());
 
-        EmployeeActivity employeeActivity = new EmployeeActivity();
-        employeeActivity.setActive(true);
-        employeeActivity.setEmployee(employee);
-        employee.setEmployeeActivities(List.of(employeeActivity));
         employeeService.save(employee);
         return "redirect:/manage/";
     }
 
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("employeeId") int id){
+    public String deleteEmployee(@RequestParam("employeeId") int id){
 
         employeeService.delete(id);
         return "redirect:/employee/list";
+    }
+
+    @GetMapping("/edit")
+    public String editEmployee(@RequestParam("employeeId") int employeeId,
+                               Model model){
+        Employee employee = employeeService.findById(employeeId);
+        EmployeeDto employeeDto = new EmployeeDto();
+
+        employeeDto.setId(employeeId);
+        employeeDto.setFirstName(employee.getFirstName());
+        employeeDto.setLastName(employee.getLastName());
+        employeeDto.setEmail(employee.getEmail());
+        employeeDto.setTelephoneNumber(employee.getTelephoneNumber());
+        employeeDto.setSeniority(employee.getSeniority());
+        employeeDto.setPosition(employee.getPosition());
+
+        populateModel(model);
+        model.addAttribute("employee",employeeDto);
+        return "manage/employee-add-form";
     }
 
     @PostMapping("/deactivate")

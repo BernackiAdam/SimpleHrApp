@@ -15,6 +15,7 @@
     <form th:action="@{/manage/employee/save}"
             th:object="${employee}"
             method="POST">
+        <input type="hidden" th:field="*{id}">
         <div class="column col-md-4" th:if="${#fields.hasAnyErrors()}">
             <div class="bg-warning text-white my-3 p-1 rounded" th:each="err : ${#fields.allErrors()}" >
                 <span th:text="${err}">
