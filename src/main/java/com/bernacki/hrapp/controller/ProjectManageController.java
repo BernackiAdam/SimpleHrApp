@@ -8,6 +8,7 @@ import com.bernacki.hrapp.entity.ProjectConsultant;
 import com.bernacki.hrapp.entity.ProjectPhase;
 import com.bernacki.hrapp.service.ClientService;
 import com.bernacki.hrapp.service.ProjectConsultantService;
+import com.bernacki.hrapp.service.ProjectPhaseService;
 import com.bernacki.hrapp.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,18 @@ import java.util.List;
 @RequestMapping("/manage/project")
 public class ProjectManageController {
 
+    @Autowired
     private ProjectService projectService;
+
+    @Autowired
     private ProjectConsultantService consultantService;
+
+    @Autowired
     private ClientService clientService;
 
     @Autowired
-    public ProjectManageController(ProjectService projectService, ProjectConsultantService consultantService, ClientService clientService) {
-        this.projectService = projectService;
-        this.consultantService = consultantService;
-        this.clientService = clientService;
-    }
+    private ProjectPhaseService projectPhaseService;
+
 
     @InitBinder
     private void initBinder(WebDataBinder dataBinder){
@@ -122,5 +125,15 @@ public class ProjectManageController {
     public String deleteProjectById(int projectId){
         projectService.deleteById(projectId);
         return "redirect:/project/list";
+    }
+
+    @PostMapping("/add-phase")
+    public String addPhaseToProject(@RequestParam("projectId") int projectId,
+                                    @RequestParam("phaseName") String phaseName){
+        ProjectPhase projectPhase = new ProjectPhase();
+        projectPhase.setPhase(phaseName);
+        projectPhase.setProject(projectService.findById(projectId));
+        projectPhaseService.save(projectPhase);
+        return "redirect:/project/info?projectId="+projectId;
     }
 }

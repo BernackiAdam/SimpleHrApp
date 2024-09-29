@@ -9,8 +9,8 @@
 <body>
 <div th:insert="fragments/general.html :: navbar"></div>
 <div class="container mt-5 mb-5">
-    <h2>Adding new employee</h2>
-    <!--    forma do walidacji notatki str.200-->
+    <h2>Assigning consultant to project</h2>
+
 
     <form th:action="@{/manage/consultant/save}"
           th:object="${consultant}"
@@ -50,7 +50,7 @@
             </div>
         </div>
         <!-- Przycisk dodawania -->
-        <button type="submit" class="btn btn-primary">Add new client</button>
+        <button type="submit" class="btn btn-primary">Assign consultant</button>
     </form>
 </div>
 </body>

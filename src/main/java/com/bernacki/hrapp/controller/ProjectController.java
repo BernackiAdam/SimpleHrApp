@@ -74,10 +74,11 @@ public class ProjectController {
                               Model model){
         Project project = projectService.findById(id);
         List<ProjectAssignment> assignments = projectAssignmentService.findEmployeesAssignedToProjectWithRolesById(id);
-        List<ProjectPhase> phases = projectService.findPhasesAssignedToProject(id);
+        List<ProjectPhase> projectPhases = projectService.findPhasesAssignedToProject(id).reversed();
         model.addAttribute("project", project);
         model.addAttribute("assignments", assignments);
-        model.addAttribute("phases", phases);
+        model.addAttribute("phases", projectPhases);
+        model.addAttribute("listOfPhases", phases);
         return "project/project-info";
     }
 }
