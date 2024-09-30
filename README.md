@@ -141,190 +141,107 @@ Tests was performed using JUnit 5 and mockito.<br>
 Currently created tests was mainly focused on repository package to ensure that all connections and query methods are correct. 
 H2 database was used in tests in order to speed up the process. 
 Tests were also performed for query builder method in Employee service and Employee DAO to ensure that both of them works correctly.
+Additionally created tests for schedule service.
+
 <table class="coverageStats">
 <tr>
-  <th class="name  sortedAsc
-">
-<a href="index_SORT_BY_NAME_DESC.html">Package</a>  </th>
-<th class="coverageStat 
-">
-  <a href="index_SORT_BY_CLASS.html">Class, %</a>
-</th>
-<th class="coverageStat 
-">
-  <a href="index_SORT_BY_METHOD.html">Method, %</a>
-</th>
-<th class="coverageStat 
-">
-  <a href="index_SORT_BY_BLOCK.html">Branch, %</a>
-</th>
-<th class="coverageStat 
-">
-  <a href="index_SORT_BY_LINE.html">Line, %</a>
-</th>
+  <th class="name  sortedAsc">Package</th>
+  <th class="coverageStat">Class, %</th>
+  <th class="coverageStat">Method, %</th>
+  <th class="coverageStat">Branch, %</th>
+  <th class="coverageStat">Line, %</th>
 </tr>
-  <tr>
-    <td class="name"><a href="ns-1/index.html">com.bernacki.hrapp</a></td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    10%
-  </span>
-  <span class="absValue">
-    (1/10)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    10%
-  </span>
-  <span class="absValue">
-    (1/10)
-  </span>
-</td>
-  </tr>
-  <tr>
-    <td class="name"><a href="ns-2/index.html">com.bernacki.hrapp.controller</a></td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/9)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/38)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/38)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/257)
-  </span>
-</td>
-  </tr>
-  <tr>
-    <td class="name"><a href="ns-3/index.html">com.bernacki.hrapp.dao</a></td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (2/2)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (8/8)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (12/12)
-  </span>
-</td>
-  </tr>
-  <tr>
-    <td class="name"><a href="ns-4/index.html">com.bernacki.hrapp.entity</a></td>
-<td class="coverageStat">
-  <span class="percent">
-    50%
-  </span>
-  <span class="absValue">
-    (3/6)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    50%
-  </span>
-  <span class="absValue">
-    (3/6)
-  </span>
-</td>
-    <td class="coverageStat"/>
-<td class="coverageStat">
-  <span class="percent">
-    50%
-  </span>
-  <span class="absValue">
-    (11/22)
-  </span>
-</td>
-  </tr>
-  <tr>
-    <td class="name"><a href="ns-5/index.html">com.bernacki.hrapp.service</a></td>
-<td class="coverageStat">
-  <span class="percent">
-    25%
-  </span>
-  <span class="absValue">
-    (2/8)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    8,3%
-  </span>
-  <span class="absValue">
-    (4/48)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    18,4%
-  </span>
-  <span class="absValue">
-    (7/38)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    25,9%
-  </span>
-  <span class="absValue">
-    (38/147)
-  </span>
-</td>
-  </tr>
+<tr>
+  <td class="name">com.bernacki.hrapp</td>
+  <td class="coverageStat">
+    <span class="percent">100%</span>
+    <span class="absValue">(1/1)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">10%</span>
+    <span class="absValue">(1/10)</span>
+  </td>
+  <td class="coverageStat"></td>
+  <td class="coverageStat">
+    <span class="percent">10%</span>
+    <span class="absValue">(1/10)</span>
+  </td>
+</tr>
+<tr>
+  <td class="name">com.bernacki.hrapp.controller</td>
+  <td class="coverageStat">
+    <span class="percent">0%</span>
+    <span class="absValue">(0/9)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">0%</span>
+    <span class="absValue">(0/38)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">0%</span>
+    <span class="absValue">(0/38)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">0%</span>
+    <span class="absValue">(0/257)</span>
+  </td>
+</tr>
+<tr>
+  <td class="name">com.bernacki.hrapp.dao</td>
+  <td class="coverageStat">
+    <span class="percent">100%</span>
+    <span class="absValue">(1/1)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">100%</span>
+    <span class="absValue">(2/2)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">100%</span>
+    <span class="absValue">(8/8)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">100%</span>
+    <span class="absValue">(12/12)</span>
+  </td>
+</tr>
+<tr>
+  <td class="name">com.bernacki.hrapp.entity</td>
+  <td class="coverageStat">
+    <span class="percent">50%</span>
+    <span class="absValue">(3/6)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">50%</span>
+    <span class="absValue">(3/6)</span>
+  </td>
+  <td class="coverageStat"></td>
+  <td class="coverageStat">
+    <span class="percent">50%</span>
+    <span class="absValue">(11/22)</span>
+  </td>
+</tr>
+<tr>
+  <td class="name">com.bernacki.hrapp.service</td>
+  <td class="coverageStat">
+    <span class="percent">25%</span>
+    <span class="absValue">(2/8)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">8,3%</span>
+    <span class="absValue">(4/48)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">18,4%</span>
+    <span class="absValue">(7/38)</span>
+  </td>
+  <td class="coverageStat">
+    <span class="percent">25,9%</span>
+    <span class="absValue">(38/147)</span>
+  </td>
+</tr>
 </table>
 
-Here you can find the [full test coverage report](test-raport/index.html).
+
+
 
