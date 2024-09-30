@@ -1,0 +1,111 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1250"> 
+  <title>Coverage Report > EmployeeRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.bernacki.hrapp.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: EmployeeRepository (com.bernacki.hrapp.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">EmployeeRepository$MockitoMock$MZuk4YvE</td>
+  </tr>
+  <tr>
+    <td class="name">EmployeeRepository$MockitoMock$MZuk4YvE$auxiliary$dZ0fwHhE</td>
+  </tr>
+  <tr>
+    <td class="name">EmployeeRepository$MockitoMock$MZuk4YvE$auxiliary$iorAipeC</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.bernacki.hrapp.repository;
+&nbsp;
+&nbsp;import com.bernacki.hrapp.entity.Employee;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.data.domain.Pageable;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.data.jpa.repository.Query;
+&nbsp;import org.springframework.data.repository.query.Param;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;
+&nbsp;public interface EmployeeRepository extends JpaRepository&lt;Employee, Integer&gt; {
+&nbsp;
+&nbsp;    @Query(&quot;SELECT e FROM Employee e &quot; +
+&nbsp;            &quot;LEFT JOIN FETCH e.employeeActivities ea &quot; +
+&nbsp;            &quot;WHERE (:onlyActive = false OR ea.active=true) &quot; +
+&nbsp;            &quot;AND ea.date=(SELECT MAX(ea2.date) FROM EmployeeActivity ea2 WHERE ea2.employee = e)&quot; +
+&nbsp;            &quot;ORDER BY ea.active DESC, e.id ASC&quot;)
+&nbsp;    Page&lt;Employee&gt; findAllOrActiveWithCurrentActivity(@Param(&quot;onlyActive&quot;) boolean onlyActive, Pageable pageable);
+&nbsp;
+&nbsp;
+&nbsp;    @Query(&quot;SELECT e FROM Employee e &quot; +
+&nbsp;            &quot;LEFT JOIN FETCH e.employeeActivities ea &quot; +
+&nbsp;            &quot;WHERE ea.date=(SELECT MAX(ea2.date) FROM EmployeeActivity ea2 where ea2.employee = e) &quot; +
+&nbsp;            &quot;AND e.id =:employeeId&quot;)
+&nbsp;    Employee findEmployeeWithCurrentActivityByEmployeeId(@Param(&quot;employeeId&quot;) int employeeId);
+&nbsp;
+&nbsp;    @Query(&quot;SELECT e FROM Employee e &quot; +
+&nbsp;            &quot;LEFT JOIN FETCH e.employeeActivities ea &quot; +
+&nbsp;            &quot;WHERE ea.active=false &quot; +
+&nbsp;            &quot;AND ea.date=(SELECT MAX(ea2.date) FROM EmployeeActivity ea2 where ea2.employee = e)&quot;)
+&nbsp;    List&lt;Employee&gt; findInactiveEmployeesWithCurrentActivity();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-09-30 21:08</div>
+</div>
+</body>
+</html>

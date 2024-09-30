@@ -1,0 +1,255 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1250"> 
+  <title>Coverage Report > ProjectManageController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.bernacki.hrapp.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: ProjectManageController (com.bernacki.hrapp.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProjectManageController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/52)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.bernacki.hrapp.controller;
+&nbsp;
+&nbsp;import com.bernacki.hrapp.dto.ProjectConsultantDto;
+&nbsp;import com.bernacki.hrapp.dto.ProjectDto;
+&nbsp;import com.bernacki.hrapp.entity.Client;
+&nbsp;import com.bernacki.hrapp.entity.Project;
+&nbsp;import com.bernacki.hrapp.entity.ProjectConsultant;
+&nbsp;import com.bernacki.hrapp.entity.ProjectPhase;
+&nbsp;import com.bernacki.hrapp.service.ClientService;
+&nbsp;import com.bernacki.hrapp.service.ProjectConsultantService;
+&nbsp;import com.bernacki.hrapp.service.ProjectPhaseService;
+&nbsp;import com.bernacki.hrapp.service.ProjectService;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.beans.factory.annotation.Value;
+&nbsp;import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.ui.Model;
+&nbsp;import org.springframework.validation.BindingResult;
+&nbsp;import org.springframework.validation.FieldError;
+&nbsp;import org.springframework.web.bind.WebDataBinder;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Controller
+&nbsp;@RequestMapping(&quot;/manage/project&quot;)
+<b class="nc">&nbsp;public class ProjectManageController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private ProjectService projectService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private ProjectConsultantService consultantService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private ClientService clientService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private ProjectPhaseService projectPhaseService;
+&nbsp;
+&nbsp;
+&nbsp;    @InitBinder
+&nbsp;    private void initBinder(WebDataBinder dataBinder){
+<b class="nc">&nbsp;        StringTrimmerEditor editor = new StringTrimmerEditor(true);</b>
+<b class="nc">&nbsp;        dataBinder.registerCustomEditor(String.class, editor);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Value(&quot;${projectType}&quot;)
+&nbsp;    private List&lt;String&gt; projectTypes;
+&nbsp;
+&nbsp;    @Value(&quot;${phase}&quot;)
+&nbsp;    private List&lt;String&gt; phases;
+&nbsp;
+&nbsp;    private void populateModel(Model model){
+<b class="nc">&nbsp;        model.addAttribute(&quot;clientList&quot;, clientService.findAll());</b>
+<b class="nc">&nbsp;        model.addAttribute(&quot;phases&quot;, phases);</b>
+<b class="nc">&nbsp;        model.addAttribute(&quot;projectTypes&quot;, projectTypes);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/add&quot;)
+&nbsp;    public String addProject(Model model){
+<b class="nc">&nbsp;        populateModel(model);</b>
+<b class="nc">&nbsp;        model.addAttribute(&quot;project&quot;, new ProjectDto());</b>
+<b class="nc">&nbsp;        model.addAttribute(&quot;consultant&quot;, new ProjectConsultantDto());</b>
+<b class="nc">&nbsp;        return &quot;/manage/project-add-form&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;/save&quot;)
+&nbsp;    public String saveProject(@Valid @ModelAttribute(&quot;project&quot;) ProjectDto projectDto,
+&nbsp;                              BindingResult bindingResultProject,
+&nbsp;                              @ModelAttribute(&quot;consultant&quot;) ProjectConsultantDto projectConsultantDto,
+&nbsp;                              BindingResult bindingResultConsultant,
+&nbsp;                              @RequestParam(name = &quot;addConsultant&quot;, required = false, defaultValue = &quot;false&quot;) boolean addConsultant,
+&nbsp;                              Model model){
+<b class="nc">&nbsp;        if (addConsultant) {</b>
+<b class="nc">&nbsp;            if (projectConsultantDto.getEmail() ==null) {</b>
+<b class="nc">&nbsp;                bindingResultConsultant.addError(new FieldError(&quot;consultant&quot;, &quot;email&quot;, &quot;Email is required&quot;));</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if (projectConsultantDto.getTelephoneNumber() ==null) {</b>
+<b class="nc">&nbsp;                bindingResultConsultant.addError(new FieldError(&quot;consultant&quot;, &quot;telephoneNumber&quot;, &quot;Telephone number is required&quot;));</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if (projectConsultantDto.getFirstName() ==null) {</b>
+<b class="nc">&nbsp;                bindingResultConsultant.addError(new FieldError(&quot;consultant&quot;, &quot;firstName&quot;, &quot;First name is required&quot;));</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if (projectConsultantDto.getLastName() ==null) {</b>
+<b class="nc">&nbsp;                bindingResultConsultant.addError(new FieldError(&quot;consultant&quot;, &quot;lastName&quot;, &quot;Last name is required&quot;));</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if(bindingResultConsultant.hasErrors()){</b>
+<b class="nc">&nbsp;                populateModel(model);</b>
+<b class="nc">&nbsp;                return &quot;/manage/project-add-form&quot;;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if(bindingResultProject.hasErrors()){</b>
+<b class="nc">&nbsp;            populateModel(model);</b>
+<b class="nc">&nbsp;            return &quot;/manage/project-add-form&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Client client = clientService.findById(projectDto.getClientId());</b>
+<b class="nc">&nbsp;        Project project = new Project();</b>
+<b class="nc">&nbsp;        project.setTitle(projectDto.getTitle());</b>
+<b class="nc">&nbsp;        project.setProjectType(projectDto.getProjectType());</b>
+<b class="nc">&nbsp;        project.setDescription(projectDto.getDescription());</b>
+<b class="nc">&nbsp;        project.setClient(client);</b>
+<b class="nc">&nbsp;        if(addConsultant){</b>
+<b class="nc">&nbsp;            ProjectConsultant projectConsultant = new ProjectConsultant();</b>
+<b class="nc">&nbsp;            projectConsultant.setFirstName(projectConsultantDto.getFirstName());</b>
+<b class="nc">&nbsp;            projectConsultant.setLastName(projectConsultantDto.getLastName());</b>
+<b class="nc">&nbsp;            projectConsultant.setEmail(projectConsultantDto.getEmail());</b>
+<b class="nc">&nbsp;            projectConsultant.setTelephoneNumber(projectConsultantDto.getTelephoneNumber());</b>
+<b class="nc">&nbsp;            project.setProjectConsultant(projectConsultant);</b>
+<b class="nc">&nbsp;            projectConsultant.setProject(project);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        ProjectPhase projectPhase = new ProjectPhase();</b>
+<b class="nc">&nbsp;        projectPhase.setPhase(projectDto.getStartingPhase());</b>
+<b class="nc">&nbsp;        projectPhase.setProject(project);</b>
+<b class="nc">&nbsp;        project.setPhases(List.of(projectPhase));</b>
+&nbsp;
+<b class="nc">&nbsp;        projectService.save(project);</b>
+<b class="nc">&nbsp;        return &quot;redirect:/manage/&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/delete&quot;)
+&nbsp;    public String deleteProjectById(int projectId){
+<b class="nc">&nbsp;        projectService.deleteById(projectId);</b>
+<b class="nc">&nbsp;        return &quot;redirect:/project/list&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;/add-phase&quot;)
+&nbsp;    public String addPhaseToProject(@RequestParam(&quot;projectId&quot;) int projectId,
+&nbsp;                                    @RequestParam(&quot;phaseName&quot;) String phaseName){
+<b class="nc">&nbsp;        ProjectPhase projectPhase = new ProjectPhase();</b>
+<b class="nc">&nbsp;        projectPhase.setPhase(phaseName);</b>
+<b class="nc">&nbsp;        projectPhase.setProject(projectService.findById(projectId));</b>
+<b class="nc">&nbsp;        projectPhaseService.save(projectPhase);</b>
+<b class="nc">&nbsp;        return &quot;redirect:/project/info?projectId=&quot;+projectId;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-09-30 21:08</div>
+</div>
+</body>
+</html>

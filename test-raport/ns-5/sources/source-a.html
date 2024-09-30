@@ -1,0 +1,91 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1250"> 
+  <title>Coverage Report > ProjectService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.bernacki.hrapp.service</a>
+</div>
+
+<h1>Coverage Summary for Class: ProjectService (com.bernacki.hrapp.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ProjectService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.bernacki.hrapp.service;
+&nbsp;
+&nbsp;import com.bernacki.hrapp.entity.Project;
+&nbsp;import com.bernacki.hrapp.entity.ProjectPhase;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.data.domain.Pageable;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;public interface ProjectService {
+&nbsp;    public List&lt;Project&gt; findAll();
+&nbsp;    public Project findById(int id);
+&nbsp;    public List&lt;ProjectPhase&gt; findPhasesAssignedToProject(int id);
+&nbsp;    public List&lt;Project&gt; findProjectAssignedToClient(int id);
+&nbsp;    public void save(Project project);
+&nbsp;    public void deleteById(int projectId);
+&nbsp;    public Page&lt;Project&gt; findAllPaginated(Pageable pageable);
+&nbsp;    public Page&lt;Project&gt; findByTitle(String title, Pageable pageable);
+&nbsp;    public Page&lt;Project&gt; findByProjectType(String projectType, Pageable pageable);
+&nbsp;    public Page&lt;Project&gt; findByCurrentPhase(String phase, Pageable pageable);
+&nbsp;    public Page&lt;Project&gt; getProjectPageSearched(String searchBy, Map&lt;String, String&gt; searchParams, Pageable pageable);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-09-30 21:08</div>
+</div>
+</body>
+</html>
