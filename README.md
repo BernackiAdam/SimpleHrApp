@@ -243,9 +243,9 @@ Additionally created tests for schedule service.
 </table>
 
 <div style="display: flex;">
-  <img src="assets/images/Test_1.png" alt="Tests_1" width="500" style="margin-bottom:20px;"/>
-  <img src="assets/images/Test_2.png" alt="Tests_1" width="500" style="margin-bottom:20px;"/>
-  <img src="assets/images/Test_3.png" alt="Tests_1" width="500" style="margin-bottom:20px;"/>
+  <img src="assets/images/test_1.png" alt="Tests_1" width="500" style="margin-bottom:20px;"/>
+  <img src="assets/images/test_2.png" alt="Tests_1" width="500" style="margin-bottom:20px;"/>
+  <img src="assets/images/test_3.png" alt="Tests_1" width="500" style="margin-bottom:20px;"/>
 </div>
 
 
