@@ -2,7 +2,6 @@ package com.bernacki.hrapp.controller;
 
 import com.bernacki.hrapp.dto.ProjectConsultantDto;
 import com.bernacki.hrapp.entity.Project;
-import com.bernacki.hrapp.entity.ProjectConsultant;
 import com.bernacki.hrapp.service.ProjectConsultantService;
 import com.bernacki.hrapp.service.ProjectService;
 import jakarta.validation.Valid;
@@ -35,20 +34,13 @@ public class ConsultantManageController {
     @PostMapping("/save")
     public String saveConsultant(@Valid @ModelAttribute("consultant") ProjectConsultantDto consultantDto,
                                  BindingResult bindingResult,
-//                                 @RequestParam("projectId") int id,
                                  Model model){
         if(bindingResult.hasErrors()){
-//            model.addAttribute("projectId", id);
+            model.addAttribute("consultant", consultantDto);
             return "manage/consultant-add-form";
         }
-        ProjectConsultant consultant = new ProjectConsultant();
         Project project = projectService.findById(consultantDto.getProjectId());
-        consultant.setProject(project);
-        consultant.setFirstName(consultantDto.getFirstName());
-        consultant.setLastName(consultantDto.getLastName());
-        consultant.setEmail(consultantDto.getEmail());
-        consultant.setTelephoneNumber(consultantDto.getTelephoneNumber());
-        consultantService.save(consultant);
+        consultantService.saveUsingDto(consultantDto, project);
         return "redirect:/project/info?projectId=" + consultantDto.getProjectId();
     }
 }
