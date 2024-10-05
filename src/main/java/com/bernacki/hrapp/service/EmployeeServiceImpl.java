@@ -1,7 +1,9 @@
 package com.bernacki.hrapp.service;
 
 import com.bernacki.hrapp.dao.EmployeeDao;
+import com.bernacki.hrapp.dto.EmployeeDto;
 import com.bernacki.hrapp.entity.Employee;
+import com.bernacki.hrapp.entity.EmployeeActivity;
 import com.bernacki.hrapp.entity.ProjectAssignmentId;
 import com.bernacki.hrapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,5 +132,28 @@ public class EmployeeServiceImpl implements EmployeeService{
         List<ProjectAssignmentId> projectAssignmentIdList= projectAssignmentService.findProjectAssignmentIdsByEmployeeId(id);
         projectAssignmentService.deleteAllByIds(projectAssignmentIdList);
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public void saveByEmployeeDto(EmployeeDto employeeDto) {
+        Employee employee = null;
+        if(employeeDto.getId() == 0){
+            employee = new Employee();
+            EmployeeActivity employeeActivity = new EmployeeActivity();
+            employeeActivity.setActive(true);
+            employeeActivity.setEmployee(employee);
+            employee.setEmployeeActivities(List.of(employeeActivity));
+        }
+        else{
+            employee = findById(employeeDto.getId());
+        }
+        employee.setFirstName(employeeDto.getFirstName());
+        employee.setLastName(employeeDto.getLastName());
+        employee.setEmail(employeeDto.getEmail());
+        employee.setTelephoneNumber(employeeDto.getTelephoneNumber());
+        employee.setSeniority(employeeDto.getSeniority());
+        employee.setPosition(employeeDto.getPosition());
+
+        save(employee);
     }
 }

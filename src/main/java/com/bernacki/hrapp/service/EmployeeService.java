@@ -1,5 +1,6 @@
 package com.bernacki.hrapp.service;
 
+import com.bernacki.hrapp.dto.EmployeeDto;
 import com.bernacki.hrapp.entity.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,7 @@ public interface EmployeeService {
     public List<Employee> findAll();
     public Employee findById(int id);
     void save(Employee employee);
+    void saveByEmployeeDto(EmployeeDto employeeDto);
     void delete(int id);
 
     Page<Employee> findAllSearchedAndSortedWithActivities(String searchBy, Map<String, String> searchParams, String sortBy, String sortDirection,Pageable pageable, boolean onlyActiveUsers);

@@ -66,25 +66,7 @@ public class EmployeeManageController {
             populateModel(model);
             return "manage/employee-add-form";
         }
-        Employee employee = null;
-        if(employeeDto.getId() == 0){
-            employee = new Employee();
-            EmployeeActivity employeeActivity = new EmployeeActivity();
-            employeeActivity.setActive(true);
-            employeeActivity.setEmployee(employee);
-            employee.setEmployeeActivities(List.of(employeeActivity));
-        }
-        else{
-            employee = employeeService.findById(employeeDto.getId());
-        }
-            employee.setFirstName(employeeDto.getFirstName());
-            employee.setLastName(employeeDto.getLastName());
-            employee.setEmail(employeeDto.getEmail());
-            employee.setTelephoneNumber(employeeDto.getTelephoneNumber());
-            employee.setSeniority(employeeDto.getSeniority());
-            employee.setPosition(employeeDto.getPosition());
-
-        employeeService.save(employee);
+        employeeService.saveByEmployeeDto(employeeDto);
         return "redirect:/manage/";
     }
 
