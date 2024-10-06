@@ -81,17 +81,7 @@ public class EmployeeManageController {
     @GetMapping("/edit")
     public String editEmployee(@RequestParam("employeeId") int employeeId,
                                Model model){
-        Employee employee = employeeService.findById(employeeId);
-        EmployeeDto employeeDto = new EmployeeDto();
-
-        employeeDto.setId(employeeId);
-        employeeDto.setFirstName(employee.getFirstName());
-        employeeDto.setLastName(employee.getLastName());
-        employeeDto.setEmail(employee.getEmail());
-        employeeDto.setTelephoneNumber(employee.getTelephoneNumber());
-        employeeDto.setSeniority(employee.getSeniority());
-        employeeDto.setPosition(employee.getPosition());
-
+        EmployeeDto employeeDto = employeeService.populateEmployeeDtoByEmployeeId(employeeId);
         populateModel(model);
         model.addAttribute("employee",employeeDto);
         return "manage/employee-add-form";

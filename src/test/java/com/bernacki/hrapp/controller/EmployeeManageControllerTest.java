@@ -10,8 +10,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -108,5 +111,30 @@ public class EmployeeManageControllerTest {
         verify(employeeService, times(1))
                 .saveByEmployeeDto(any(EmployeeDto.class));
 
+    }
+
+    @Test
+    public void testEditEmployee() throws Exception{
+
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId(1);
+        employeeDto.setFirstName("TestFirstName");
+        employeeDto.setLastName("TestLastName");
+        employeeDto.setEmail("TestEmail@email.com");
+        employeeDto.setTelephoneNumber("123123123");
+        employeeDto.setSeniority("TestSeniority");
+        employeeDto.setPosition("TestPosition");
+
+        when(employeeService.populateEmployeeDtoByEmployeeId(1)).thenReturn(employeeDto);
+
+
+        mockMvc.perform(get("/manage/employee/edit").param("employeeId", "1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("manage/employee-add-form"))
+                .andExpect(model().attributeExists("employee"))
+                .andExpect(model().attribute("employee", hasProperty("id", is(employeeDto.getId()))))
+                .andExpect(model().attribute("employee", hasProperty("firstName", is(employeeDto.getFirstName()))))
+                .andExpect(model().attribute("employee", hasProperty("lastName", is(employeeDto.getLastName()))))
+                .andExpect(model().attribute("employee", hasProperty("email", is(employeeDto.getEmail()))));
     }
 }

@@ -14,6 +14,7 @@ public interface EmployeeService {
     void save(Employee employee);
     void saveByEmployeeDto(EmployeeDto employeeDto);
     void delete(int id);
+    public EmployeeDto populateEmployeeDtoByEmployeeId(int employeeId);
 
     Page<Employee> findAllSearchedAndSortedWithActivities(String searchBy, Map<String, String> searchParams, String sortBy, String sortDirection,Pageable pageable, boolean onlyActiveUsers);
     Employee findEmployeeWithCurrentActivityByEmployeeId(int employeeId);

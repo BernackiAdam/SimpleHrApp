@@ -156,4 +156,19 @@ public class EmployeeServiceImpl implements EmployeeService{
 
         save(employee);
     }
+
+    @Override
+    public EmployeeDto populateEmployeeDtoByEmployeeId(int employeeId) {
+        Employee employee = findById(employeeId);
+        EmployeeDto employeeDto = new EmployeeDto();
+
+        employeeDto.setId(employeeId);
+        employeeDto.setFirstName(employee.getFirstName());
+        employeeDto.setLastName(employee.getLastName());
+        employeeDto.setEmail(employee.getEmail());
+        employeeDto.setTelephoneNumber(employee.getTelephoneNumber());
+        employeeDto.setSeniority(employee.getSeniority());
+        employeeDto.setPosition(employee.getPosition());
+        return employeeDto;
+    }
 }
